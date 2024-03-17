@@ -1,0 +1,30 @@
+.app-menu,
+.sidebar-background {
+  background: linear-gradient(to bottom, #0259b0, #027df8, #9eceff);
+}
+
+.side-nav-link-ref {
+  color: #fff;
+}
+
+.side-nav-link-ref:hover {
+  background-color: white;
+}
+
+.menu-title span,
+.menu-link span,
+.menu-dropdown > ul > li > .nav-link {
+  color: rgb(255, 244, 244);
+}
+
+.menu-link:hover,
+.menu-dropdown > ul > li .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+#navbar-nav > li.nav-item .menu-link .icon,
+#navbar-nav > li.nav-item .menu-dropdown > ul > li .nav-link .icon {
+  color: rgb(255, 244, 244);
+}
+
+

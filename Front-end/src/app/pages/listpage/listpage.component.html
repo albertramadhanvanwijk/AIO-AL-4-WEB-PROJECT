@@ -1,0 +1,58 @@
+<app-breadcrumbs title="SUPPLIES" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<div class="container mt-3">
+  <button class="btn btn-primary mb-3" [routerLink]="['/view-filter-supplies']">View Filter Supplies</button>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card animated-card">
+        <img src="/assets/images/pocari1.jpg" class="card-img-top" style="height: 200px; object-fit: cover;"
+          alt="IBF Image" />
+        <div class="outside-indicator"  
+          [ngClass]="{ 'green-indicator': ibfStatus === 'green', 'red-indicator': ibfStatus === 'red' }"></div>
+        <div class="card-body bg-gradient-blue-light">
+          <h5 class="card-title mb-3 text-white font-weight-bold">IBF</h5>
+          <p class="card-text text-white">Aseptic Line 4 Area IBF</p>
+          <a [routerLink]="['/supplies']" [queryParams]="{ area: 'IBF' }" class="view-link"
+            *ngIf="userRole === 2 && areaId === 1 && team === 'IBF' || (userRole === 1 || userRole === 3 || userRole === 4)">
+            <span class="font-weight-bold">View Supplies</span>
+            <span class="arrow-icon">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card animated-card">
+        <img src="/assets/images/pocari1.jpg" class="card-img-top" style="height: 200px; object-fit: cover;"
+          alt="IBF Image" />
+        <div class="outside-indicator"
+          [ngClass]="{ 'green-indicator': preparasiStatus === 'green', 'red-indicator': preparasiStatus === 'red' }">
+        </div>
+        <div class="card-body bg-gradient-blue-light">
+          <h5 class="card-title mb-3 text-white font-weight-bold">PREPARASI</h5>
+          <p class="card-text text-white">Aseptic Line 4 Area PREPARASI</p>
+          <a [routerLink]="['/supplies']" [queryParams]="{ area: 'PREPARASI' }" class="view-link"
+            *ngIf="userRole === 2 && areaId === 2 && team === 'PREPARASI' || (userRole === 1 || userRole === 3 || userRole === 4)">
+            <span class="font-weight-bold">View Supplies</span>
+            <span class="arrow-icon">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card animated-card">
+        <img src="/assets/images/pocari1.jpg" class="card-img-top" style="height: 200px; object-fit: cover;"
+          alt="IBF Image" />
+        <div class="outside-indicator"
+          [ngClass]="{ 'green-indicator': packingStatus === 'green', 'red-indicator': packingStatus === 'red' }"></div>
+        <div class="card-body bg-gradient-blue-light">
+          <h5 class="card-title mb-3 text-white font-weight-bold">PACKING</h5>
+          <p class="card-text text-white">Aseptic Line 4 Area PACKING</p>
+          <a [routerLink]="['/supplies']" [queryParams]="{ area: 'PACKING' }" class="view-link"
+            *ngIf="userRole === 2 && areaId === 3 && team === 'PACKING' || (userRole === 1 || userRole === 3 || userRole === 4)">
+            <span class="font-weight-bold">View Supplies</span>
+            <span class="arrow-icon">&rarr;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

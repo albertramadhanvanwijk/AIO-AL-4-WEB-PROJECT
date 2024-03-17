@@ -1,0 +1,179 @@
+<app-breadcrumbs title="DATA SUPPLIES" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="container supply-container">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3 class="mb-0">SUPPLIES</h3>
+      <a class="btn btn-secondary btn-label waves-effect waves-light" routerLink="/listpage"><i
+          class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>Back</a>
+    </div>
+
+    <div class="card-body">
+      <div class="mb-3 d-flex justify-content-between">
+        <div class="d-flex">
+          <a class="btn btn-primary btn-label waves-effect waves-light me-2" (click)="goToAddSupply()"
+            *ngIf="isUserAdmin()"><i class="ri-add-circle-line label-icon align-middle fs-16 me-2"></i>Add Supplies</a>
+          <a class="btn btn-label waves-effect waves-light" data-toggle="modal" data-target="#transactionModal"
+            style="background-color: #67B173; color: white;">
+            <i class="ri-add-circle-line label-icon align-middle fs-16 me-2"></i>Add Transaction</a>
+        </div>
+        <div role="search">
+          <input class="form-control" id="searchSupply" [(ngModel)]="searchTerm" (input)="applySearchFilter()"
+            placeholder="Cari Supplies">
+        </div>
+      </div>
+      <table class="table table-bordered table-striped table-hover">
+        <!-- Tabel Header -->
+        <thead>
+          <tr>
+            <th class="text-center">No</th>
+            <th class="text-center">No Material</th>
+            <th class="text-center">Nama Supplies</th>
+            <th class="text-center">Area</th>
+            <th class="text-center">EOM</th>
+            <th class="text-center">Stock</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Action</th>
+          </tr>
+        </thead>
+        <!-- Isi Tabel -->
+        <tbody>
+          <tr *ngFor="let supply of displaySupplies; let i = index">
+            <td class="text-center">{{ getStartIndex() + i }}</td>
+            <td class="text-center">{{ supply.no_material }}</td>
+            <td class="text-center">{{ supply.nama_supply }}</td>
+            <td class="text-center">{{ supply.nama_area }}</td>
+            <td class="text-center">{{ supply.eom }}</td>
+            <td class="text-center">{{ supply.stok }}</td>
+            <td class="text-center">
+              <div class="d-flex align-items-center">
+                <div class="indicator" [ngStyle]="{ 'background-color': getIndicatorColor(supply.stok, supply.minimal_stok, supply.max_stok), 'width.px': 20, 'height.px': 20, 'margin-right.px': 10 }">
+                </div>
+                <span class="ms-2" [ngStyle]="{ color: getStatusTextColor(supply.stok, supply.minimal_stok, supply.max_stok) }">
+                  {{ getStatusText(supply.stok, supply.minimal_stok, supply.max_stok) }}
+                </span>
+              </div>
+            </td>
+            <td class="text-center">
+              <div class="btn-group" role="group" aria-label="Aksi">
+                <button class="btn btn-sm me-1" *ngIf="userRole === 1 || userRole === 3 || userRole === 4" (click)="goToEditSupply(supply.id_supply)" style="background-color: #67B173; color: white;">
+                  Edit
+                </button>
+                <button class="btn btn-danger btn-sm me-1" *ngIf="userRole === 1 || userRole === 3 || userRole === 4" (click)="softDelete(supply.id_supply)">
+                  Delete
+                </button>
+                <button class="btn btn-info btn-sm" (click)="goToDetailSupply(supply.id_supply)">
+                  Detail
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Pagination -->
+      <div class="pagination-container">
+        <div class="row">
+          <div class="col-6 text-left">
+            <p class="page-info">Page {{ currentPage }} of {{ totalPages }}</p>
+          </div>
+          <div class="col-6 text-right">
+            <ul class="pagination justify-content-end mb-0">
+              <li class="page-item disabled me-2" [ngClass]="{'disabled': currentPage === 1}">
+                <a class="page-link" (click)="prevPage()">Previous</a>
+              </li>
+              <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+                <a class="page-link" (click)="nextPage()">Next</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="transactionModal" tabindex="-1" role="dialog" aria-labelledby="transactionModalLabel"
+        aria-hidden="true">
+        <!-- Konten Modal -->
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 80%; max-height: 80%;" role="document">
+          <div class="modal-content">
+            <!-- Header Modal -->
+            <div class="modal-header">
+              <h4 class="modal-title" id="transactionModalLabel">Transaction</h4>
+            </div>
+            <!-- Badan Modal -->
+            <div class="modal-body">
+              <div class="container-fluid">
+                <form>
+                  <!-- Form Input -->
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="supplySelection">Supplies</label>
+                        <select class="form-select" id="supplySelection" name="supplySelection"
+                          [(ngModel)]="selectedSupply" required>
+                          <option>Pilih Supplies</option>
+                          <option *ngFor="let supply of filteredSupplies" [ngValue]="supply">{{ supply.nama_supply }}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="transactionType">Transaction Type</label>
+                        <select class="form-select" id="transactionType" name="transactionType"
+                          [(ngModel)]="selectedTransactionType">
+                          <option value="IN">IN</option>
+                          <option value="OUT">OUT</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity" [(ngModel)]="quantity"
+                          required>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="transactionDate">Transaction Date</label>
+                        <input type="date" class="form-control" id="transactionDate" name="transactionDate"
+                          [(ngModel)]="transactionDate" required>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="user">User</label>
+                        <select class="form-select" id="user" name="user" [(ngModel)]="user" required>
+                          <option [ngValue]="userName">{{ userName }}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-4" [hidden]="selectedTransactionType !== 'IN'">
+                      <div class="form-group">
+                        <label for="resv_date">Reservation Date</label>
+                        <input type="date" class="form-control" id="resv_date" name="resv_date" [(ngModel)]="resv_date" required>
+                      </div>
+                    </div>                    
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description" name="description"
+                          [(ngModel)]="description" required>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- Footer Modal -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="cancelAddTransaction()"
+                data-dismiss="modal">Cancel
+              </button>
+              <button type="button" class="btn btn-primary" (click)="addTransaction()" data-dismiss="modal">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

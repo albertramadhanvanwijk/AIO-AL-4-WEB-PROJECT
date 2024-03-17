@@ -1,0 +1,93 @@
+<!-- quiz.component.html -->
+<!-- <div class="container-fluid quiz-pages">
+  <h1>Quiz</h1>
+  <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()">
+    <div
+      *ngFor="let question of questionsWithAnswers; let i = index"
+      class="form-group"
+    >
+      <label [for]="'question' + i">{{ question.question_text }}</label
+      ><br />
+      <div *ngFor="let option of question.answers" class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          [id]="'question' + i + 'option' + option.answer_id"
+          [formControlName]="'question' + i"
+          [value]="option"
+        />
+        <label
+          class="form-check-label"
+          [for]="'question' + i + 'option' + option.answer_id"
+          >{{ option.answer_text }}</label
+        >
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div> -->
+
+<div class="container-fluid quiz-pages">
+  <div class="container">
+    <div class="card bg-body-quiz">
+      <div class="container">
+        <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()">
+          <div
+            class="card question form-group"
+            *ngFor="let question of questionsWithAnswers; let i = index"
+          >
+            <span class="h2 fw-bold">{{ question.question_text }}</span>
+            <ng-container
+              *ngFor="let option of question.answers"
+              class="form-check"
+            >
+              <div class="row p-2">
+                <div class="col-12">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    [id]="'question' + i + 'option' + option.answer_id"
+                    [formControlName]="'question' + i"
+                    [value]="[question, option]"
+                  />
+                  <label
+                    class="form-check-label ms-3"
+                    [for]="'question' + i + 'option' + option.answer_id"
+                    >{{ option.answer_text }}</label
+                  >
+                </div>
+              </div>
+            </ng-container>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Remove Modal -->
+<ng-template #succesModal let-modal>
+  <div class="modal-body text-center p-5">
+    <lord-icon
+      src="https://cdn.lordicon.com/xjronrda.json"
+      trigger="hover"
+      style="width: 250px; height: 250px"
+    >
+    </lord-icon>
+    <div class="mt-4">
+      <div *ngIf="totalScore > 60">
+        <h3 class="mb-3">Congratulation!!!</h3>
+        <p class="text-muted mb-4">Your Score: {{ totalScore }}</p>
+      </div>
+      <div *ngIf="totalScore < 60">
+        <h3 class="mb-3">Tingkatkan Lagi!!!</h3>
+        <p class="text-muted">Your Score: {{ totalScore }}</p>
+        <p class="text-muted mb-4">Baca lagi dokumen SOP nya ya!</p>
+      </div>
+      <div class="hstack gap-2 justify-content-center">
+        <a (click)="back()" class="btn btn-danger">Dashboard</a>
+      </div>
+    </div>
+  </div> </ng-template
+>>

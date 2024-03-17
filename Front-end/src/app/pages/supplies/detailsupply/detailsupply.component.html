@@ -1,0 +1,141 @@
+<app-breadcrumbs title="DETAIL SUPPLIES" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card" style="width: 30rem;">
+    <div class="card-header text-black">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mt-2">Detail Data Supplies</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <label for="noMaterial" class="form-label">No Material SAP :</label>
+        <p>{{ supply.no_material }}</p>
+      </div>
+      <div class="mb-3">
+        <label for="namaSupply" class="form-label">Nama Supplies :</label>
+        <p>{{ supply.nama_supply }}</p>
+      </div>
+      <div class="mb-3">
+        <label for="eom" class="form-label">EOM :</label>
+        <p>{{ supply.eom }}</p>
+      </div>
+      <div class="mb-3">
+        <label for="stok" class="form-label">Stock :</label>
+        <p>{{ supply.stok }}</p>
+      </div>
+      <div class="mb-3">
+        <label for="minimalStok" class="form-label">Minimal Stock :</label>
+        <p>{{ supply.minimal_stok }}</p>
+      </div>
+      <div class="mb-3">
+        <label for="maximalStok" class="form-label">Maximal Stock :</label>
+        <p>{{ supply.max_stok }}</p>
+      </div>
+      <div class="mb-3">
+      </div>
+      <a class="btn btn-secondary" (click)="goBackWithArea()">Back</a>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between">
+      <h5 class="mt-2">{{ transactionTitle }}</h5>
+      <div class="d-flex">
+        <button class="btn btn-danger btn-label waves-effect waves-light me-2" (click)="exportToPDF()"><i
+            class="ri-file-text-line label-icon align-middle fs-16 me-2"></i>Export PDF</button>
+        <button class="btn btn-warning btn-label waves-effect waves-light me-2" data-toggle="modal"
+          data-target="#dateFilterModal"><i class="bx bx-calendar label-icon align-middle fs-16 me-2"></i>Date</button>
+        <button class="btn btn-primary btn-label waves-effect waves-light" (click)="toggleSortOrder()">
+          <i class="ri-arrow-up-fill label-icon align-middle fs-16 me-2"
+            [ngClass]="{'rotate180': !sortDescending}"></i>Sort
+        </button>
+      </div>
+    </div>
+    <div class="modal" id="dateFilterModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Filter Date</h4>
+            <button type="button" class="btn btn-danger btn-label waves-effect waves-light" data-dismiss="modal"><i
+                class=" ri-close-circle-line label-icon align-middle fs-16 me-2" data-dismiss="modal"></i>Close</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="selectAllDates">
+                <input type="checkbox" id="selectAllDates" [(ngModel)]="selectAllDates"> Semua Tanggal
+              </label>
+            </div>
+            <div class="form-group" [hidden]="selectAllDates">
+              <label for="startDate">Tanggal Awal</label>
+              <input type="date" id="startDate" [(ngModel)]="startDateFilter" class="form-control">
+            </div>
+            <div class="form-group" [hidden]="selectAllDates">
+              <label for="endDate">Tanggal Akhir</label>
+              <input type="date" id="endDate" [(ngModel)]="endDateFilter" class="form-control">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="applyDateFilter()"
+              data-dismiss="modal">Filter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered" id="tableToExport">
+        <thead>
+          <tr>
+            <th class="text-center align-middle" rowspan="2">No</th>
+            <th class="text-center align-middle" rowspan="2">Stok Awal</th>
+            <th class="text-center" colspan="2">IN</th>
+            <th class="text-center" colspan="2">OUT</th>
+            <th class="text-center align-middle" rowspan="2">Stok Akhir</th>
+            <th class="text-center align-middle" rowspan="2">User</th>
+            <th class="text-center align-middle" rowspan="2">Reservation Date</th>
+            <th class="text-center align-middle" rowspan="2">Description</th>
+            <th class="text-center align-middle" rowspan="2">Action</th>
+          </tr>
+          <tr>
+            <th class="text-center">Tanggal</th>
+            <th class="text-center">Quantity</th>
+            <th class="text-center">Tanggal</th>
+            <th class="text-center">Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of filteredTransactions; let i = index">
+            <td class="text-center">{{ i + 1 }}</td>
+            <td class="text-center">{{ transaction.stok_awal }}</td>
+            <td class="text-center">
+              <ng-container *ngIf="transaction.tipe_category === 'Masuk'; else dash">{{ transaction.tanggal | date:
+                'dd/MM/yyyy' }}</ng-container>
+              <ng-template #dash>-</ng-template>
+            </td>
+            <td class="text-center">{{ transaction.tipe_category === 'Masuk' ? transaction.jumlah : '-' }}</td>
+            <td class="text-center">
+              <ng-container *ngIf="transaction.tipe_category === 'Keluar'; else dash">{{ transaction.tanggal | date:
+                'dd/MM/yyyy' }}</ng-container>
+              <ng-template #dash>-</ng-template>
+            </td>
+            <td class="text-center">{{ transaction.tipe_category === 'Keluar' ? transaction.jumlah : '-' }}</td>
+            <td class="text-center">{{ transaction.stock_terkini }}</td>
+            <td class="text-center">{{ transaction.id_user }}</td>
+            <td class="text-center">{{ transaction.resv_date | date:'dd/MM/yyyy' }}</td>
+            <td class="text-center">{{ transaction.description }}</td>
+            <td class="text-center">
+              <div class="btn-group" role="group" aria-label="Aksi">
+                <button class="btn btn-danger btn-sm me-1"
+                  (click)="deleteTransaction(transaction.id_transaction, transaction.jumlah, transaction.tipe_category)">
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

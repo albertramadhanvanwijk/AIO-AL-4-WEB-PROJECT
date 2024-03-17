@@ -1,0 +1,105 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Standard Operating Procedure" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-animate overflow-hidden" >
+                <div class="position-absolute start-0" style="z-index: 0;">
+                    <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" width="200"
+                        height="120">
+                        <style>
+                            .s0 {
+                                opacity: .07;
+                                fill: #2A76B2
+                            }
+                        </style>
+                        <path id="Shape 8" class="s0"
+                            d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z" />
+                    </svg>
+                </div>
+                <div class="card-body" style="z-index:1;" *ngIf="userDataSpv">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-grow-1 overflow-hidden">
+                            <p class="text-uppercase fw-medium text-muted text-truncate mb-3"> Group {{groupIdSpv-1}} </p>
+                            <h4 class="fs-22 fw-bold ff-secondary mb-0">
+                                {{userDataSpv.nama_user}}
+                            </h4>
+                        </div>
+                        <div class="flex-shrink-0">
+                        </div>
+                    </div>
+                </div><!-- end card body -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">  
+                <div class="card-body">
+                    <div class="card-title">
+                        <h2 class="opacity-75">Progress IBF</h2>
+                    </div>
+                    <div *ngIf="chartIbf">
+                        <apx-chart [series]="chartIbf.series" 
+                        [chart]="chartIbf.chart"
+                        [dataLabels]="chartIbf.dataLabels"
+                        [plotOptions]="chartIbf.plotOptions"
+                        [yaxis]="chartIbf.yaxis" 
+                        [xaxis]="chartIbf.xaxis"
+                        [legend]="chartIbf.legend" 
+                        [colors]="chartIbf.colors"
+                        [grid]="chartIbf.grid" dir="ltr">
+                     </apx-chart>
+                    </div>        
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">  
+                <div class="card-body">
+                    <div class="card-title">
+                        <h2 class="opacity-75">Progress Preparasi</h2>
+                    </div>
+                    <div *ngIf="chartPreparasi">
+                        <apx-chart [series]="chartPreparasi.series" 
+                        [chart]="chartPreparasi.chart"
+                        [dataLabels]="chartPreparasi.dataLabels"
+                        [plotOptions]="chartPreparasi.plotOptions"
+                        [yaxis]="chartPreparasi.yaxis" 
+                        [xaxis]="chartPreparasi.xaxis"
+                        [legend]="chartPreparasi.legend" 
+                        [colors]="chartPreparasi.colors"
+                        [grid]="chartPreparasi.grid" dir="ltr">
+                     </apx-chart>
+                    </div>     
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="card">  
+                <div class="card-body">
+                    <div class="card-title">
+                        <h2 class="opacity-75">Progress Packing</h2>
+                    </div>
+                    <div *ngIf="chartPacking">
+                        <apx-chart [series]="chartPacking.series" 
+                        [chart]="chartPacking.chart"
+                        [dataLabels]="chartPacking.dataLabels"
+                        [plotOptions]="chartPacking.plotOptions"
+                        [yaxis]="chartPacking.yaxis" 
+                        [xaxis]="chartPacking.xaxis"
+                        [legend]="chartPacking.legend" 
+                        [colors]="chartPacking.colors"
+                        [grid]="chartPacking.grid" dir="ltr">
+                     </apx-chart>
+                    </div>     
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   
+    
+</div>

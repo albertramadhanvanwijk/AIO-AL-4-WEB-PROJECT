@@ -1,0 +1,63 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs title="Add Progress User" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+
+<div class="container">
+    <form (ngSubmit)="onSubmit()">
+        <div class="card">
+            <div class="card-body">
+                <h1>Add Progress</h1>
+                <hr>
+                <div class="container p-3">
+                    <div class="mt-2">
+                        <label for="username" class="form-label">User Name</label>
+                        <input [(ngModel)]="username" type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="mt-2">
+                        <label for="userarea" class="form-label">User Area</label>
+                        <select [(ngModel)]="params_areaId" class="form-select" id="userarea" name="userarea" required>
+                          <ng-container *ngIf="params_areaId === 1">
+                            <option value="1">IBF</option>
+                          </ng-container>
+                          <ng-container *ngIf="params_areaId === 2">
+                            <option value="2">Preparasi</option>
+                          </ng-container>
+                          <ng-container *ngIf="params_areaId === 3">
+                            <option value="3">Packing</option>
+                          </ng-container>
+                          <ng-container *ngIf="params_areaId === 4">
+                            <option value="4">General</option>
+                          </ng-container>  
+                          </select>    
+                    </div>
+                    <div class="mt-3">
+                        <button class="btn btn-primary">Add Progress</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Data Success!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <lord-icon src="https://cdn.lordicon.com/lupuorrc.json" trigger="loop"
+            colors="primary:#2A76B2,secondary:#08a88a" style="width:120px;height:120px"></lord-icon>
+          <h4 class="mt-3">Registrasi {{index}} Data Progress Berhasil ! </h4>
+          <p>User {{username}} dapat membaca dan menonton video dokumen Standard Operating Procedure (SOP) area {{category}} </p>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
