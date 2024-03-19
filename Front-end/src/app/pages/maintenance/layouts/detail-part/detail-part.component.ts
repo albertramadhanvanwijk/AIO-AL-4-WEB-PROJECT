@@ -7,28 +7,27 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
-
 @Component({
   selector: 'app-detail-part',
   templateUrl: './detail-part.component.html',
   styleUrls: ['./detail-part.component.scss']
 })
 export class DetailPartComponent {
- // BreadCrumb
- breadCrumbItems!: Array<{}>;
 
- // PAGINATION
- index: number = 1;
- pageSize: number = 20;
- currentPage: number = 1;
- totalPages: number = 0;
- displayParts: any;
- entires: any;
- document_id!: string;
+  // BreadCrumb
+  breadCrumbItems!: Array<{}>;
 
- titlePart!: any;
- 
+  // PAGINATION
+  index: number = 1;
+  pageSize: number = 20;
+  currentPage: number = 1;
+  totalPages: number = 0;
+  displayParts: any[] = []; // Initialize displayParts as an empty array
+  entires: any;
+  document_id!: string;
+
+  titlePart!: any;
+
   // SEARCH
   searchQuery!: string;
 
@@ -57,30 +56,30 @@ export class DetailPartComponent {
   exportPdf_now: boolean = false;
 
   constructor(
-    private apiservice: MaintenanceService, 
-    private modalService: NgbModal, 
-    private authService: AuthService, 
+    private apiservice: MaintenanceService,
+    private modalService: NgbModal,
+    private authService: AuthService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    ) { 
-      this.updateForm = this.fb.group({
-        'remain': [null, Validators.required],
-        'updated_at': [this.dateOut, Validators.required]
-      })
-    }
+  ) {
+    this.updateForm = this.fb.group({
+      'remain': [null, Validators.required],
+      'updated_at': [this.dateOut, Validators.required]
+    })
+  }
 
   ngOnInit() {
     this.getBreadCrumbItems();
     this.getDataUserLogin();
     this.getParamsId();
-    
-   }
- 
-   getBreadCrumbItems(){
-     this.breadCrumbItems = [{ label: "List output part" }]; 
-   }
+    this.setInitialStatus();
+  }
 
-   getParamsId(){
+  getBreadCrumbItems() {
+    this.breadCrumbItems = [{ label: "List output part" }];
+  }
+
+  getParamsId() {
     this.route.paramMap.subscribe(params => {
       const partIdParam = params.get('partId');
       if (partIdParam !== null) {
@@ -91,32 +90,28 @@ export class DetailPartComponent {
       }
     });
     this.getPartByPartId()
-   }
+  }
 
-   getDataUserLogin(){
+  getDataUserLogin() {
     const role = parseInt(this.authService.getRoleID());
     this.userRole = role
   }
 
   // DATE FORMATTERS
- formatDate(isoDateString: string): string {
+  formatDate(isoDateString: string): string {
     const date = new Date(isoDateString);
 
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
-      // hour: '2-digit',
-      // minute: '2-digit',
-      // second: '2-digit',
-      // timeZoneName: 'short',
     };
 
     return new Intl.DateTimeFormat('en-US', options).format(date);
-}
+  }
 
-// fecth data output by part_id
-  fecthDataOutput(partId: number){
+  // Fetch data output by part_id
+  fecthDataOutput(partId: number) {
     this.apiservice.getDetailOutput(partId).subscribe(
       (res: any) => {
         if (res.data.length !== 0) {
@@ -130,8 +125,8 @@ export class DetailPartComponent {
           this.entires = 0;
           this.qty_stock = 0;
         }
-        
-        
+
+
         this.calculateTotalPages();
         this.updateDisplayOutput();
       }, (error) => {
@@ -140,15 +135,15 @@ export class DetailPartComponent {
     )
   }
 
-  getTotalIn(){
-    this.apiservice. getTotalRemainInByPartId(this.partId).subscribe(
+  getTotalIn() {
+    this.apiservice.getTotalRemainInByPartId(this.partId).subscribe(
       (res: any) => {
         this.totalIN = res
       }
     )
   }
 
-  getPartByPartId(){
+  getPartByPartId() {
     this.apiservice.getPartById(this.partId).subscribe(
       (res: any) => {
         this.pricePart = res.data[0].price;
@@ -157,22 +152,20 @@ export class DetailPartComponent {
     )
   }
 
- 
   // Filter Date
-  applyDateFilter(){
+  applyDateFilter() {
     if (this.selectAllDates) {
       this.startDateFilter = '';
       this.endDateFilter = '';
     }
-    
+
     this.displayParts = this.dataOutputPart.filter((data: any) => {
-      const ouputDate = new Date(data.created_at);
+      const outputDate = new Date(data.created_at);
 
       if (this.startDateFilter) {
         const startFilterDate = new Date(this.startDateFilter);
         startFilterDate.setHours(0, 0, 0, 0);
-        if (ouputDate < startFilterDate) {
-          
+        if (outputDate < startFilterDate) {
           return false;
         }
       }
@@ -180,7 +173,7 @@ export class DetailPartComponent {
       if (this.endDateFilter) {
         const endFilterDate = new Date(this.endDateFilter);
         endFilterDate.setHours(23, 59, 59, 999);
-        if ( ouputDate > endFilterDate) {
+        if (outputDate > endFilterDate) {
           return false;
         }
       }
@@ -193,16 +186,16 @@ export class DetailPartComponent {
   exportToPDF() {
     const element = document.getElementById('tableToExport');
     const text = `Report Transaction Part`;
-  
+
     if (element) {
       const pdf = new jsPDF('p', 'px', 'letter');
       const options = { background: 'white', scale: 2 };
-  
+
       html2canvas(element, options).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const imgWidth = canvas.width;
         const imgHeight = canvas.height;
-  
+
         let y = 40;
 
         pdf.setFontSize(14);
@@ -216,67 +209,67 @@ export class DetailPartComponent {
         pdf.setFontSize(18);
         pdf.text(text, 30, y);
         y += 20;
-        
+
         pdf.setFontSize(12);
         pdf.text(`Dept. Produksi AL4`, 30, y);
         y += 20;
-        
+
         pdf.setFontSize(12);
         pdf.text(`_______________________________________________________________________________`, 30, y);
         y += 20;
-        
+
         pdf.setFontSize(11);
         const today = new Date().toLocaleDateString();
         pdf.text('Tanggal: ' + today, 350, y);
         y += 15;
-  
-        // Menyesuaikan lebar dan tinggi gambar agar sesuai dengan halaman PDF
+
+        // Adjusting the width and height of the image to fit the PDF page
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
         const scaleFactor = pdfWidth / imgWidth;
-  
+
         const finalImgWidth = imgWidth * scaleFactor;
         const finalImgHeight = imgHeight * scaleFactor;
-  
-        // Menghitung margin kiri dan kanan
+
+        // Calculating left and right margins
         const marginLeft = (pdfWidth - finalImgWidth) / 2;
         const marginRight = (pdfWidth - finalImgWidth) / 2;
-  
+
         pdf.addImage(imgData, 'PNG', marginLeft, y, finalImgWidth, finalImgHeight);
-  
+
         pdf.save('Output_Part.pdf');
         this.exportPdf_now = false;
       });
     } else {
-      console.error('Elemen dengan ID "tableToExport" tidak ditemukan.');
+      console.error('Element with ID "tableToExport" not found.');
     }
   }
 
-  exportPDF(){
+  exportPDF() {
     this.exportPdf_now = true;
     this.exportToPDF()
   }
 
-  onUpdate(){
+  onUpdate() {
     const dataForm = this.updateForm.value
-   this.apiservice.updateOutput(dataForm, this.outputPartId).subscribe(
-    (res: any) => {
-      console.log(res)
-      this.fecthDataOutput(this.partId)
-      this.modalService.dismissAll()
-    }
-   )
+    this.apiservice.updateOutput(dataForm, this.outputPartId).subscribe(
+      (res: any) => {
+        console.log(res)
+        this.fecthDataOutput(this.partId)
+        this.modalService.dismissAll()
+      }
+    )
   }
 
-  softDelete(partId: number){
+  softDelete(partId: number) {
     console.log('soft delete', partId)
   }
 
-  openRemoveModal(partId: number, removeModal: any){
+  openRemoveModal(partId: number, removeModal: any) {
     this.partId = partId;
     this.modalService.open(removeModal, { centered: true });
   }
-  openUpdateModal(ouputPartId:number, updateModal: any, remain: number, updateAt: Date){
+  openUpdateModal(ouputPartId: number, updateModal: any, remain: number, updateAt: Date) {
     this.dateOut = updateAt
     this.stock_out = remain
     this.outputPartId = ouputPartId
@@ -288,35 +281,76 @@ export class DetailPartComponent {
   calculateTotalPages() {
     this.totalPages = Math.ceil(this.entires / this.pageSize);
   }
-  
-  updateDisplayOutput(){
+
+  updateDisplayOutput() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.displayParts = this.dataOutputPart.slice(startIndex, endIndex);
   }
-  nextPage(){
-    if (this.currentPage < this.totalPages){
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.updateDisplayOutput();
     }
   }
-  prevPage(){
-    if (this.currentPage > 1){
-          this.currentPage--;
-          this.updateDisplayOutput();
-        }
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateDisplayOutput();
+    }
   }
   getStartIndex(): number {
-    return  (this.currentPage - 1) * this.pageSize + 1;
+    return (this.currentPage - 1) * this.pageSize + 1;
   }
   getEndIndex(): number {
     const endIndex: number = this.currentPage * this.pageSize;
-    if (endIndex){
+    if (endIndex) {
       return Math.min(endIndex, this.entires);
     } else {
       return 0
     }
-    
+
   }
+
+  setInitialStatus() {
+    // Check if userRole is 3 (which means role needing approval)
+    if (this.userRole === 3 && this.displayParts) {
+      // Loop through each displayed part
+      this.displayParts.forEach((part: { status: string }) => {
+        // If status is not approved or rejected, set it to "Awaiting Approval"
+        if (part.status !== 'Approved' && part.status !== 'Rejected') {
+          part.status = 'Awaiting Approval';
+        }
+      });
+    }
+  }
+
+  approveRequest(outputpart_id: number) {
+    const index = this.displayParts.findIndex((part: { outputpart_id: number }) => part.outputpart_id === outputpart_id);
+    if (index !== -1) {
+      this.displayParts[index].status = 'Approved';
+    }
+  }
+
+  rejectRequest(outputpart_id: number) {
+    const index = this.displayParts.findIndex((part: { outputpart_id: number }) => part.outputpart_id === outputpart_id);
+    if (index !== -1) {
+      this.displayParts[index].status = 'Rejected';
+    }
+  }
+
+  getStatusColor(status: string): any {
+    switch (status) {
+      case 'Awaiting Approval':
+        return { 'color': '#CDB00D', 'background-color': '#F6DF5C', 'border-radius': '5px', 'font-weight': 'bold' };
+      case 'Approved':
+        return { 'color': '#0D9318', 'background-color': '#54EE61', 'border-radius': '5px', 'font-weight': 'bold' };
+      case 'Rejected':
+        return { 'color': '#E22113', 'background-color': '#F36A61', 'border-radius': '5px', 'font-weight': 'bold' };
+      default:
+        return {};
+    }
+  }
+
 
 }

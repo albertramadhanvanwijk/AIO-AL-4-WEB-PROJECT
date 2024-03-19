@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class MaintenanceService {
   private baseUrl = environment.apiUrl;
+  getPartOutputById: any;
 
   constructor(private http: HttpClient, private authService: AuthService) { 
    }
@@ -106,4 +107,5 @@ export class MaintenanceService {
     const headers = this.authService.getHeaders();
     return this.http.get(`${this.baseUrl}/master/image-url/${partId}`, { headers });
   }
+
 }

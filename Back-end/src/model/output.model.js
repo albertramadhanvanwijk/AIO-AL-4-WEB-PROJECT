@@ -56,6 +56,16 @@ const getDetailOutput = async (partId) => await project
     .where('is_deleted', 0)
     .andWhere('id_area', areaId)
 
+
+    const getAllPendingOutputs = async () => await project
+    .select('*')
+    .from('output_part')
+    .where('approval_status', '=', 'pending');
+  
+  const updateApprovalStatus = async (outputpart_id, approvalStatus) => await project('output_part')
+    .where('outputpart_id', '=', outputpart_id)
+    .update({ approval_status: approvalStatus });
+
 module.exports = {
     getAll,
     getByIdPart,
@@ -66,5 +76,7 @@ module.exports = {
     totalOutByIdPart,
     totalInByIdPart,
     getDetailOutput,
-    totalPrice
+    totalPrice,
+    getAllPendingOutputs,
+    updateApprovalStatus
 }

@@ -101,6 +101,7 @@ const getTotalPrice = async (req, res) => {
     }
 }
 
+
 module.exports = {
     getAllOutputParts,
     getOutputByOutputId,
@@ -111,5 +112,5 @@ module.exports = {
     totalRemainOutByPartId,
     totalRemainInByPartId,
     getDetailOutput,
-    getTotalPrice
-}
+    getTotalPrice,
+};

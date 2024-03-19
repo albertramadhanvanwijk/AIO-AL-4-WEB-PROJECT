@@ -27,6 +27,7 @@ export class AddOutputComponent {
   newData!: any;
   newDataParts!: any;
   remain_stock!: number;
+  
   // userLogin
   userId!: any;
 

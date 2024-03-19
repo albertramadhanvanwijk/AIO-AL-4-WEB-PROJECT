@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatMenuModule } from '@angular/material/menu';
 
 import {
   NgbToastModule,
@@ -179,6 +180,8 @@ import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/la
     CKEditorModule,
     NgbPaginationModule,
     ExportAsModule,
+    CommonModule,
+    MatMenuModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
