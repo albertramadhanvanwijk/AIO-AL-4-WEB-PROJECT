@@ -49,7 +49,7 @@ export class AddPartGblComponent {
       this.sopService.getAllAreas().subscribe(
           (res: any) => {
               this.dataArea = res.data;
-              this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 4 && item.id_area != 24)
+              this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 4 && item.id_area != 25)
           }
       )
   }
@@ -67,7 +67,7 @@ export class AddPartGblComponent {
   }
   
   onSubmit(){
-      if (parseInt(this.areaId) === 25) {
+      if (parseInt(this.areaId) === 24) {
           if (this.selectedFile) {
               this.uploadFile().subscribe(
                   response => {
