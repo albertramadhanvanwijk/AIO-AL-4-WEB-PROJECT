@@ -22,7 +22,7 @@ export class DetailPartComponent {
   pageSize: number = 20;
   currentPage: number = 1;
   totalPages: number = 0;
-  displayParts: any[] = []; // Initialize displayParts as an empty array
+  displayParts: any[] = [];
   entires: any;
   document_id!: string;
 
@@ -39,6 +39,7 @@ export class DetailPartComponent {
   qty_stock!: number;
   totalIN!: number;
   pricePart!: number;
+  dataPart!: any;
 
   // Data User Login
   userRole!: any;
@@ -66,13 +67,15 @@ export class DetailPartComponent {
       'remain': [null, Validators.required],
       'updated_at': [this.dateOut, Validators.required]
     })
+    {
+      this.dataPart = {};
+    }
   }
 
   ngOnInit() {
     this.getBreadCrumbItems();
     this.getDataUserLogin();
     this.getParamsId();
-    this.setInitialStatus();
   }
 
   getBreadCrumbItems() {
@@ -261,14 +264,23 @@ export class DetailPartComponent {
     )
   }
 
-  softDelete(partId: number) {
-    console.log('soft delete', partId)
-  }
-
-  openRemoveModal(partId: number, removeModal: any) {
+  openRemoveConfirmationModal(partId: number, removeConfirmationModal: any) {
     this.partId = partId;
-    this.modalService.open(removeModal, { centered: true });
+    this.modalService.open(removeConfirmationModal, { centered: true });
   }
+  
+  softDelete(partId: number){
+    this.apiservice.softDelete(partId).subscribe(
+      (res: any) => {
+        this.fecthDataOutput(partId);
+        this.modalService.dismissAll(); 
+      }, (error: any) => {
+        console.log(error, "Remove Failed");
+      }
+    )
+}  
+
+
   openUpdateModal(ouputPartId: number, updateModal: any, remain: number, updateAt: Date) {
     this.dateOut = updateAt
     this.stock_out = remain
@@ -312,45 +324,29 @@ export class DetailPartComponent {
 
   }
 
-  setInitialStatus() {
-    // Check if userRole is 3 (which means role needing approval)
-    if (this.userRole === 3 && this.displayParts) {
-      // Loop through each displayed part
-      this.displayParts.forEach((part: { status: string }) => {
-        // If status is not approved or rejected, set it to "Awaiting Approval"
-        if (part.status !== 'Approved' && part.status !== 'Rejected') {
-          part.status = 'Awaiting Approval';
-        }
-      });
-    }
-  }
-
-  approveRequest(outputpart_id: number) {
-    const index = this.displayParts.findIndex((part: { outputpart_id: number }) => part.outputpart_id === outputpart_id);
-    if (index !== -1) {
-      this.displayParts[index].status = 'Approved';
-    }
-  }
-
-  rejectRequest(outputpart_id: number) {
-    const index = this.displayParts.findIndex((part: { outputpart_id: number }) => part.outputpart_id === outputpart_id);
-    if (index !== -1) {
-      this.displayParts[index].status = 'Rejected';
-    }
-  }
-
-  getStatusColor(status: string): any {
+  // getStatusColor(status: string): any {
+  //   switch (status) {
+  //     case 'Awaiting Approval':
+  //       return { 'color': '#CDB00D', 'background-color': '#F6DF5C', 'border-radius': '5px', 'font-weight': 'bold' };
+  //     case 'Approved':
+  //       return { 'color': '#0D9318', 'background-color': '#54EE61', 'border-radius': '5px', 'font-weight': 'bold' };
+  //     case 'Rejected':
+  //       return { 'color': '#E22113', 'background-color': '#F36A61', 'border-radius': '5px', 'font-weight': 'bold' };
+  //     default:
+  //       return {};
+  //   }
+  // }
+  getStatusColor(status: string) {
     switch (status) {
-      case 'Awaiting Approval':
-        return { 'color': '#CDB00D', 'background-color': '#F6DF5C', 'border-radius': '5px', 'font-weight': 'bold' };
       case 'Approved':
-        return { 'color': '#0D9318', 'background-color': '#54EE61', 'border-radius': '5px', 'font-weight': 'bold' };
+        return { 'color': 'green' }; // Ubah warna teks menjadi hijau untuk status "Approved"
       case 'Rejected':
-        return { 'color': '#E22113', 'background-color': '#F36A61', 'border-radius': '5px', 'font-weight': 'bold' };
+        return { 'color': 'red' }; // Ubah warna teks menjadi merah untuk status "Rejected"
       default:
-        return {};
+        return { 'color': 'blue' }; // Atur warna teks menjadi biru sebagai default
     }
   }
+
 
 
 }
