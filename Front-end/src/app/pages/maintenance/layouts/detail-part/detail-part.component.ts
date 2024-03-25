@@ -1,4 +1,4 @@
-import { Component, Output, Input } from '@angular/core';
+import { Component, Output, Input, ViewChild } from '@angular/core';
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -13,7 +13,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./detail-part.component.scss']
 })
 export class DetailPartComponent {
-
+  @ViewChild('viewDetailModal') viewDetailModal: any; // Deklarasi ViewChild untuk viewDetailModal
   // BreadCrumb
   breadCrumbItems!: Array<{}>;
 
@@ -40,6 +40,8 @@ export class DetailPartComponent {
   totalIN!: number;
   pricePart!: number;
   dataPart!: any;
+  selectedPart: any;
+  approvalComment: string = ''; // variabel untuk menyimpan komentar approval
 
   // Data User Login
   userRole!: any;
@@ -55,6 +57,7 @@ export class DetailPartComponent {
   dateOut!: Date;
 
   exportPdf_now: boolean = false;
+
 
   constructor(
     private apiservice: MaintenanceService,
@@ -264,6 +267,11 @@ export class DetailPartComponent {
     )
   }
 
+  openViewDetailModal(part: any) {
+    this.selectedPart = part; 
+    this.modalService.open(this.viewDetailModal, { centered: true }); 
+  }
+
   openRemoveConfirmationModal(partId: number, removeConfirmationModal: any) {
     this.partId = partId;
     this.modalService.open(removeConfirmationModal, { centered: true });
@@ -281,12 +289,12 @@ export class DetailPartComponent {
 }  
 
 
-  openUpdateModal(ouputPartId: number, updateModal: any, remain: number, updateAt: Date) {
-    this.dateOut = updateAt
-    this.stock_out = remain
-    this.outputPartId = ouputPartId
-    this.modalService.open(updateModal, { centered: true })
-  }
+  // openUpdateModal(ouputPartId: number, updateModal: any, remain: number, updateAt: Date) {
+  //   this.dateOut = updateAt
+  //   this.stock_out = remain
+  //   this.outputPartId = ouputPartId
+  //   this.modalService.open(updateModal, { centered: true })
+  // }
 
 
   // Pagination
@@ -324,28 +332,57 @@ export class DetailPartComponent {
 
   }
 
-  // getStatusColor(status: string): any {
-  //   switch (status) {
-  //     case 'Awaiting Approval':
-  //       return { 'color': '#CDB00D', 'background-color': '#F6DF5C', 'border-radius': '5px', 'font-weight': 'bold' };
-  //     case 'Approved':
-  //       return { 'color': '#0D9318', 'background-color': '#54EE61', 'border-radius': '5px', 'font-weight': 'bold' };
-  //     case 'Rejected':
-  //       return { 'color': '#E22113', 'background-color': '#F36A61', 'border-radius': '5px', 'font-weight': 'bold' };
-  //     default:
-  //       return {};
-  //   }
-  // }
   getStatusColor(status: string) {
     switch (status) {
       case 'Approved':
-        return { 'color': 'green' }; // Ubah warna teks menjadi hijau untuk status "Approved"
+        return { 'color': '#0D9318', 'font-weight': 'bold' }; // Ubah warna teks menjadi hijau untuk status "Approved"
       case 'Rejected':
-        return { 'color': 'red' }; // Ubah warna teks menjadi merah untuk status "Rejected"
+        return { 'color': '#E22113', 'font-weight': 'bold' }; // Ubah warna teks menjadi merah untuk status "Rejected"
       default:
-        return { 'color': 'blue' }; // Atur warna teks menjadi biru sebagai default
+        return { 'color': '#CDB00D', 'font-weight': 'bold' }; // Atur warna teks menjadi biru sebagai default
     }
   }
+
+  approvePart(part: any) {
+    if (!part || !part.outputpart_id || typeof part.outputpart_id !== 'number') {
+      console.error('Invalid output part id');
+      return;
+    }
+  
+    // Kirim data approval ke backend
+    this.apiservice.approvePart(part.outputpart_id, this.approvalComment).subscribe(response => {
+      // Jika permintaan berhasil, perbarui status bagian
+      part.status = 'Approved';
+      console.log('Part Approved:', part);
+      console.log('Komentar:', this.approvalComment);
+      // Reset komentar approval
+      this.approvalComment = '';
+    }, error => {
+      // Handle kesalahan jika permintaan gagal
+      console.error('Failed to approve part:', error);
+    });
+  }
+  
+  rejectPart(part: any) {
+    if (!part || !part.outputpart_id || typeof part.outputpart_id !== 'number') {
+      console.error('Invalid output part id');
+      return;
+    }
+  
+    // Kirim data penolakan ke backend
+    this.apiservice.rejectPart(part.outputpart_id, this.approvalComment).subscribe(response => {
+      // Jika permintaan berhasil, perbarui status bagian
+      part.status = 'Rejected';
+      console.log('Part Rejected:', part);
+      console.log('Komentar:', this.approvalComment);
+      // Reset komentar approval
+      this.approvalComment = '';
+    }, error => {
+      // Handle kesalahan jika permintaan gagal
+      console.error('Failed to reject part:', error);
+    });
+  }  
+  
 
 
 

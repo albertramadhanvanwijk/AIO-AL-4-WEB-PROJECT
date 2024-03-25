@@ -18,6 +18,9 @@ const OutputController = require("../../controller/master_controller/OutputContr
 // QUIZ
 const QuizController = require("../../controller/master_controller/QuizController");
 
+// Approval
+const ApprovalLogController = require ("../../controller/master_controller/ApprovalLogController");
+
 // transaction
 router.get("/transactions", TransactionController.getAllTransactions);
 router.get("/transactions/:id", TransactionController.getTransactionById);
@@ -156,6 +159,13 @@ router.get("/total-remainIn/:partId", OutputController.totalRemainInByPartId);
 router.get("/detail-output/:partId", OutputController.getDetailOutput);
 router.get("/total-price/:areaId", OutputController.getTotalPrice);
 router.get("/output-by-outputPartId/:outputId", OutputController.getOutputByOutputId);
+
+// Approval
+router.post('/approve', ApprovalLogController.approvePart);
+router.post('/reject', ApprovalLogController.rejectPart);
+router.post('/parts/:id/approve', ApprovalLogController.approvePart);
+router.post('/parts/:id/reject', ApprovalLogController.rejectPart);
+
 
 // QUESTIONS
 router.get("/questions", QuizController.getAllQuestions);
