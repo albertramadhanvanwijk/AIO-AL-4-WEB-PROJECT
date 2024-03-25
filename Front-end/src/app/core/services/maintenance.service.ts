@@ -111,4 +111,16 @@ export class MaintenanceService {
     return this.http.get(`${this.baseUrl}/master/image-url/${partId}`, { headers });
   }
 
+  // Metode untuk menyetujui part
+  approvePart(partId: number, comment: string): Observable<any> {
+    const data = { approvalComment: comment };
+    return this.http.post(`${this.baseUrl}/parts/${partId}/approve`, data);
+  }
+
+  // Metode untuk menolak part
+  rejectPart(partId: number, comment: string): Observable<any> {
+    const data = { approvalComment: comment };
+    return this.http.post(`${this.baseUrl}/parts/${partId}/reject`, data);
+  }
+
 }

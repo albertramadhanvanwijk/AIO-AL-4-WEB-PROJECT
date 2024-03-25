@@ -61,23 +61,24 @@
                           <td>{{part.part_number}}</td>
                           <td>{{part.description}}</td>
                           <td>{{part.keterangan}}</td>
-                          <td [ngStyle]="getStatusColor(dataPart.status)">
-                            {{ dataPart.status || 'Awaiting Approval' }}
+                          <td [ngStyle]="getStatusColor(part.status)">
+                            {{ part.status || 'Awaiting Approval' }}
                           </td>
                           <td *ngIf="userRole === 3" class="text-center">
                             <div ngbDropdown class="dropdown">
                               <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
-                            Action
-                          </button>
-                          <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                                <a class="dropdown-item" ><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
+                                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
+                                Action
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                                <a class="dropdown-item" (click)="openViewDetailModal(part)"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
                                 <a class="dropdown-item" (click)="openRemoveConfirmationModal(part.part_id, removeModal)"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Remove</a>
                               </div>
                             </div>
-                          </td>                                                    
-                        </tr>                        
+                          </td>
+                        </tr>
                       </ng-container>
+                      
                 
                       <tr class="bg-light text-muted text-center">
                         <td colspan="2" class="fw-bold">Total Stock IN :</td>
@@ -207,3 +208,60 @@
   </div>
 </ng-template>
 
+<ng-template #viewDetailModal let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal" (click)="modal.close('Close click')"></button>
+  </div>
+  <div class="modal-body p-5">
+    <h1 class="text-center">Detail Informasi</h1>
+    <div class="card mt-3">
+      <div class="card-body">
+        <!-- Table -->
+        <table class="table">
+          <tbody>
+            <!-- Stock Masuk -->
+            <tr *ngIf="selectedPart.stock_in !== 0">
+              <th class="text-start" style="width: 30%;">Stock Masuk</th>
+              <td>{{ selectedPart.stock_in }}</td>
+            </tr>
+            <!-- Stock Keluar -->
+            <tr *ngIf="selectedPart.stock_out !== 0">
+              <th class="text-start">Stock Keluar</th>
+              <td>{{ selectedPart.stock_out }}</td>
+            </tr>
+            <!-- Nama Pengguna -->
+            <tr>
+              <th class="text-start">PIC</th>
+              <td>{{ selectedPart.nama_user }}</td>
+            </tr>
+            <!-- Nomor Part -->
+            <tr>
+              <th class="text-start">Nomor Part</th>
+              <td>{{ selectedPart.part_number }}</td>
+            </tr>
+            <!-- Deskripsi -->
+            <tr>
+              <th class="text-start">Deskripsi</th>
+              <td>{{ selectedPart.description }}</td>
+            </tr>
+            <!-- Informasi Tambahan -->
+            <tr>
+              <th class="text-start">Informasi Tambahan</th>
+              <td>{{ selectedPart.keterangan }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Komentar -->
+        <div class="mt-4">
+          <label for="comment" class="form-label">Komentar</label>
+          <textarea class="form-control" id="comment" rows="3" [(ngModel)]="approvalComment"></textarea>
+        </div>
+        <!-- Button Approval -->
+        <div class="mt-4 text-end">
+          <button type="button" class="btn btn-success me-2" (click)="approvePart(selectedPart)">Approved</button>
+          <button type="button" class="btn btn-danger" (click)="rejectPart(selectedPart)">Rejected</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
