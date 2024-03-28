@@ -1,0 +1,30 @@
+.percentage75{
+    background-color: #AACBE6 ;
+    color: #fff;
+    text-align: center;
+}
+.percentage100{
+    background-color: #2A76B2 ;
+    color: #fff;
+    text-align: center;
+}
+.percentage25{
+    background-color: #BC6474 ;
+    color: #fff;
+    text-align: center;
+}
+.percentage0{
+    background-color: #B21635 ;
+    color: #fff;
+    text-align: center;
+}
+
+/* Animasi fade-in */
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .fade-in.active {
+    opacity: 1;
+  }

@@ -1,0 +1,38 @@
+.boxDocument{
+    background-color: #2A76B2;
+    border-radius: 1.5em;
+    color: #fff;
+    font-family: 'Poppins';
+    font-weight: bold;
+}
+
+.total_doc{
+    font-size: 25px;
+    margin: 0;
+}
+
+.infoParts p{
+  margin: 0;
+}
+
+.icon {
+  font-size: 50px;
+    margin: 0;
+}
+
+// ANIMATION
+/* Animasi fade-in */
+.fade-in {
+    opacity: 0;
+    animation: fadeInAnimation 1s ease-in forwards;
+  }
+  
+  @keyframes fadeInAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

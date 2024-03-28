@@ -1,0 +1,179 @@
+<app-breadcrumbs title="Maintenance Part" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title mb-0"> Data Part {{areaName}} Store </h4>
+        </div><!-- end card header -->
+
+        <div class="card-body">
+          <div id="customerList">
+            <div class="row g-4 mb-3">
+              <div class="col-sm-auto">
+                <div class="d-flex gap-1">
+                  <button *ngIf="userRole === 4" routerLink="/add-part-gbl" type="button"
+                    class="btn btn-add btn-label waves-effect waves-light me-2 add-btn"><i
+                      class="ri-add-circle-line label-icon align-middle fs-16 me-2"></i>
+                    Add Part</button>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="d-flex justify-content-sm-end">
+                  <div class="filter-date me-2">
+                    <!-- <input type="date" [(ngModel)]="filterDate" (input)="onFilterByDate()" name="filterDate" class="form-control search" placeholder="Filter by Date"> -->
+                  </div>
+                  <div class="search-box ms-2">
+                    <input type="text" [(ngModel)]="searchQuery" (input)="onSearch()" name="searchQuery"
+                      class="form-control search" placeholder="Search..." required="">
+                    <i class="ri-search-line search-icon"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="table-responsive table-card mt-3 mb-1">
+              <table class="table">
+                <thead>
+                  <tr class="bg-light text-muted text-center">
+                    <th>No</th>
+                    <th>DATE</th>
+                    <th>Part Number</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Stock</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="isNull">
+                    <td colspan="9" class="text-center">No Data</td>
+                  </ng-container>
+                  <ng-container *ngFor="let part of displayParts; let i = index">
+                    <tr class="text-center">
+                      <td>{{(currentPage - 1) * pageSize + i + 1}}</td>
+                      <ng-container *ngIf="areaId === 6 || areaId === 12">
+                        <td *ngIf="part.refurbished_at; else emptyDate">{{ formatDate(part.refurbished_at) }}</td>
+                        <ng-template #emptyDate>
+                          <td> <i class="opacity-75">Empty Date</i> </td>
+                        </ng-template>
+                      </ng-container>
+                      <ng-container *ngIf="areaId !== 6 && areaId !== 12">
+                        <td>{{ formatDate(part.created_at) }}</td>
+                      </ng-container>
+                      <td>{{part.part_number}}</td>
+                      <td>{{part.description}}</td>
+                      <td>{{part.price | currency:'IDR '}}</td>
+                      <td>{{part.price * part.qty_stock | currency:'IDR '}}</td>
+                      <td> {{part.qty_stock}} </td>
+                      <td class="text-center">
+                        <div class="dropdown" ngbDropdown>
+                          <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
+                            <i class="ri-more-2-fill"></i>
+                          </button>
+
+                          <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                            <a class="dropdown-item" [routerLink]="['/detail-part-gbl', part.part_id]"><i
+                                class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
+                            <a class="dropdown-item" (click)="viewModal(part.part_id, viewImage)">
+                                <i class="ri-image-fill align-bottom me-2 text-muted"></i> View Picture
+                                </a>
+                            <a *ngIf="userRole === 4" class="dropdown-item"
+                              [routerLink]="['/update-part-gbl', part.part_id, part.id_area]"><i
+                                class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
+                            <div class="dropdown-divider"></div>
+                            <a (click)="modelRefurbished(part.part_id)" *ngIf="userRole === 4 && areaId !== 6"
+                              class="dropdown-item" data-bs-toggle="modal" data-bs-target="#refurbishedModal">
+                              <i class="ri-share-box-line align-bottom me-2 text-muted"></i> Refurbished</a>
+                            <a (click)="centerModal(part.part_id, removeModal)" *ngIf="userRole === 4"
+                              class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removeProjectModal"><i
+                                class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Remove</a>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+            <div class="row justify-content-md-between align-items-md-center">
+              <div class="col col-sm-6">
+                <div class="pagination">
+                  Showing {{ getStartIndex() }} - {{ getEndIndex() }} entries {{ entires }}
+                </div>
+              </div>
+              <!-- Pagination -->
+              <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                  <nav aria-label="Page navigation masterList">
+                    <ul class="pagination">
+                      <button class="btn  btn-primary" [disabled]="currentPage === 1"
+                        (click)="prevPage()">Previous</button>
+                      <button class="btn  btn-primary" [disabled]="currentPage === totalPages"
+                        (click)="nextPage()">Next</button>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <!-- End Pagination -->
+            </div>
+          </div>
+        </div><!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end col -->
+  </div>
+  <!-- end row -->
+
+  <!-- Remove Modal -->
+  <ng-template #removeModal let-modal>
+    <div class="modal-body text-center p-5">
+      <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548"
+        style="width:100px;height:100px"></lord-icon>
+      <div class="mt-4">
+        <h3 class="mb-3">ARE YOU SURE ?</h3>
+        <p class="text-muted mb-4"> Are you sure to remove this document?</p>
+        <div class="hstack gap-2 justify-content-center">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+            (click)="modal.close('Close click')">Close</button>
+          <a (click)="softDelete(partId)" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<ng-template #viewImage let-modal>
+    <div class="modal-body text-center p-5">
+      <div class="table-responsive table-card mt-3 mb-1">
+        <table class="table">
+          <thead>
+            <tr class="bg-light text-muted text-center">
+              <th>Image Part</th>
+              <th>Place</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="isNull">
+              <td colspan="9" class="text-center">No Data</td>
+            </ng-container>
+            <ng-container *ngFor="let part of dataPartById; let i = index">
+              <tr class="text-center">
+                <td style="text-align: center;">
+                  <div class="card1" style="display: inline-block; text-align: center;">
+                    <img [src]="getImgFile(part.image)" alt=""
+                      style="max-width: 130%; height: auto; object-fit: contain;">
+                  </div>
+                </td>
+                <td>{{part.place}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-template>

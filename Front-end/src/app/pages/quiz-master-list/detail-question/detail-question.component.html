@@ -1,0 +1,140 @@
+<app-breadcrumbs
+  title="MASTER QUESTIONS"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="container-fluid">
+  <div class="card p-5">
+    <div class="container"></div>
+    <div class="container">
+      <h1>" {{ question?.question_text }} "</h1>
+    </div>
+    <div class="container mt-5">
+      <ng-container *ngIf="question?.answer_id !== null">
+        <ng-container *ngFor="let answer of question?.answer">
+          <div
+            [ngClass]="{
+              'bg-success': answer.status === 1,
+              'bg-danger': answer.status === 0
+            }"
+            class="answer-item d-flex justify-content-between shadow-lg p-3 mb-5 bg-body-tertiary rounded"
+          >
+            <span class="h3">{{ answer.answer_text }}</span>
+            <span>
+              <button
+                [routerLink]="['/edit-asnwer', answer.answer_id, questionID]"
+                class="btn"
+              >
+                <i class="fa-solid fa-pen-to-square"></i></button
+            ></span>
+          </div> </ng-container
+      ></ng-container>
+
+      <!-- ADD ANSWER -->
+      <ng-container *ngIf="question?.answer_id === null">
+        <form [formGroup]="formAddAnswer" (ngSubmit)="onSubmit()">
+          <!-- Answer 1 -->
+          <div class="mb-3">
+            <label for="answer_1" class="form-label">Answer 1</label>
+            <input
+              type="text"
+              class="form-control"
+              id="answer_1"
+              formControlName="answer_1"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="status_1" class="form-label">Status 1</label>
+            <select
+              class="form-select"
+              id="status_1"
+              formControlName="status_1"
+              required
+            >
+              <option value="1">Benar</option>
+              <option value="0">Salah</option>
+            </select>
+          </div>
+
+          <!-- Answer 2 -->
+          <div class="mb-3">
+            <label for="answer_2" class="form-label">Answer 2</label>
+            <input
+              type="text"
+              class="form-control"
+              id="answer_2"
+              formControlName="answer_2"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="status_2" class="form-label">Status 2</label>
+            <select
+              class="form-select"
+              id="status_2"
+              formControlName="status_2"
+              required
+            >
+              <option value="1">Benar</option>
+              <option value="0">Salah</option>
+            </select>
+          </div>
+
+          <!-- Answer 3 -->
+          <div class="mb-3">
+            <label for="answer_3" class="form-label">Answer 3</label>
+            <input
+              type="text"
+              class="form-control"
+              id="answer_3"
+              formControlName="answer_3"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="status_3" class="form-label">Status 3</label>
+            <select
+              class="form-select"
+              id="status_3"
+              formControlName="status_3"
+              required
+            >
+              <option value="1">Benar</option>
+              <option value="0">Salah</option>
+            </select>
+          </div>
+
+          <!-- Answer 4 -->
+          <div class="mb-3">
+            <label for="answer_4" class="form-label">Answer 4</label>
+            <input
+              type="text"
+              class="form-control"
+              id="answer_4"
+              formControlName="answer_4"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="status_4" class="form-label">Status 4</label>
+            <select
+              class="form-select"
+              id="status_4"
+              formControlName="status_4"
+              required
+            >
+              <option value="1">Benar</option>
+              <option value="0">Salah</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary me-2">Add</button>
+          <button class="btn btn-secondary" routerLink="/master-list-quiz">
+            Back
+          </button>
+        </form>
+      </ng-container>
+    </div>
+  </div>
+</div>

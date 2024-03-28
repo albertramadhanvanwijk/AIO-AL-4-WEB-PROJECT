@@ -1,0 +1,146 @@
+<app-breadcrumbs title="Maintenance Part" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<!-- CONTENT -->
+<div class="container-fluid">
+    <!-- Dashboard Document -->
+    <div class="row dasboard-box p-3 mt-3 card fade-in" >
+        <div class="row">
+         <div class="col-12 col-md-12">
+             <div class="keteranganKaryawan">
+                 <h3>Parts on Aseptic Line 4</h3>
+                 <hr>
+             </div>
+         </div>
+        </div>
+        <div class="row">
+         <div class="col-12 col-md-12">
+             <div class="row d-flex justify-content-between p-1">
+                 <div class="col-12 col-md-3 text-center">
+                     <div class="boxArea boxDocument p-2 card-animate infoParts">
+                        <div *ngIf="totalPartsIbf">
+                            <p class="total_doc"> <span [CountTo]="totalPartsIbf" [from]="0"
+                                [duration]="1" class="counter-value me-2"> </span> <i class="ri-home-gear-line"></i></p>
+                        </div>
+                        <div *ngIf="!totalPartsIbf">
+                            <p class="total_doc"> 0 <i class="ri-home-gear-line"></i></p>
+                        </div>                    
+                         <p>Part IBF</p>
+                         <div *ngIf="totalPriceIbf">
+                            <p>{{totalPriceIbf | currency:'IDR '}}</p>
+                         </div>
+                         <div *ngIf="!totalPriceIbf">
+                            <p>{{0 | currency:'IDR '}}</p>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="col-12 col-md-3 text-center">
+                     <div class="boxArea boxDocument p-2 card-animate infoParts">
+                        <div *ngIf="totalPartsPreparasi">
+                            <p class="total_doc"><span [CountTo]="totalPartsPreparasi" [from]="0"
+                                [duration]="1" class="counter-value me-2"> </span><i class="ri-home-gear-line"></i></p>
+                        </div>
+                        <div *ngIf="!totalPartsPreparasi">
+                            <p class="total_doc"> 0 <i class="ri-home-gear-line"></i></p>
+                         </div>
+                        
+                            
+                         <p>Part Preparasi</p>
+                         <div *ngIf="totalPricePreparasi">
+                            <p>{{totalPricePreparasi | currency:'IDR '}}</p>
+                         </div>
+                         <div *ngIf="!totalPricePreparasi">
+                            <p>{{0 | currency:'IDR '}}</p>
+                         </div>
+                         
+                     </div>
+                 </div>
+                 <div class="col-12 col-md-3 text-center">
+                     <div class="boxArea boxDocument p-2 card-animate infoParts">
+                         <div *ngIf="totalPartsPacking">
+                            <p class="total_doc"><span [CountTo]="totalPartsPacking" [from]="0"
+                                [duration]="1" class="counter-value me-2"> </span> <i class="ri-home-gear-line"></i></p>
+                         </div>
+                         <div *ngIf="!totalPartsPacking">
+                            <p class="total_doc"> 0 <i class="ri-home-gear-line"></i></p>
+                         </div>
+                         <p>Part Packing</p>
+                         <div *ngIf="totalPricePacking">
+                            <p>{{totalPricePacking | currency:'IDR '}}</p>
+                         </div>
+                         <div *ngIf="!totalPricePacking">
+                            <p>{{0 | currency:'IDR '}}</p>
+                         </div>
+                         
+                     </div>
+                 </div>
+                 <div class="col-12 col-md-3 text-center">
+                     <div class="boxArea boxDocument p-2 card-animate infoParts">
+                            <div *ngIf="totalPartsRefurbished">
+                                <p class="total_doc"><span [CountTo]="totalPartsRefurbished" [from]="0"
+                                    [duration]="1" class="counter-value me-2 "></span><i class="ri-home-gear-line"></i></p>
+                            </div>
+                            <div *ngIf="!totalPartsRefurbished">
+                                <p class="total_doc"> 0 <i class="ri-home-gear-line"></i></p>
+                            </div>
+                            <p>Part Refurbished</p>
+                            <div *ngIf="totalPriceRefurbished">
+                                <p>{{totalPriceRefurbished | currency:'IDR '}}</p>
+                            </div>
+                            <div *ngIf="!totalPriceRefurbished">
+                                <p>{{0 | currency:'IDR '}}</p>
+                            </div>
+                            
+                     </div>
+                 </div>
+             </div>
+         </div>
+        </div>
+     </div>
+
+     <!-- AREA PART -->
+      <!-- CHARTS -->
+      <div class="row mt-5">
+        <ng-container *ngFor="let area of dataAreaByLine">
+            <div class="col-12 col-md-6 mt-2" *ngIf="area.id_area !== 4">
+                    <div class="card card-animate overflow-hidden" >
+                        <div class="position-absolute start-0" style="z-index: 0;">
+                            <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120" width="200"
+                                height="120">
+                                <style>
+                                    .s0 {
+                                        opacity: .07;
+                                        fill: #2A76B2
+                                    }
+                                </style>
+                                <path id="Shape 8" class="s0"
+                                    d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z" />
+                            </svg>
+                        </div>
+                        <div class="card-body" style="z-index:1 ;">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1 overflow-hidden">
+                                    <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                                       {{area.nama_area}} PARTS
+                                    </h4>
+                                  <ng-container *ngIf="stockRemainGrouped && stockRemainGrouped[area.id_area] && stockRemainGrouped[area.id_area].length > 0">
+                                        <p class="text-success mt-2">
+                                            Stock Ready
+                                        </p>
+                                    </ng-container>
+                                    <ng-container *ngIf="stockRemainGrouped && (!stockRemainGrouped[area.id_area] || stockRemainGrouped[area.id_area].length === 0)">
+                                        <p class="text-danger mt-2">
+                                            0 / Stock Not Found
+                                        </p>
+                                    </ng-container>
+                                    
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <button [routerLink]="['/part-maintenance', area.id_area]" class="btn btn-primary text-white fw-bold "> View </button>
+                                </div>
+                            </div>
+                        </div><!-- end card body -->
+                    </div>                
+               </div>
+        </ng-container>
+     </div>
+</div>

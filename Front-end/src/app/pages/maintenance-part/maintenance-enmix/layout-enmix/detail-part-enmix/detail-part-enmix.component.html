@@ -1,0 +1,191 @@
+<app-breadcrumbs title="Detail Output Part" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title mb-0"> Data Output Part </h4>
+            </div><!-- end card header --> 
+      
+            <div class="card-body">
+              <div id="customerList">
+                <div class="row g-4 mb-3">
+                  <div class="col-sm-auto">
+                    <div class="d-flex gap-1">
+                      <button [routerLink]="['/add-output-pet', partId]" type="button" class="btn btn-output btn-label waves-effect waves-light me-2 add-btn" ><i class="ri-add-circle-line label-icon align-middle fs-16 me-2"></i>
+                        Add Transaction</button>
+                      
+                      <button (click)="exportPDF()" type="button" class="btn btn-export btn-label waves-effect waves-light me-2 add-btn" ><i class="ri-arrow-down-circle-fill label-icon align-middle fs-16 me-2"></i>
+                        Export PDF</button>   
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <div class="d-flex justify-content-sm-end">
+                      <div class="ms-2">
+                        <button class="btn btn-warning btn-label waves-effect waves-light" data-toggle="modal" data-target="#dateFilterModal"><i class="bx bx-calendar label-icon align-middle fs-16 me-2"></i>Fillter Date</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+                <div class="table-responsive table-card mt-3 mb-1" >
+                  <table class="table" id="tableToExport">
+                    <thead>
+                      <tr class="bg-light text-muted text-center">
+                        <th>No</th>
+                        <th>Date</th>
+                        <th>Stock In</th>
+                        <th>Stock Out</th>
+                        <th>PIC</th>
+                        <th>Part Number</th>
+                        <th>Description</th>
+                        <th>Information</th>
+                        <!-- <th *ngIf="userRole === 4">Action</th> -->
+                      </tr>
+                      
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="isNull === true" >
+                        <td colspan="7" class="text-center">No Data</td>
+                      </ng-container>
+                      <ng-container *ngFor="let part of displayParts; let i = index">
+                            <tr class="text-center">
+                                <td class="align-middle">{{(currentPage - 1) * pageSize + i + 1}}</td>
+                                <td>{{ formatDate(part.updated_at) }}</td>
+                                <td>{{part.stock_in}}</td>
+                                <td>{{part.stock_out}}</td>
+                                <td>{{part.nama_user}}</td>
+                                <td>{{part.part_number}}</td>
+                                <td>{{part.description}}</td>
+                                <td>{{part.keterangan}}</td>
+                                <!-- <td *ngIf="userRole === 4">
+                                  <div class="dropdown" ngbDropdown>
+                                    <button
+                                        class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+                                        ngbDropdownToggle>
+                                        <i class="ri-more-2-fill"></i>
+                                    </button>
+                                    
+                                    <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                                      <a *ngIf="userRole === 4" (click)="openUpdateModal(part.outputpart_id, updateModal, part.remain, part.updated_at)" class="dropdown-item"><i
+                                              class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item" (click)="openRemoveModal(part.part_id, removeModal)" data-bs-toggle="modal"
+                                          data-bs-target="#removeModal"
+                                          ><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Remove</a>
+                                      </div>    
+                                  </div>
+                                </td> -->
+                            </tr>
+                            
+                      </ng-container>
+                      <tr class="bg-light text-muted text-center">
+                        <td colspan="2 fw-bold">Total Stock IN :</td>
+                        <td colspan="2">{{totalIN}}</td>
+                        <td colspan="2 fw-bold">Total Price :</td>
+                        <td colspan="2">{{pricePart * totalIN | currency:'IDR '}}</td>
+                       </tr>
+                    </tbody>
+                  </table>        
+                </div>
+      
+                <div class="row justify-content-md-between align-items-md-center">
+                  <div class="col col-sm-6">
+                    <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                      Showing {{ getStartIndex() }} - {{ getEndIndex() }} entries {{ entires }}
+                    </div>
+                  </div>
+                  <!-- Pagination -->
+                  <div class="col col-sm-6">
+                    <div class="text-sm-right float-end listjs-pagination">
+                      <nav aria-label="Page navigation masterList">
+                        <ul class="pagination">
+                          <button class="btn  btn-primary" [disabled]="currentPage === 1" (click)="prevPage()">Previous</button>
+                          <button class="btn  btn-primary" [disabled]="currentPage === totalPages" (click)="nextPage()">Next</button>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                  <!-- End Pagination -->
+                </div>
+              </div>
+            </div><!-- end card -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+      
+      <!-- Remove Modal -->
+      <ng-template #removeModal let-modal>
+        <div class="modal-body text-center p-5">
+          <lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop"
+          colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon>
+            <div class="mt-4">
+                <h3 class="mb-3">ARE YOU SURE ?</h3>
+                <p class="text-muted mb-4"> Are you sure to remove this transaction?</p>
+                <div class="hstack gap-2 justify-content-center">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+                        (click)="modal.close('Close click')">Close</button>
+                    <a (click)="softDelete(partId)" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+      </ng-template>
+
+      <!-- MODAL FILTER DATE -->
+      <div class="modal" id="dateFilterModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Filter Date</h4>
+              <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="ri-close-circle-line fs-25" data-dismiss="modal"></i></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="selectAllDates">
+                  <input type="checkbox" id="selectAllDates" [(ngModel)]="selectAllDates"> Semua Tanggal
+                </label>
+              </div>
+              <div class="form-group" [hidden]="selectAllDates">
+                <label for="startDate">Tanggal Awal</label>
+                <input type="date" id="startDate" [(ngModel)]="startDateFilter" class="form-control">
+              </div>
+              <div class="form-group" [hidden]="selectAllDates">
+                <label for="endDate">Tanggal Akhir</label>
+                <input type="date" id="endDate" [(ngModel)]="endDateFilter" class="form-control">
+              </div>                      
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="applyDateFilter()" data-dismiss="modal">Filter</button>
+            </div>          
+          </div>
+        </div>
+      </div>
+</div>
+
+<!-- Update Modal -->
+<ng-template #updateModal let-modal>
+  <div class="modal-body  p-5">
+    <h1 class="text-center">Update Modal</h1>
+    <form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+      <div class="form-group mt-3">
+        <label for="remain" class="fs-16 fw-bold">Stock:</label>
+         <input [(ngModel)]="stock_out" type="number" id="remain" class="form-control" formControlName="remain">
+      </div>
+      <div class="form-group">
+        <label for="updated_at" class="fs-16 fw-bold">Date:</label>
+      <input type="date" [(ngModel)]="dateOut" id="updated_at" class="form-control" formControlName="updated_at">
+      </div>
+
+      <div class="hstack mt-4 gap-2 justify-content-center">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal"
+            (click)="modal.close('Close click')">Close</button>
+        <button type="submit" class="btn btn-success">Update</button>
+    </div>
+    </form>
+  </div>
+</ng-template>

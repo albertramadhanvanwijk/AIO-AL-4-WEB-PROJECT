@@ -1,0 +1,28 @@
+/* Tambahkan kode CSS ini di file Anda */
+.card {
+    border: none;
+    background-color: #fff; /* Warna latar belakang card */
+}
+
+.card.shadow-lg {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.form-control.rounded-pill {
+    border-radius: 30px; /* Membuat elemen input menjadi lebih bulat */
+}
+
+.btn-primary.rounded-pill {
+    border-radius: 30px; /* Membuat tombol menjadi lebih bulat */
+    background-color: #007bff; /* Warna latar belakang tombol */
+    border-color: #007bff; /* Warna border tombol */
+}
+
+.btn-primary.rounded-pill:hover {
+    background-color: #0056b3; /* Warna latar belakang tombol saat di-hover */
+    border-color: #0056b3; /* Warna border tombol saat di-hover */
+}

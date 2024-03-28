@@ -1,0 +1,399 @@
+<div *ngIf="userId === 1"></div>
+<app-breadcrumbs title="Dashboard" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<div *ngIf="userId !== 1">
+<div class="row">
+  <div class="col">
+    <div class="h-100">
+      <div class="row">
+
+        <!-- Supplies -->
+        <div class="col-xl-4">
+          <div class="card">
+            <div class="card-header border-0 align-items-center d-flex" [style.background-color]="'rgb(10, 62, 151)'">
+              <div class="icon-circle icon-circle-green">
+                <i class="ri-home-gear-line icon" style="font-size: 30px; color: white;"></i>
+              </div>
+              <div class="text-content">
+                <h6 class="card-title mb-0" [style.color]="'white'">IBF</h6>
+                <h5 [style.color]="'white'">
+                  <span [CountTo]="ibfTotalItems" class="counter-value" [from]="0" [duration]="1"></span>
+                  Supplies
+                </h5>
+                <div class="outside-indicator"
+                  [ngClass]="{ 'green-indicator': ibfStatus === 'green', 'red-indicator': ibfStatus === 'red' }">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card">
+            <div class="card-header border-0 align-items-center d-flex" [style.background-color]="'rgb(10, 62, 151)'">
+              <div class="icon-circle icon-circle-green">
+                <i class="ri-home-gear-line icon" style="font-size: 30px; color: white;"></i>
+              </div>
+              <div class="text-content">
+                <h6 class="card-title mb-0" [style.color]="'white'">Preparasi</h6>
+                <h5 [style.color]="'white'">
+                  <span [CountTo]="preparasiTotalItems" class="counter-value" [from]="0" [duration]="1"></span>
+                  Supplies
+                </h5>
+                <div class="outside-indicator"
+                  [ngClass]="{ 'green-indicator': preparasiStatus === 'green', 'red-indicator': preparasiStatus === 'red' }">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="card">
+            <div class="card-header border-0 align-items-center d-flex" [style.background-color]="'rgb(10, 62, 151)'">
+              <div class="icon-circle icon-circle-green">
+                <i class="ri-home-gear-line icon" style="font-size: 30px; color: white;"></i>
+              </div>
+              <div class="text-content">
+                <h6 class="card-title mb-0" [style.color]="'white'">Packing</h6>
+                <h5 [style.color]="'white'">
+                  <span [CountTo]="packingTotalItems" class="counter-value" [from]="0" [duration]="1"></span>
+                  Supplies
+                </h5>
+                <div class="outside-indicator"
+                  [ngClass]="{ 'green-indicator': packingStatus === 'green', 'red-indicator': packingStatus === 'red' }">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+
+          <!-- Document Sop -->
+          <div class="col-xl-6">
+            <div class="card p-3" style="background-color: #ffffff;">
+              <h4 class="text-center" [style.color]="'black'">Document SOP</h4>
+              <hr>
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="card">
+                    <div class="card-header border-0 align-items-center d-flex"
+                      style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
+                      [style.background-color]="'#c26e20'">
+                      <div class="text-content">
+                        <h6 class="card-title mb-0" [style.color]="'white'">IBF</h6>
+                        <h5 [style.color]="'white'">
+                          <span [CountTo]="documentsIBF" class="counter-value" [from]="0" [duration]="1"></span> WI
+                        </h5>
+                        <div class="sop">
+                          <i class="ri-file-list-3-line"
+                            style="font-size: 18px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6">
+                  <div class="card">
+                    <div class="card-header border-0 align-items-center d-flex"
+                      style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
+                      [style.background-color]="'#c26e20'">
+                      <div class="text-content">
+                        <h6 class="card-title mb-0" [style.color]="'white'">PREPARASI</h6>
+                        <h5 [style.color]="'white'">
+                          <span [CountTo]="documentsPreparasi" class="counter-value" [from]="0" [duration]="1"></span>
+                          WI
+                        </h5>
+                        <div class="sop">
+                          <i class="ri-file-list-3-line"
+                            style="font-size: 18px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="card">
+                    <div class="card-header border-0 align-items-center d-flex"
+                      style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
+                      [style.background-color]="'#c26e20'">
+                      <div class="text-content">
+                        <h6 class="card-title mb-0" [style.color]="'white'">PACKING</h6>
+                        <h5 [style.color]="'white'">
+                          <span [CountTo]="documentsPacking" class="counter-value" [from]="0" [duration]="1"></span> WI
+                        </h5>
+                        <div class="sop">
+                          <i class="ri-file-list-3-line"
+                            style="font-size: 18px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6">
+                  <div class="card">
+                    <div class="card-header border-0 align-items-center d-flex"
+                      style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
+                      [style.background-color]="'#c26e20'">
+                      <div class="text-content">
+                        <h6 class="card-title mb-0" [style.color]="'white'">GENERAL</h6>
+                        <h5 [style.color]="'white'">
+                          <span [CountTo]="documentsGeneral" class="counter-value" [from]="0" [duration]="1"></span> WI
+                        </h5>
+                        <div class="sop">
+                          <i class="ri-file-list-3-line"
+                            style="font-size: 18px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!-- part -->
+          <div class="col-xl-6">
+            <div class="card p-3" style="background-color: #ffffff;">
+              <h4 class="text-center" [style.color]="'black'">Part</h4>
+              <hr>
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="card">
+                    <div class="card-header border-0 align-items-center d-flex"
+                      style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
+                      [style.background-color]="'#049b5a'">
+                      <div class="text-content">
+                        <h6 class="card-title mb-0" [style.color]="'white'">IBF</h6>
+                        <div *ngIf="totalPartsIbf">
+                          <h5 [style.color]="'white'">
+                            <span [CountTo]="totalPartsIbf" class="counter-value" [from]="0" [duration]="1"></span> PART
+                          </h5>
+                        </div>
+                        <div *ngIf="!totalPartsIbf">
+                          <h5 [style.color]="'white'">0 PART</h5>
+                        </div>
+                        <div class="part">
+                          <i class="ri-settings-4-line"
+                            style="font-size: 18px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6">
+                  <div class="card">
+                    <div class="card-header border-0 align-items-center d-flex"
+                      style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
+                      [style.background-color]="'#049b5a'">
+                      <div class="text-content">
+                        <h6 class="card-title mb-0" [style.color]="'white'">PREPARASI</h6>
+                        <div *ngIf="totalPartsPreparasi">
+                          <h5 [style.color]="'white'">
+                            <span [CountTo]="totalPartsPreparasi" class="counter-value" [from]="0" [duration]="1"></span>
+                            PART
+                          </h5>
+                        </div>
+                        <div *ngIf="!totalPartsPreparasi">
+                          <h5 [style.color]="'white'">0 PART</h5>
+                        </div>
+                        <div class="part">
+                          <i class="ri-settings-4-line"
+                            style="font-size: 18px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6">
+                  <div class="card">
+                    <div class="card-header border-0 align-items-center d-flex"
+                      style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
+                      [style.background-color]="'#049b5a'">
+                      <div class="text-content">
+                        <h6 class="card-title mb-0" [style.color]="'white'">PACKING</h6>
+                        <div *ngIf="totalPartsPacking">
+                          <h5 [style.color]="'white'">
+                            <span [CountTo]="totalPartsPacking" class="counter-value" [from]="0" [duration]="1"></span>
+                            PART
+                          </h5>
+                        </div>
+                        <div *ngIf="!totalPartsPacking">
+                          <h5 [style.color]="'white'">0 PART</h5>
+                        </div>
+                        <div class="part">
+                          <i class="ri-settings-4-line"
+                            style="font-size: 18px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6">
+                  <div class="card">
+                    <div class="card-header border-0 align-items-center d-flex"
+                      style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;"
+                      [style.background-color]="'#049b5a'">
+                      <div class="text-content">
+                        <h6 class="card-title mb-0" [style.color]="'white'">REFURBISHED</h6>
+                        <div *ngIf="totalPartsRefurbished">
+                          <h5 [style.color]="'white'">
+                            <span [CountTo]="totalPartsRefurbished" class="counter-value" [from]="0"
+                              [duration]="1"></span> PART
+                          </h5>
+                        </div>
+                        <div *ngIf="!totalPartsRefurbished">
+                          <h5 [style.color]="'white'">0 PART</h5>
+                        </div>
+                        <div class="part">
+                          <i class="ri-settings-4-line"
+                            style="font-size: 18px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white;"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+
+        <!-- total Price -->
+        <div class="card card-height-100">
+          <div class="card-header align-items-center d-flex">
+            <h4 class="card-title mb-0 flex-grow-1">Total Price of Parts</h4>
+          </div>
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-6">
+                <h6 class="text-muted text-uppercase fw-semibold text-truncate fs-12 mb-3">Total Price of Parts</h6>
+                <h4 class="fs- mb-0">{{totalPrice | currency:'IDR '}}</h4>
+              </div>
+            </div>
+            <div class="mt-3 pt-2">
+              <div class="progress progress-lg rounded-pill">
+                <div class="progress-bar bg-primary" role="progressbar" [style.width]="getPercentage(totalPriceIbf)">
+                </div>
+                <div class="progress-bar bg-info" role="progressbar" [style.width]="getPercentage(totalPricePreparasi)"></div>
+                <div class="progress-bar bg-success" role="progressbar" [style.width]="getPercentage(totalPricePacking)"></div>
+                <div class="progress-bar bg-warning" role="progressbar" [style.width]="getPercentage(totalPriceRefurbished)"></div>
+              </div>
+            </div>
+            <div class="mt-3 pt-2">
+              <div class="d-flex mb-2">
+                <div class="flex-grow-1">
+                  <p class="text-truncate text-muted fs-14 mb-0"><i
+                      class="mdi mdi-circle align-middle text-primary me-2"></i>IBF</p>
+                </div>
+                <div class="flex-shrink-0" *ngIf="totalPriceIbf">
+                  <p class="mb-0">{{totalPriceIbf | currency:'IDR '}}</p>
+                </div>
+                <div class="flex-shrink-0" *ngIf="!totalPriceIbf">
+                  <p class="mb-0">IDR 0</p>
+                </div>
+              </div>
+              <div class="d-flex mb-2">
+                <div class="flex-grow-1">
+                  <p class="text-truncate text-muted fs-14 mb-0"><i
+                      class="mdi mdi-circle align-middle text-info me-2"></i>Preparasi</p>
+                </div>
+                <div class="flex-shrink-0" *ngIf="totalPricePreparasi">
+                  <p class="mb-0">{{totalPricePreparasi | currency:'IDR '}}</p>
+                </div>
+                <div class="flex-shrink-0" *ngIf="!totalPricePreparasi">
+                  <p class="mb-0">IDR 0</p>
+                </div>
+              </div>
+              <div class="d-flex mb-2">
+                <div class="flex-grow-1">
+                  <p class="text-truncate text-muted fs-14 mb-0"><i
+                      class="mdi mdi-circle align-middle text-success me-2"></i>Packing</p>
+                </div>
+                <div class="flex-shrink-0" *ngIf="totalPricePacking">
+                  <p class="mb-0">{{totalPricePacking | currency:'IDR '}}</p>
+                </div>
+                <div class="flex-shrink-0" *ngIf="!totalPricePacking">
+                  <p class="mb-0">IDR 0</p>
+                </div>
+              </div>
+              <div class="d-flex mb-2">
+                <div class="flex-grow-1">
+                  <p class="text-truncate text-muted fs-14 mb-0"><i
+                      class="mdi mdi-circle align-middle text-warning me-2"></i>Refurbished</p>
+                </div>
+                <div class="flex-shrink-0" *ngIf="totalPriceRefurbished">
+                  <p class="mb-0">{{totalPriceRefurbished | currency:'IDR '}}</p>
+                </div>
+                <div class="flex-shrink-0" *ngIf="!totalPriceRefurbished">
+                  <p class="mb-0">IDR 0</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Grafik -->
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-header border-0 align-items-center d-flex">
+              <h4 class="card-title mb-0 flex-grow-1 text-center">Total Out IBF Supplies</h4>
+              <div class="form-group">
+                <input type="month" (change)="onDateChangeIBF($event)" id="monthYearFilter" class="form-control">
+              </div>
+            </div>
+            <div class="card-body p-0 pb-2">
+              <div class="w-100">
+                <apx-chart [series]="ibfChart.series" [chart]="ibfChart.chart" [dataLabels]="ibfChart.dataLabels"
+                  [plotOptions]="ibfChart.plotOptions" [yaxis]="ibfChart.yaxis" [xaxis]="ibfChart.xaxis"
+                  [legend]="ibfChart.legend" [colors]="ibfChart.colors" [grid]="ibfChart.grid" dir="ltr"></apx-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-header border-0 align-items-center d-flex">
+              <h5 class="card-title mb-0 flex-grow-1 text-center">Total Out Preparasi Supplies</h5>
+              <div class="form-group">
+                <input type="month" (change)="onDateChangePreparasi($event)" id="monthYearFilter" class="form-control">
+              </div>
+            </div>
+            <div class="card-body p-0 pb-2">
+              <div class="w-100">
+                <apx-chart [series]="preparasiChart.series" [chart]="preparasiChart.chart"
+                  [dataLabels]="preparasiChart.dataLabels" [plotOptions]="preparasiChart.plotOptions"
+                  [yaxis]="preparasiChart.yaxis" [xaxis]="preparasiChart.xaxis" [legend]="preparasiChart.legend"
+                  [colors]="preparasiChart.colors" [grid]="preparasiChart.grid" dir="ltr"></apx-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-header border-0 align-items-center d-flex">
+              <h5 class="card-title mb-0 flex-grow-1 text-center">Total Out Packing Supplies</h5>
+              <div class="form-group">
+                <input type="month" (change)="onDateChangePacking($event)" id="monthYearFilter" class="form-control">
+              </div>
+            </div>
+            <div class="card-body p-0 pb-2">
+              <div class="w-100">
+                <apx-chart [series]="packingChart.series" [chart]="packingChart.chart"
+                  [dataLabels]="packingChart.dataLabels" [plotOptions]="packingChart.plotOptions"
+                  [yaxis]="packingChart.yaxis" [xaxis]="packingChart.xaxis" [legend]="packingChart.legend"
+                  [colors]="packingChart.colors" [grid]="packingChart.grid" dir="ltr"></apx-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

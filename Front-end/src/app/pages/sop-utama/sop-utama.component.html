@@ -1,0 +1,712 @@
+<!-- Start Breadcrumbs -->
+<app-breadcrumbs
+  title="Standard Operating Procedure"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+<!-- End Breadcrumbs -->
+<div class="container">
+  <div class="row dashboard-admin">
+    <!-- Dashboard Document -->
+    <div class="row dasboard-box p-3 mt-3" *ngIf="userRole !== 2">
+      <div class="row">
+        <div class="col-12 col-md-12">
+          <div class="keteranganKaryawan">
+            <h3>Document Standard Operation Procedure</h3>
+            <hr />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-2">
+          <a routerLink="/master-list">
+            <div
+              class="masterList boxMasterList d-flex justify-content-center align-items-center card-animate"
+            >
+              DOC SOP
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-2">
+          <a routerLink="/master-list-quiz">
+            <div
+              class="masterList boxMasterList d-flex justify-content-center align-items-center card-animate"
+            >
+              QUIZ
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-8">
+          <div class="row d-flex justify-content-between p-1">
+            <div class="col-12 col-md-3 text-center">
+              <div class="boxArea boxDocument p-2">
+                <p class="total_doc mb-0">
+                  <span
+                    [CountTo]="documentsGeneral"
+                    [from]="0"
+                    [duration]="1"
+                    class="counter-value me-2"
+                  >
+                  </span>
+                  <i class="ri-file-text-fill"></i>
+                </p>
+                <p>WI GENERAL</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-3 text-center">
+              <div class="boxArea boxDocument p-2">
+                <p class="total_doc mb-0">
+                  <span
+                    [CountTo]="documentsIBF"
+                    [from]="0"
+                    [duration]="1"
+                    class="counter-value me-2"
+                  >
+                  </span
+                  ><i class="ri-file-text-fill"></i>
+                </p>
+                <p>WI IBF</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-3 text-center">
+              <div class="boxArea boxDocument p-2">
+                <p class="total_doc mb-0">
+                  <span
+                    [CountTo]="documentsPreparasi"
+                    [from]="0"
+                    [duration]="1"
+                    class="counter-value me-2"
+                  >
+                  </span>
+                  <i class="ri-file-text-fill"></i>
+                </p>
+                <p>WI PREPARASI</p>
+              </div>
+            </div>
+            <div class="col-12 col-md-3 text-center">
+              <div class="boxArea boxDocument p-2">
+                <p class="total_doc mb-0">
+                  <span
+                    [CountTo]="documentsPacking"
+                    [from]="0"
+                    [duration]="1"
+                    class="counter-value me-2"
+                  >
+                  </span>
+                  <i class="ri-file-text-fill"></i>
+                </p>
+                <p>WI PACKING</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Dashboard Score Quiz -->
+    <div class="row card mt-3 p-5" *ngIf="userRole !== 2">
+      <h1>Dashboard Score Quiz SOP</h1>
+      <div class="row mt-2">
+        <div class="col-12 col-md-4">
+          <a [routerLink]="">
+            <div class="card card-animate overflow-hidden">
+              <div class="position-absolute start-0" style="z-index: 0">
+                <svg
+                  version="1.2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 200 120"
+                  width="200"
+                  height="120"
+                >
+                  <style>
+                    .s0 {
+                      opacity: 0.07;
+                      fill: #2a76b2;
+                    }
+                  </style>
+                  <path
+                    id="Shape 8"
+                    class="s0"
+                    d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z"
+                  />
+                </svg>
+              </div>
+              <div class="card-body" style="z-index: 1">
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1 overflow-hidden">
+                    <p
+                      class="text-uppercase fw-medium text-muted text-truncate mb-3"
+                    >
+                      Section
+                    </p>
+                    <h4 class="fs-22 fw-semibold ff-secondary mb-0">IBF</h4>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <button class="btn btn-primary">Detail</button>
+                  </div>
+                </div>
+              </div>
+              <!-- end card body -->
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-4">
+          <a [routerLink]="">
+            <div class="card card-animate overflow-hidden">
+              <div class="position-absolute start-0" style="z-index: 0">
+                <svg
+                  version="1.2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 200 120"
+                  width="200"
+                  height="120"
+                >
+                  <style>
+                    .s0 {
+                      opacity: 0.07;
+                      fill: #2a76b2;
+                    }
+                  </style>
+                  <path
+                    id="Shape 8"
+                    class="s0"
+                    d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z"
+                  />
+                </svg>
+              </div>
+              <div class="card-body" style="z-index: 1">
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1 overflow-hidden">
+                    <p
+                      class="text-uppercase fw-medium text-muted text-truncate mb-3"
+                    >
+                      Section
+                    </p>
+                    <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                      PREPARASI
+                    </h4>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <button class="btn btn-primary">Detail</button>
+                  </div>
+                </div>
+              </div>
+              <!-- end card body -->
+            </div>
+          </a>
+        </div>
+        <div class="col-12 col-md-4">
+          <a [routerLink]="">
+            <div class="card card-animate overflow-hidden">
+              <div class="position-absolute start-0" style="z-index: 0">
+                <svg
+                  version="1.2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 200 120"
+                  width="200"
+                  height="120"
+                >
+                  <style>
+                    .s0 {
+                      opacity: 0.07;
+                      fill: #2a76b2;
+                    }
+                  </style>
+                  <path
+                    id="Shape 8"
+                    class="s0"
+                    d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z"
+                  />
+                </svg>
+              </div>
+              <div class="card-body" style="z-index: 1">
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1 overflow-hidden">
+                    <p
+                      class="text-uppercase fw-medium text-muted text-truncate mb-3"
+                    >
+                      Section
+                    </p>
+                    <h4 class="fs-22 fw-semibold ff-secondary mb-0">PACKING</h4>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <button class="btn btn-primary">Detail</button>
+                  </div>
+                </div>
+              </div>
+              <!-- end card body -->
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- Dashboard Progress E-Learning -->
+    <div class="row card mt-3 p-5" *ngIf="userRole !== 2">
+      <h1>Progress E-Learning Dokumen SOP</h1>
+      <!-- CHARTS -->
+      <div class="row mt-1" *ngIf="userRole === 1">
+        <ng-container *ngFor="let user of usersData; let i = index">
+          <div class="col-12 col-md-6 mt-2">
+            <a [routerLink]="['/dashboard-group', user.group_id]">
+              <div class="card card-animate overflow-hidden">
+                <div class="position-absolute start-0" style="z-index: 0">
+                  <svg
+                    version="1.2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 200 120"
+                    width="200"
+                    height="120"
+                  >
+                    <style>
+                      .s0 {
+                        opacity: 0.07;
+                        fill: #2a76b2;
+                      }
+                    </style>
+                    <path
+                      id="Shape 8"
+                      class="s0"
+                      d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z"
+                    />
+                  </svg>
+                </div>
+                <div class="card-body" style="z-index: 1">
+                  <div class="d-flex align-items-center">
+                    <div class="flex-grow-1 overflow-hidden">
+                      <p
+                        class="text-uppercase fw-medium text-muted text-truncate mb-3"
+                      >
+                        Group {{ i + 1 }}
+                      </p>
+                      <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                        {{ user.nama_user }}
+                      </h4>
+                    </div>
+                    <div class="flex-shrink-0">
+                      <apx-chart
+                        [series]="[getUserPercentage(user.group_id)]"
+                        [chart]="chartOption.chart"
+                        [dataLabels]="chartOption.dataLabels"
+                        [plotOptions]="chartOption.plotOptions"
+                        [colors]="chartOption.colors"
+                      >
+                      </apx-chart>
+                    </div>
+                  </div>
+                </div>
+                <!-- end card body -->
+              </div>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Dasboard SPV -->
+      <div class="row mt-5" *ngIf="userRole === 3">
+        <div class="col-12 col-md-6 p-3">
+          <div class="chart-progress p-3 dasboard-box">
+            <h3>Progress Team {{ userGroup - 1 }}</h3>
+            <hr />
+            <div class="card">
+              <div class="card-body">
+                <apx-chart
+                  [series]="distributedColumnChart.series"
+                  [chart]="distributedColumnChart.chart"
+                  [dataLabels]="distributedColumnChart.dataLabels"
+                  [plotOptions]="distributedColumnChart.plotOptions"
+                  [yaxis]="distributedColumnChart.yaxis"
+                  [xaxis]="distributedColumnChart.xaxis"
+                  [legend]="distributedColumnChart.legend"
+                  [colors]="distributedColumnChart.colors"
+                  [grid]="distributedColumnChart.grid"
+                  dir="ltr"
+                >
+                </apx-chart>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 p-3">
+          <div class="row mt-3" class="fade-in">
+            <div class="card card-animate overflow-hidden">
+              <div class="position-absolute start-0" style="z-index: 0">
+                <svg
+                  version="1.2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 200 120"
+                  width="200"
+                  height="120"
+                >
+                  <style>
+                    .s0 {
+                      opacity: 0.07;
+                      fill: #2a76b2;
+                    }
+                  </style>
+                  <path
+                    id="Shape 8"
+                    class="s0"
+                    d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z"
+                  />
+                </svg>
+              </div>
+              <div class="card-body" style="z-index: 1">
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1 overflow-hidden">
+                    <p
+                      class="text-uppercase fw-medium text-muted text-truncate mb-3"
+                    >
+                      Group {{ userGroup - 1 }}
+                    </p>
+                    <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                      TEAM IBF
+                    </h4>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <button
+                      [routerLink]="['/list-user-progress', 1]"
+                      class="btn btnRead text-white fw-bold"
+                    >
+                      View
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- end card body -->
+            </div>
+          </div>
+          <div class="row mt-2" class="fade-in">
+            <div class="card card-animate overflow-hidden">
+              <div class="position-absolute start-0" style="z-index: 0">
+                <svg
+                  version="1.2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 200 120"
+                  width="200"
+                  height="120"
+                >
+                  <style>
+                    .s0 {
+                      opacity: 0.07;
+                      fill: #2a76b2;
+                    }
+                  </style>
+                  <path
+                    id="Shape 8"
+                    class="s0"
+                    d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z"
+                  />
+                </svg>
+              </div>
+              <div class="card-body" style="z-index: 1">
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1 overflow-hidden">
+                    <p
+                      class="text-uppercase fw-medium text-muted text-truncate mb-3"
+                    >
+                      Group {{ userGroup - 1 }}
+                    </p>
+                    <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                      TEAM PREPARASI
+                    </h4>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <button
+                      [routerLink]="['/list-user-progress', 2]"
+                      class="btn btnRead text-white fw-bold"
+                    >
+                      View
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- end card body -->
+            </div>
+          </div>
+          <div class="row mt-2" class="fade-in">
+            <div class="card card-animate overflow-hidden">
+              <div class="position-absolute start-0" style="z-index: 0">
+                <svg
+                  version="1.2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 200 120"
+                  width="200"
+                  height="120"
+                >
+                  <style>
+                    .s0 {
+                      opacity: 0.07;
+                      fill: #2a76b2;
+                    }
+                  </style>
+                  <path
+                    id="Shape 8"
+                    class="s0"
+                    d="m189.5-25.8c0 0 20.1 46.2-26.7 71.4 0 0-60 15.4-62.3 65.3-2.2 49.8-50.6 59.3-57.8 61.5-7.2 2.3-60.8 0-60.8 0l-11.9-199.4z"
+                  />
+                </svg>
+              </div>
+              <div class="card-body" style="z-index: 1">
+                <div class="d-flex align-items-center">
+                  <div class="flex-grow-1 overflow-hidden">
+                    <p
+                      class="text-uppercase fw-medium text-muted text-truncate mb-3"
+                    >
+                      Group {{ userGroup - 1 }}
+                    </p>
+                    <h4 class="fs-22 fw-semibold ff-secondary mb-0">
+                      TEAM PACKING
+                    </h4>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <button
+                      [routerLink]="['/list-user-progress', 3]"
+                      class="btn btnRead text-white fw-bold"
+                    >
+                      View
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- end card body -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row dashboard-user" *ngIf="userRole === 2">
+    <div class="row dasboard-box shadowBox p-3 mt-3">
+      <div class="col-12 col-md-4">
+        <div class="keteranganKaryawan" class="fade-in">
+          <h3>{{ userName }}</h3>
+          <h3>{{ nik }}</h3>
+          <h3>{{ team }}</h3>
+        </div>
+      </div>
+      <div
+        *ngFor="let area of areas; let i = index"
+        class="col-12 col-md-12 mt-3"
+      >
+        <ng-container *ngIf="area.nama_area === team || team === 'GENERAL'">
+          <div
+            class="boxGeneral p-2 d-flex flex-column justify-content-center align-items-center"
+          >
+            <div *ngIf="percentage">
+              <h1 class="text-white fw-bold">
+                <span
+                  [CountTo]="percentage"
+                  [from]="0"
+                  [duration]="1"
+                  class="counter-value"
+                ></span
+                >%
+              </h1>
+            </div>
+            <div *ngIf="!percentage">
+              <h1 class="text-white fw-bold">0 %</h1>
+            </div>
+            <p>WI {{ area.nama_area }}</p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Perulangan -->
+    <div *ngFor="let area of areas; let i = index" class="">
+      <ng-container *ngIf="area.nama_area === team || team === 'GENERAL'">
+        <div class="row shadowBox dasboard-box p-3 mt-5">
+          <div class="col-12 col-md-6 d-flex align-items-center">
+            <img
+              src="https://i.pinimg.com/564x/a2/09/1c/a2091cd3e3694a5390af6f8e919f20e2.jpg"
+              class="imgSOP"
+              alt=""
+            />
+            <div class="keteranganGeneral ms-5">
+              <h3>Work Instruction {{ area.nama_area }}</h3>
+              <div *ngIf="area.nama_area === 'IBF' || team === 'GENERAL'">
+                <div *ngIf="completedProgress">
+                  <p>
+                    Completed
+                    <span
+                      [CountTo]="completedProgress"
+                      [from]="0"
+                      [duration]="1"
+                      class="counter-value"
+                    ></span>
+                    Of {{ documentsIBF }} Document
+                  </p>
+                </div>
+                <div *ngIf="!completedProgress">
+                  <p>Completed 0 Of {{ documentsIBF }} Document</p>
+                </div>
+              </div>
+              <div *ngIf="area.nama_area === 'PREPARASI' || team === 'GENERAL'">
+                <div *ngIf="completedProgress">
+                  <p>
+                    Completed
+                    <span
+                      [CountTo]="completedProgress"
+                      [from]="0"
+                      [duration]="1"
+                      class="counter-value"
+                    ></span>
+                    Of {{ documentsPreparasi }} Document
+                  </p>
+                </div>
+                <div *ngIf="!completedProgress">
+                  <p>Completed 0 Of {{ documentsPreparasi }} Document</p>
+                </div>
+              </div>
+              <div *ngIf="area.nama_area === 'PACKING' || team === 'GENERAL'">
+                <div *ngIf="completedProgress">
+                  <p>
+                    Completed
+                    <span
+                      [CountTo]="completedProgress"
+                      [from]="0"
+                      [duration]="1"
+                      class="counter-value"
+                    ></span>
+                    Of {{ documentsPacking }} Document
+                  </p>
+                </div>
+                <div *ngIf="!completedProgress">
+                  <p>Completed 0 Of {{ documentsPacking }} Document</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-12 col-md-6 d-flex justify-content-end align-items-center"
+          >
+            <button
+              [routerLink]="['/wi-general', area.id_area, userId]"
+              class="btn btnRead text-white fw-bold card-animate"
+            >
+              READ
+            </button>
+          </div>
+        </div>
+
+        <!-- QUIZ IBF -->
+        <div
+          *ngIf="completedProgress === documentsIBF && team === 'IBF'"
+          class="row shadowBox dasboard-box p-3 mt-5"
+        >
+          <div class="col-12 col-md-6 d-flex align-items-center">
+            <img
+              src="https://i.pinimg.com/564x/a2/09/1c/a2091cd3e3694a5390af6f8e919f20e2.jpg"
+              class="imgSOP"
+              alt=""
+            />
+            <div class="keteranganGeneral ms-5">
+              <h3>Quiz {{ area.nama_area }}</h3>
+              <p>
+                Score: <span *ngIf="scoreQuiz !== null">{{ scoreQuiz }}</span>
+                <span *ngIf="scoreQuiz === null">0</span>
+              </p>
+            </div>
+          </div>
+          <div
+            class="col-12 col-md-6 d-flex justify-content-end align-items-center"
+          >
+            <button
+              *ngIf="scoreQuiz === 0"
+              routerLink="/quiz"
+              class="btn btnRead text-white fw-bold card-animate"
+            >
+              START
+            </button>
+            <button
+              *ngIf="scoreQuiz !== 0"
+              routerLink="/quiz"
+              class="btn btn-danger text-white fw-bold card-animate"
+            >
+              REATTEMPT
+            </button>
+          </div>
+        </div>
+        <!-- QUIZ PREPARASI -->
+        <div
+          *ngIf="
+            completedProgress === documentsPreparasi && team === 'PREPARASI'
+          "
+          class="row shadowBox dasboard-box p-3 mt-5"
+        >
+          <div class="col-12 col-md-6 d-flex align-items-center">
+            <img
+              src="https://i.pinimg.com/564x/a2/09/1c/a2091cd3e3694a5390af6f8e919f20e2.jpg"
+              class="imgSOP"
+              alt=""
+            />
+            <div class="keteranganGeneral ms-5">
+              <h3>Quiz {{ area.nama_area }}</h3>
+              <p>
+                Score: <span *ngIf="scoreQuiz !== null">{{ scoreQuiz }}</span>
+                <span *ngIf="scoreQuiz === null">0</span>
+              </p>
+            </div>
+          </div>
+          <div
+            class="col-12 col-md-6 d-flex justify-content-end align-items-center"
+          >
+            <button
+              *ngIf="scoreQuiz === null"
+              routerLink="/quiz"
+              class="btn btnRead text-white fw-bold card-animate"
+            >
+              START
+            </button>
+            <button
+              *ngIf="scoreQuiz !== null"
+              routerLink="/quiz"
+              class="btn btn-danger text-white fw-bold card-animate"
+            >
+              REATTEMPT
+            </button>
+          </div>
+        </div>
+        <!-- QUIZ PACKING -->
+        <div
+          *ngIf="completedProgress === documentsPacking && team === 'PACKING'"
+          class="row shadowBox dasboard-box p-3 mt-5"
+        >
+          <div class="col-12 col-md-6 d-flex align-items-center">
+            <img
+              src="https://i.pinimg.com/564x/a2/09/1c/a2091cd3e3694a5390af6f8e919f20e2.jpg"
+              class="imgSOP"
+              alt=""
+            />
+            <div class="keteranganGeneral ms-5">
+              <h3>Quiz {{ area.nama_area }}</h3>
+              <p>
+                Score: <span *ngIf="scoreQuiz !== null">{{ scoreQuiz }}</span>
+                <span *ngIf="scoreQuiz === null">0</span>
+              </p>
+            </div>
+          </div>
+          <div
+            class="col-12 col-md-6 d-flex justify-content-end align-items-center"
+          >
+            <button
+              *ngIf="scoreQuiz === 0"
+              routerLink="/quiz"
+              class="btn btnRead text-white fw-bold card-animate"
+            >
+              START
+            </button>
+            <button
+              *ngIf="scoreQuiz !== 0"
+              routerLink="/quiz"
+              class="btn btn-danger text-white fw-bold card-animate"
+            >
+              REATTEMPT
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

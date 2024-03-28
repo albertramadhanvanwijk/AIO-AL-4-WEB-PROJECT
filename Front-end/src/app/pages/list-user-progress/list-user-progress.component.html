@@ -1,0 +1,76 @@
+<app-breadcrumbs title="List User Progress {{category}}" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<!-- LIST -->
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title mb-0"> <i class="ri-team-fill"></i> List User Progress {{category}} </h4>
+        </div><!-- end card header --> 
+  
+        <div class="card-body">
+          <div id="customerList">
+            <div class="row g-4 mb-3">
+              <div class="col-sm-auto">
+                <div class="d-flex gap-1">
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="d-flex justify-content-sm-end">
+                  <div class="search-box ms-2">
+                    <input type="text" name="searchQuery" [(ngModel)]="searchQuery" (input)="onSearch()" class="form-control search" placeholder="Search..." required="">
+                    <i class="ri-search-line search-icon"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="table-responsive table-card mt-3 mb-1">
+              <table class="table">
+                <thead>
+                  <tr class="bg-light text-muted  text-center">
+                    <th class="sort">No</th>
+                    <th class="sort">Name</th>
+                    <th class="sort">Persentase</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                 <ng-container *ngFor="let user of displayUsers; let i = index">
+                    <tr>
+                        <td class="text-center">{{(currentPage - 1) * pageSize + i + 1}}</td>
+                        <td> {{user.nama_user}} </td>
+                        <td [ngClass]="{'percentage0': user.percentage < 50, 'percentage100': user.percentage > 51 }">{{user.percentage}}% </td>
+                        
+                    </tr>
+                 </ng-container>
+                </tbody>
+              </table>
+            </div>
+  
+            <div class="row justify-content-md-between align-items-md-center">
+              <div class="col col-sm-6">
+                <div class="dataTables_info mb-2" id="tickets-table_info" role="status" aria-live="polite">
+                  Showing {{ getStartIndex() }} - {{ getEndIndex() }} entries {{ entires }}
+                </div>
+              </div>
+              <!-- Pagination -->
+              <div class="col col-sm-6">
+                <div class="text-sm-right float-end listjs-pagination">
+                  <nav aria-label="Page navigation masterList">
+                    <ul class="pagination">
+                      <button class="btn  btn-primary" [disabled]="currentPage === 1" (click)="prevPage()">Previous</button>
+                      <button class="btn  btn-primary" [disabled]="currentPage === totalPages" (click)="nextPage()">Next</button>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+              <!-- End Pagination -->
+            </div>
+          </div>
+        </div><!-- end card -->
+      </div>
+      <!-- end col -->
+    </div>
+    <!-- end col -->
+  </div>
