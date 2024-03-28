@@ -46,7 +46,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <ng-container *ngIf="isNull === true" >
+                      <ng-container *ngIf="isNull === true">
                         <tr>
                           <td colspan="10" class="text-center">No Data</td>
                         </tr>
@@ -62,27 +62,31 @@
                           <td>{{part.description}}</td>
                           <td>{{part.keterangan}}</td>
                           <td>
-                            <span class="badge" [ngClass]="{
+                            <span [ngClass]="{
                               'badge-soft-warning': part.status === 'Awaiting Approval',
                               'badge-soft-success': part.status === 'Approved Request',
                               'badge-soft-danger': part.status === 'Rejected Request'
                             }">{{ part.status }}</span>
-                          </td>
+                          </td>                       
                           <td *ngIf="userRole === 3" class="text-center">
                             <div ngbDropdown class="dropdown">
                               <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none"
-                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
-                            Action
-                          </button>
-                          <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                                <a class="dropdown-item" (click)="openViewDetailModal(part)"><i class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
-                                <a class="dropdown-item" (click)="openRemoveConfirmationModal(part.part_id, removeModal)"><i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Remove</a>
+                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
+                                Action
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                                <a class="dropdown-item" (click)="openViewDetailModal(part, viewDetailModal)">
+                                  <i class="ri-eye-fill align-bottom me-2 text-muted"></i>View
+                              </a>
+                                <a class="dropdown-item" (click)="openRemoveConfirmationModal(part.part_id, removeModal)">
+                                  <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>Remove
+                                </a>
                               </div>
                             </div>
                           </td>                                                    
                         </tr>                        
                       </ng-container>
-                
+    
                       <tr class="bg-light text-muted text-center">
                         <td colspan="2" class="fw-bold">Total Stock IN :</td>
                         <td colspan="2">{{ totalIN }}</td>
@@ -258,18 +262,15 @@
             <tr>
               <th class="text-start">Status</th>
               <td>
-                <ng-template #statusTemplate>
-                  <select class="form-select" [(ngModel)]="selectedPart.status" (ngModelChange)="changePartStatus($event)">
-                    <option value="Approved Request" [ngClass]="{'badge-soft-success': 'Approved Request'}">Approved Request</option>
-                    <option value="Rejected Request" [ngClass]="{'badge-soft-danger': 'Rejected Request'}">Rejected Request</option>
-                  </select>
-                </ng-template>
-                <ng-container *ngTemplateOutlet="statusTemplate"></ng-container>
+                <select class="form-select" [(ngModel)]="selectedPart.status">
+                  <option value="Approved Request">Approve Request</option>
+                  <option value="Rejected Request">Reject Request</option>
+                </select>
               </td>
             </tr>
             <!-- Komentar -->
-            <tr>
-              <th class="text-start">Komentar</th>
+            <tr *ngIf="selectedPart.status === 'Rejected Request'">
+              <th class="text-start">Alasan Reject Request</th>
               <td>
                 <textarea class="form-control" [(ngModel)]="comment" rows="3"></textarea>
               </td>
@@ -278,7 +279,7 @@
         </table>
         <!-- Button Approval -->
         <div class="mt-4 text-end">
-          <button type="button" class="btn btn-primary" (click)="submitComment()">Kirim Komentar</button>
+          <button type="button" class="btn btn-primary" (click)="submitApproval()">Kirim Approval</button>
         </div>
       </div>
     </div>

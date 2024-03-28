@@ -111,4 +111,8 @@ export class MaintenanceService {
     return this.http.get(`${this.baseUrl}/master/image-url/${partId}`, { headers });
   }
 
+  submitApproval(partId: number, comment: string): Observable<any> {
+    const approvalData = { partId, comment };
+    return this.http.post(`${this.baseUrl}/approval`, approvalData);
+  }
 }

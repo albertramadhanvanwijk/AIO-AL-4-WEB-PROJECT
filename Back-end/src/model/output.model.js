@@ -56,6 +56,10 @@ const getDetailOutput = async (partId) => await project
     .where('is_deleted', 0)
     .andWhere('id_area', areaId)
 
+  const insertApproval = async (approvalData) => {
+      return await project('approvals').insert(approvalData);
+  }
+
 module.exports = {
     getAll,
     getByIdPart,
@@ -67,4 +71,5 @@ module.exports = {
     totalInByIdPart,
     getDetailOutput,
     totalPrice,
+    insertApproval
 }

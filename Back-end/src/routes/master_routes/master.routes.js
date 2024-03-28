@@ -156,6 +156,7 @@ router.get("/total-remainIn/:partId", OutputController.totalRemainInByPartId);
 router.get("/detail-output/:partId", OutputController.getDetailOutput);
 router.get("/total-price/:areaId", OutputController.getTotalPrice);
 router.get("/output-by-outputPartId/:outputId", OutputController.getOutputByOutputId);
+router.post('/approval', OutputController.insertApproval);
 
 // QUESTIONS
 router.get("/questions", QuizController.getAllQuestions);

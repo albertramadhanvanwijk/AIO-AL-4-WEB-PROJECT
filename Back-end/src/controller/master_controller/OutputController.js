@@ -101,6 +101,17 @@ const getTotalPrice = async (req, res) => {
     }
 }
 
+const insertApproval = async (req, res) => {
+    try {
+        const approvalData = req.body;
+        const result = await ApprovalModel.insertApproval(approvalData);
+        return res.status(200).json({ message: 'Approval saved successfully', approvalId: result[0] });
+    } catch (error) {
+        console.error('Error inserting approval:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+};
+
 
 module.exports = {
     getAllOutputParts,
@@ -113,4 +124,5 @@ module.exports = {
     totalRemainInByPartId,
     getDetailOutput,
     getTotalPrice,
+    insertApproval
 };

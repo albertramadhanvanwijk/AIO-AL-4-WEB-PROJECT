@@ -43,15 +43,6 @@ export class DetailPartComponent {
   pricePart!: number;
   dataPart!: any;
   part: any = {};
-  selectedPart = {
-    description: '',
-    part_number: '',
-    stock_in: 0,
-    stock_out: 0,
-    nama_user: '',
-    keterangan: '',
-    status: 'Awaiting Approval' // Default value for status
-  };
   comment: string = '';
 
   // Data User Login
@@ -68,6 +59,7 @@ export class DetailPartComponent {
   dateOut!: Date;
 
   exportPdf_now: boolean = false;
+  selectedPart: any;
 
   constructor(
     private apiservice: MaintenanceService,
@@ -81,7 +73,7 @@ export class DetailPartComponent {
       'updated_at': [this.dateOut, Validators.required]
     });
     this.dataPart = {};
-
+  
     const savedData = localStorage.getItem('savedData');
     if (savedData) {
       this.selectedPart = JSON.parse(savedData);
@@ -137,15 +129,21 @@ export class DetailPartComponent {
           this.dataOutputPart = res.data;
           this.entires = this.dataOutputPart.length;
           this.qty_stock = res.data[0].qty_stock;
-          this.getTotalIn()
+          this.getTotalIn();
+  
+          // Set default status to "Awaiting Approval" if status is not already set
+          this.dataOutputPart.forEach((part: any) => {
+            if (!part.status) {
+              part.status = "Awaiting Approval";
+            }
+          });
         } else {
           this.isNull = true
           this.dataOutputPart = [];
           this.entires = 0;
           this.qty_stock = 0;
         }
-
-
+  
         this.calculateTotalPages();
         this.updateDisplayOutput();
       }, (error) => {
@@ -153,6 +151,7 @@ export class DetailPartComponent {
       }
     )
   }
+  
 
   getTotalIn() {
     this.apiservice.getTotalRemainInByPartId(this.partId).subscribe(
@@ -280,9 +279,13 @@ export class DetailPartComponent {
     )
   }
 
-  openViewDetailModal(part: any) {
-    this.selectedPart = part; 
-    this.modalService.open(this.viewDetailModal, { centered: true }); 
+  openViewDetailModal(part: any, content: any) {
+    this.selectedPart = { ...part }; // Copy part object to selectedPart
+    // Set default status to "Awaiting Approval" if status is not already set
+    if (!this.selectedPart.status) {
+      this.selectedPart.status = "Awaiting Approval";
+    }
+    this.modalService.open(content, { centered: true });
   }
 
   openRemoveConfirmationModal(partId: number, removeConfirmationModal: any) {
@@ -345,56 +348,34 @@ export class DetailPartComponent {
 
   }
 
-  submitComment() {
-    // Pastikan opsi dipilih dan komentar diisi sebelum mengirim dan menyimpan data
-    if (this.selectedPart.status && this.comment.trim() !== '') {
-      // Kirim data dan komentar yang diisi
-      console.log('Komentar:', this.comment);
-      console.log('Status Part:', this.selectedPart.status);
+  // Function to submit approval
+  submitApproval() {
+    // Here you can implement your logic to submit approval
+    // For demonstration, let's just log the selectedPart and comment
+    console.log('Selected Part:', this.selectedPart);
+    console.log('Comment:', this.comment);
   
-      // Simpan data ke local storage
-      localStorage.setItem('savedData', JSON.stringify(this.selectedPart));
-  
-      // Simpan komentar ke local storage jika diperlukan
-      this.saveCommentToLocalStorage(this.comment);
-  
-      // Lakukan logika pengiriman data sesuai kebutuhan aplikasi Anda
-      // Misalnya, Anda dapat menggunakan layanan HTTP untuk mengirim data ke server
-  
-      // Setelah pengiriman data selesai, kosongkan komentar
-      this.comment = '';
-  
-      // Tutup modal setelah pengiriman data selesai
-      this.closeModal();
-
-      // Tampilkan pesan Sweet Alert setelah berhasil mengirim komentar
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: 'Komentar berhasil dikirim!',
-        showConfirmButton: false,
-        timer: 1500 // Durasi pesan tampil dalam milidetik
-      });
-    } else {
-      // Tampilkan pesan kesalahan jika opsi tidak dipilih atau komentar tidak diisi
-      alert('Silakan pilih opsi dan isi komentar sebelum mengirim.');
+    // Update the status of the selected part in the displayParts array
+    const index = this.displayParts.findIndex(part => part.id === this.selectedPart.id);
+    if (index !== -1) {
+      this.displayParts[index].status = this.selectedPart.status;
     }
+  
+    // Close the modal after approval submission (assuming you're using NgbModal)
+    this.modalService.dismissAll();
+  
+    // Perform any additional actions here, such as sending HTTP request
+    // to update the status in your backend
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Success',
+      text: 'Approval submitted successfully!',
+      showConfirmButton: false,
+      timer: 1500 // Auto close timer (ms)
+    });
   }
   
-
-  closeModal() {
-    // Tutup modal dengan menggunakan NgbModal
-    this.modalService.dismissAll();
-  }
-
-  saveCommentToLocalStorage(comment: string) {
-    // Simpan komentar ke dalam local storage
-    localStorage.setItem('comment', comment);
-  }
-
-  changePartStatus(event: any) {
-    // Metode untuk menangani perubahan status
-  }
   
   
 
