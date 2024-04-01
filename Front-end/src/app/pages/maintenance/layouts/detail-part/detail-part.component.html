@@ -70,20 +70,20 @@
                           </td>                       
                           <td *ngIf="userRole === 3" class="text-center">
                             <div ngbDropdown class="dropdown">
-                              <button hidden="exportPdf_now" class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none"
-                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
-                                Action
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                                <a class="dropdown-item" (click)="openViewDetailModal(part, viewDetailModal)">
-                                  <i class="ri-eye-fill align-bottom me-2 text-muted"></i>View
-                              </a>
-                                <a class="dropdown-item" (click)="openRemoveConfirmationModal(part.part_id, removeModal)">
-                                  <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>Remove
-                                </a>
-                              </div>
+                                <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none action-button"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
+                                    Action
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                                    <a class="dropdown-item" (click)="openViewDetailModal(part, viewDetailModal)">
+                                        <i class="ri-eye-fill align-bottom me-2 text-muted"></i>View
+                                    </a>
+                                    <a class="dropdown-item" (click)="openRemoveConfirmationModal(part.part_id, removeModal)">
+                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>Remove
+                                    </a>
+                                </div>
                             </div>
-                          </td>                                                    
+                        </td>                                                                          
                         </tr>                        
                       </ng-container>
     
