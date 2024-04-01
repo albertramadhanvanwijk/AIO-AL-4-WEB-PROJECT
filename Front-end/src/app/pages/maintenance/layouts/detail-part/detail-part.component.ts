@@ -204,76 +204,74 @@ export class DetailPartComponent {
   }
 
   exportToPDF() {
+    // Hide the action buttons before exporting
+    const actionButtons = document.querySelectorAll('.action-button');
+    actionButtons.forEach(button => {
+      button.classList.add('hidden');
+    });
+  
     const element = document.getElementById('tableToExport');
     const text = `Report Transaction Part`;
-
+  
     if (element) {
-        const pdf = new jsPDF('p', 'px', 'letter');
-        const options = { background: 'white', scale: 2 };
-
-        // Menyembunyikan tombol "Action" hanya ketika mengonversi ke PDF
-        const actionButton = document.querySelector('.action-button');
-        if (actionButton) {
-            actionButton.classList.add('hidden');
-        }
-
-        html2canvas(element, options).then((canvas) => {
-            const imgData = canvas.toDataURL('image/png');
-            const imgWidth = canvas.width;
-            const imgHeight = canvas.height;
-
-            let y = 40;
-
-            pdf.setFontSize(14);
-            pdf.text(`PT Amerta Indah Otsuka`, 30, y);
-            y += 20;
-
-            pdf.setFontSize(18);
-            pdf.text(`${this.titlePart}`, 30, y);
-            y += 20;
-
-            pdf.setFontSize(18);
-            pdf.text(text, 30, y);
-            y += 20;
-
-            pdf.setFontSize(12);
-            pdf.text(`Dept. Produksi AL4`, 30, y);
-            y += 20;
-
-            pdf.setFontSize(12);
-            pdf.text(`_______________________________________________________________________________`, 30, y);
-            y += 20;
-
-            pdf.setFontSize(11);
-            const today = new Date().toLocaleDateString();
-            pdf.text('Tanggal: ' + today, 350, y);
-            y += 15;
-
-            // Adjusting the width and height of the image to fit the PDF page
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = pdf.internal.pageSize.getHeight();
-            const scaleFactor = pdfWidth / imgWidth;
-
-            const finalImgWidth = imgWidth * scaleFactor;
-            const finalImgHeight = imgHeight * scaleFactor;
-
-            // Calculating left and right margins
-            const marginLeft = (pdfWidth - finalImgWidth) / 2;
-            const marginRight = (pdfWidth - finalImgWidth) / 2;
-
-            pdf.addImage(imgData, 'PNG', marginLeft, y, finalImgWidth, finalImgHeight);
-
-            pdf.save('Output_Part.pdf');
-
-            // Menghapus kelas tambahan setelah selesai mengonversi ke PDF
-            if (actionButton) {
-                actionButton.classList.remove('hidden');
-            }
+      const pdf = new jsPDF('p', 'px', 'letter');
+      const options = { background: 'white', scale: 2 };
+  
+      html2canvas(element, options).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+  
+        let y = 40;
+  
+        pdf.setFontSize(14);
+        pdf.text(`PT Amerta Indah Otsuka`, 30, y);
+        y += 20;
+  
+        pdf.setFontSize(18);
+        pdf.text(`${this.titlePart}`, 30, y);
+        y += 20;
+  
+        pdf.setFontSize(18);
+        pdf.text(text, 30, y);
+        y += 20;
+  
+        pdf.setFontSize(12);
+        pdf.text(`Dept. Produksi AL4`, 30, y);
+        y += 20;
+  
+        pdf.setFontSize(12);
+        pdf.text(`_______________________________________________________________________________`, 30, y);
+        y += 20;
+  
+        pdf.setFontSize(11);
+        const today = new Date().toLocaleDateString();
+        pdf.text('Tanggal: ' + today, 350, y);
+        y += 15;
+  
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const scaleFactor = pdfWidth / imgWidth;
+  
+        const finalImgWidth = imgWidth * scaleFactor;
+        const finalImgHeight = imgHeight * scaleFactor;
+  
+        const marginLeft = (pdfWidth - finalImgWidth) / 2;
+        const marginRight = (pdfWidth - finalImgWidth) / 2;
+  
+        pdf.addImage(imgData, 'PNG', marginLeft, y, finalImgWidth, finalImgHeight);
+  
+        pdf.save('Output_Part.pdf');
+  
+        // Show the action buttons after exporting
+        actionButtons.forEach(button => {
+          button.classList.remove('hidden');
         });
+      });
     } else {
-        console.error('Element with ID "tableToExport" not found.');
+      console.error('Element with ID "tableToExport" not found.');
     }
-  }
+  }  
 
   exportPDF() {
     this.exportPdf_now = true;
