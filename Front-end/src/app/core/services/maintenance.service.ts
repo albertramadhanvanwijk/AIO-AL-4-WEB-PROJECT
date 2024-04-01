@@ -115,4 +115,9 @@ export class MaintenanceService {
     const approvalData = { partId, comment };
     return this.http.post(`${this.baseUrl}/approval`, approvalData);
   }
+
+  updateApproval(partId: number, status: string, comment: string): Observable<any> {
+    const requestBody = { status, comment }; // Data yang akan dikirim ke endpoint API
+    return this.http.put(`${this.baseUrl}/approval/${partId}`, requestBody);
+  }
 }

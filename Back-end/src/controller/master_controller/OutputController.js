@@ -112,6 +112,25 @@ const insertApproval = async (req, res) => {
     }
 };
 
+const updateApproval = async (req, res) => {
+    try {
+        const { partId } = req.params;
+        const { status, comment } = req.body;
+        
+        // Panggil model untuk melakukan pembaruan data persetujuan
+        const result = await model.updateApproval(partId, status, comment);
+        
+        // Jika pembaruan berhasil, kembalikan respons berhasil
+        return api.ok(res, { message: 'Approval updated successfully' });
+    } catch (error) {
+        console.error('Error updating approval:', error);
+        return api.error(res, "Internal Server Error", 500);
+    }
+};
+
+
+
+
 
 module.exports = {
     getAllOutputParts,
@@ -124,5 +143,6 @@ module.exports = {
     totalRemainInByPartId,
     getDetailOutput,
     getTotalPrice,
-    insertApproval
+    insertApproval,
+    updateApproval
 };

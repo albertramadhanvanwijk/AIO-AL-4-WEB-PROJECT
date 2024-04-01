@@ -157,6 +157,7 @@ router.get("/detail-output/:partId", OutputController.getDetailOutput);
 router.get("/total-price/:areaId", OutputController.getTotalPrice);
 router.get("/output-by-outputPartId/:outputId", OutputController.getOutputByOutputId);
 router.post('/approval', OutputController.insertApproval);
+router.put('/approval/:partId', OutputController.updateApproval);
 
 // QUESTIONS
 router.get("/questions", QuizController.getAllQuestions);

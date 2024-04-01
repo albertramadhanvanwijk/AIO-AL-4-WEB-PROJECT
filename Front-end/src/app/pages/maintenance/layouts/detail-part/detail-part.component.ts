@@ -356,9 +356,9 @@ export class DetailPartComponent {
   }
 
   // Function to submit approval
-  submitApproval(): void {
+  submitApproval(partId: number, comment: string): void {
     console.log('Selected Part:', this.selectedPart);
-    console.log('Comment:', this.comment);
+    console.log('Comment:', comment);
 
     // Reset komentar hanya jika status baru adalah 'Approved Request' atau 'Rejected Request'
     if (this.selectedPart.status === 'Rejected Request') {
@@ -366,17 +366,66 @@ export class DetailPartComponent {
       this.comment = ''; // Reset juga nilai komentar di dalam komponen
     }
 
-    // Setelah menyimpan perubahan status, Anda bisa menutup modal jika perlu
-    this.modalService.dismissAll();
-    
-    // Tampilkan notifikasi SweetAlert jika persetujuan berhasil disubmit
-    Swal.fire({
-      icon: 'success',
-      title: 'Success',
-      text: 'Approval submitted successfully!',
-      showConfirmButton: false,
-      timer: 1500 // Auto close timer (ms)
-    });
+    // Panggil metode service untuk menyimpan status approval
+    this.apiservice.submitApproval(partId, comment).subscribe(
+      (res: any) => {
+        // Jika penyimpanan berhasil, tampilkan notifikasi SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Approval submitted successfully!',
+          showConfirmButton: false,
+          timer: 1500 // Auto close timer (ms)
+        });
+
+        // Setelah penyimpanan berhasil, Anda bisa menutup modal jika perlu
+        this.modalService.dismissAll();
+      },
+      (error: any) => {
+        // Jika terjadi kesalahan saat penyimpanan, tampilkan pesan kesalahan
+        console.error('Error saving approval status:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to submit approval. Please try again later.',
+          showConfirmButton: true
+        });
+      }
+    );
+  }
+
+  updateApproval(partId: number, comment: string): void {
+    if (this.selectedPart.status === 'Rejected Request') {
+      this.selectedPart.comment = '';
+      this.comment = '';
+    }
+    this.apiservice.submitApproval(partId, comment).subscribe(
+      (res: any) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Approval submitted successfully!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        this.modalService.dismissAll();
+      },
+      (error: any) => {
+        console.error('Error saving approval status:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to submit approval. Please try again later.',
+          showConfirmButton: true
+        });
+      }
+    );
+  }
+
+  onStatusChange(part: any): void {
+    const newStatus = part.status;
+    const partId = part.partId;
+    this.updateApproval(partId, newStatus);
   }
 
 }
