@@ -1,4 +1,4 @@
-import { Component, Output, Input, ViewChild } from '@angular/core';
+import { Component, Output, Input, ViewChild, TemplateRef } from '@angular/core';
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -44,6 +44,8 @@ export class DetailPartComponent {
   dataPart!: any;
   part: any = {};
   comment: string = '';
+  selectedOutputPartId: number | null = null;
+
 
   // Data User Login
   userRole!: any;
@@ -289,13 +291,10 @@ export class DetailPartComponent {
     )
   }
 
-  openViewDetailModal(part: any, content: any) {
-    this.selectedPart = { ...part }; // Copy part object to selectedPart
-    // Set default status to "Awaiting Approval" if status is not already set
-    if (!this.selectedPart.status) {
-      this.selectedPart.status = "Awaiting Approval";
-    }
-    this.modalService.open(content, { centered: true });
+  // Fungsi untuk membuka modal detail informasi
+  openViewDetailModal(part: any, viewDetailModal: TemplateRef<any>) {
+    this.selectedPart = part; // Mengatur selectedPart sesuai dengan bagian yang dipilih
+    this.modalService.open(viewDetailModal, { centered: true }); // Membuka modal dengan template viewDetailModal
   }
 
   openRemoveConfirmationModal(partId: number, removeConfirmationModal: any) {
@@ -359,24 +358,20 @@ export class DetailPartComponent {
   }
 
   // Function to submit approval
-  submitApproval() {
-    // Here you can implement your logic to submit approval
-    // For demonstration, let's just log the selectedPart and comment
+  submitApproval(): void {
     console.log('Selected Part:', this.selectedPart);
     console.log('Comment:', this.comment);
-  
-    // Update the status of the selected part in the displayParts array
-    const index = this.displayParts.findIndex(part => part.id === this.selectedPart.id);
-    if (index !== -1) {
-      this.displayParts[index].status = this.selectedPart.status;
-    }
-  
-    // Close the modal after approval submission (assuming you're using NgbModal)
-    this.modalService.dismissAll();
-  
-    // Perform any additional actions here, such as sending HTTP request
-    // to update the status in your backend
 
+    // Reset komentar hanya jika status baru adalah 'Approved Request' atau 'Rejected Request'
+    if (this.selectedPart.status === 'Rejected Request') {
+      this.selectedPart.comment = ''; // Reset komentar
+      this.comment = ''; // Reset juga nilai komentar di dalam komponen
+    }
+
+    // Setelah menyimpan perubahan status, Anda bisa menutup modal jika perlu
+    this.modalService.dismissAll();
+    
+    // Tampilkan notifikasi SweetAlert jika persetujuan berhasil disubmit
     Swal.fire({
       icon: 'success',
       title: 'Success',
@@ -385,6 +380,14 @@ export class DetailPartComponent {
       timer: 1500 // Auto close timer (ms)
     });
   }
+
+
+  
+  
+
+  
+  
+  
   
   
   
