@@ -379,15 +379,4 @@ export class DetailPartComponent {
     });
   }
 
-
-  
-  
-
-  
-  
-  
-  
-  
-  
-
 }
