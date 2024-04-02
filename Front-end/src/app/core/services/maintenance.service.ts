@@ -110,14 +110,20 @@ export class MaintenanceService {
     const headers = this.authService.getHeaders();
     return this.http.get(`${this.baseUrl}/master/image-url/${partId}`, { headers });
   }
+  
+  // updatePartStatus(partId: number, approvalStatus: string, comment: string): Observable<any> {
+  //   const headers = this.authService.getHeaders();
+  //   const body = { partId, approvalStatus, comment };
+  //   return this.http.post(`${this.baseUrl}/master/approval`, body, { headers });
+  // }  
 
-  submitApproval(partId: number, comment: string): Observable<any> {
-    const approvalData = { partId, comment };
-    return this.http.post(`${this.baseUrl}/approval`, approvalData);
+  updatePartStatus(partId: number, status: string, comment: string): Observable<any> {
+    const requestBody = {
+      status: status,
+      comment: comment
+    };
+    return this.http.put(`${this.baseUrl}/master/output/${partId}`, requestBody);
   }
 
-  updateApproval(partId: number, status: string, comment: string): Observable<any> {
-    const requestBody = { status, comment }; // Data yang akan dikirim ke endpoint API
-    return this.http.put(`${this.baseUrl}/approval/${partId}`, requestBody);
-  }
+
 }

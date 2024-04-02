@@ -101,36 +101,25 @@ const getTotalPrice = async (req, res) => {
     }
 }
 
-const insertApproval = async (req, res) => {
+const updatePartStatus = async (req, res) => {
+    const outputId = req.params.outputId;
+    const { status, comment } = req.body;
+  
     try {
-        const approvalData = req.body;
-        const result = await ApprovalModel.insertApproval(approvalData);
-        return res.status(200).json({ message: 'Approval saved successfully', approvalId: result[0] });
+      // Update the status of the output part in the database
+      const updatedOutput = await model.update(outputId, { status, comment });
+  
+      // Check if the output was updated successfully
+      if (updatedOutput) {
+        return api.ok(res, updatedOutput);
+      } else {
+        return api.error(res, "Output part not found", 404);
+      }
     } catch (error) {
-        console.error('Error inserting approval:', error);
-        return res.status(500).json({ error: 'Internal server error' });
+      console.error(error);
+      return api.error(res, "Internal Server Error", 500);
     }
-};
-
-const updateApproval = async (req, res) => {
-    try {
-        const { partId } = req.params;
-        const { status, comment } = req.body;
-        
-        // Panggil model untuk melakukan pembaruan data persetujuan
-        const result = await model.updateApproval(partId, status, comment);
-        
-        // Jika pembaruan berhasil, kembalikan respons berhasil
-        return api.ok(res, { message: 'Approval updated successfully' });
-    } catch (error) {
-        console.error('Error updating approval:', error);
-        return api.error(res, "Internal Server Error", 500);
-    }
-};
-
-
-
-
+  };
 
 module.exports = {
     getAllOutputParts,
@@ -143,6 +132,5 @@ module.exports = {
     totalRemainInByPartId,
     getDetailOutput,
     getTotalPrice,
-    insertApproval,
-    updateApproval
+    updatePartStatus
 };

@@ -44,7 +44,6 @@ export class DetailPartComponent {
   dataPart!: any;
   part: any = {};
   comment: string = '';
-  selectedOutputPartId: number | null = null;
 
 
   // Data User Login
@@ -356,76 +355,26 @@ export class DetailPartComponent {
   }
 
   // Function to submit approval
-  submitApproval(partId: number, comment: string): void {
-    console.log('Selected Part:', this.selectedPart);
-    console.log('Comment:', comment);
-
-    // Reset komentar hanya jika status baru adalah 'Approved Request' atau 'Rejected Request'
-    if (this.selectedPart.status === 'Rejected Request') {
-      this.selectedPart.comment = ''; // Reset komentar
-      this.comment = ''; // Reset juga nilai komentar di dalam komponen
+  submitApproval() {
+    if (this.selectedPart.status === 'Rejected Request' && !this.comment.trim()) {
+      Swal.fire('Error', 'Please provide a reason for rejecting the request.', 'error');
+      return;
     }
-
-    // Panggil metode service untuk menyimpan status approval
-    this.apiservice.submitApproval(partId, comment).subscribe(
+    this.selectedPart.status = this.selectedPart.status === 'Approved Request' ? 'Approved Request' : 'Rejected Request';
+    if (this.selectedPart.status === 'Rejected Request') {
+      this.selectedPart.comment = this.comment;
+    }
+    this.apiservice.updatePartStatus(this.selectedPart.id, this.selectedPart.status, this.comment).subscribe(
       (res: any) => {
-        // Jika penyimpanan berhasil, tampilkan notifikasi SweetAlert
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Approval submitted successfully!',
-          showConfirmButton: false,
-          timer: 1500 // Auto close timer (ms)
-        });
-
-        // Setelah penyimpanan berhasil, Anda bisa menutup modal jika perlu
+        console.log(res);
         this.modalService.dismissAll();
+        Swal.fire('Success', 'Status updated successfully.', 'success');
       },
-      (error: any) => {
-        // Jika terjadi kesalahan saat penyimpanan, tampilkan pesan kesalahan
-        console.error('Error saving approval status:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to submit approval. Please try again later.',
-          showConfirmButton: true
-        });
+      error => {
+        console.error(error);
+        Swal.fire('Error', 'Failed to update status. Please try again.', 'error');
       }
     );
   }
-
-  updateApproval(partId: number, comment: string): void {
-    if (this.selectedPart.status === 'Rejected Request') {
-      this.selectedPart.comment = '';
-      this.comment = '';
-    }
-    this.apiservice.submitApproval(partId, comment).subscribe(
-      (res: any) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Approval submitted successfully!',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        this.modalService.dismissAll();
-      },
-      (error: any) => {
-        console.error('Error saving approval status:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Failed to submit approval. Please try again later.',
-          showConfirmButton: true
-        });
-      }
-    );
-  }
-
-  onStatusChange(part: any): void {
-    const newStatus = part.status;
-    const partId = part.partId;
-    this.updateApproval(partId, newStatus);
-  }
-
-}
+  
+}  

@@ -56,28 +56,29 @@ const totalPrice = async (areaId) => await project
     .where('is_deleted', 0)
     .andWhere('id_area', areaId)
 
-const insertApproval = async (approvalData) => {
-    return await project('approvals').insert(approvalData);
-}
-
-const updateApproval = async (partId, newData) => {
-    const { status, comment } = newData;
-    await project('approvals')
-        .where('part_id', '=', partId)
+const updatePartStatus = async (outputpart_id, status, comment) => {
+    try {
+        const updatedRows = await project('output_part')
+        .where('outputpart_id', '=', outputpart_id)
         .update({ status, comment });
+
+        return updatedRows > 0; // Return true if rows were updated, false otherwise
+    } catch (error) {
+        console.error(error);
+        throw new Error('Failed to update part status');
+    }
 };
 
 module.exports = {
-    getAll,
-    getByIdPart,
-    getByOutputId,
-    insert,
-    update,
-    softDelete,
-    totalOutByIdPart,
-    totalInByIdPart,
-    getDetailOutput,
-    totalPrice,
-    insertApproval,
-    updateApproval
-}
+getAll,
+getByIdPart,
+getByOutputId,
+insert,
+update,
+softDelete,
+totalOutByIdPart,
+totalInByIdPart,
+getDetailOutput,
+totalPrice,
+updatePartStatus
+};
