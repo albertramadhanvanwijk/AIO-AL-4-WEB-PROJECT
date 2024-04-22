@@ -356,25 +356,33 @@ export class DetailPartComponent {
 
   // Function to submit approval
   submitApproval() {
+    // Memeriksa apakah status part adalah 'Rejected Request' dan komentar tidak diisi
     if (this.selectedPart.status === 'Rejected Request' && !this.comment.trim()) {
-      Swal.fire('Error', 'Please provide a reason for rejecting the request.', 'error');
+      Swal.fire('Error', 'Harap berikan alasan untuk menolak permintaan.', 'error');
       return;
     }
+    
+    // Mengubah status part menjadi 'Approved Request' jika belum disetujui
     this.selectedPart.status = this.selectedPart.status === 'Approved Request' ? 'Approved Request' : 'Rejected Request';
+    
+    // Jika status part adalah 'Rejected Request', menyimpan komentar
     if (this.selectedPart.status === 'Rejected Request') {
       this.selectedPart.comment = this.comment;
     }
+    
+    // Mengirim permintaan untuk memperbarui status part ke backend
     this.apiservice.updatePartStatus(this.selectedPart.id, this.selectedPart.status, this.comment).subscribe(
       (res: any) => {
         console.log(res);
         this.modalService.dismissAll();
-        Swal.fire('Success', 'Status updated successfully.', 'success');
+        Swal.fire('Success', 'Status berhasil diperbarui.', 'success');
       },
       error => {
         console.error(error);
-        Swal.fire('Error', 'Failed to update status. Please try again.', 'error');
+        Swal.fire('Error', 'Gagal memperbarui status. Silakan coba lagi.', 'error');
       }
     );
   }
+
   
 }  

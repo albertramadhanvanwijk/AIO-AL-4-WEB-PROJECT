@@ -110,19 +110,13 @@ export class MaintenanceService {
     const headers = this.authService.getHeaders();
     return this.http.get(`${this.baseUrl}/master/image-url/${partId}`, { headers });
   }
-  
-  // updatePartStatus(partId: number, approvalStatus: string, comment: string): Observable<any> {
-  //   const headers = this.authService.getHeaders();
-  //   const body = { partId, approvalStatus, comment };
-  //   return this.http.post(`${this.baseUrl}/master/approval`, body, { headers });
-  // }  
 
   updatePartStatus(partId: number, status: string, comment: string): Observable<any> {
-    const requestBody = {
+    const headers = {
       status: status,
       comment: comment
     };
-    return this.http.put(`${this.baseUrl}/master/output/${partId}`, requestBody);
+    return this.http.put(`${this.baseUrl}/master/output/${partId}`, headers);
   }
 
 
