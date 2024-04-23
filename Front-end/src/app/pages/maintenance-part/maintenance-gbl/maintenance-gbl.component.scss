@@ -1,3 +1,6 @@
+// // @import '~ngx-red-zoom/styles/base.scss';
+// @import '~ngx-red-zoom/styles/style-magnifier.scss';
+
 .btn-add {
     background-color: #2A76B2;
     color: #fff;
@@ -7,3 +10,11 @@
     vertical-align: middle;
     text-align: center;
 }
+.table {
+    overflow-y: auto;
+}
+// .red-zoom--style--custom {
+//     @include red-zoom-style-magnifier(
+//         // you settings here
+//     );
+// }

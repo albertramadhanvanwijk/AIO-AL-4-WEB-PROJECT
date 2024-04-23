@@ -19,6 +19,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 
+// import {NgxImageZoomModule} from 'ngx-image-zoom';
+// // import { RedZoomModule } from 'ngx-red-zoom';
+// import { NgxDropzoneModule } from 'ngx-dropzone'; // For CommonJS modules
 
 
 
@@ -49,7 +52,9 @@ export function createTranslateLoader(http: HttpClient): any {
     LayoutsModule,
     PagesModule,
     Ng2SearchPipeModule,
-    FormsModule
+    FormsModule,
+    // NgxImageZoomModule,
+    // NgxDropzoneModule
   ],
   providers: [
     AuthGuard

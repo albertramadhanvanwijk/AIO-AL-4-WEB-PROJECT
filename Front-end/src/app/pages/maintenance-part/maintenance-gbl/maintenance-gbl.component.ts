@@ -12,7 +12,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./maintenance-gbl.component.scss']
 })
 export class MaintenanceGblComponent {
- // BreadCrumb
+  title = ''
+ 
+  imageUrl: string = 'path/to/fullresimage.jpg';
+  // scaleRange: number = 1;
+  // xValue: number = 0;
+  // yValue: number = 0;
+
+  // BreadCrumb
  breadCrumbItems!: Array<{}>;
   
  // PAGINATION
@@ -46,13 +53,40 @@ export class MaintenanceGblComponent {
  stockRemain: any;
 
 
- constructor(private apiservice: MaintenanceService, private modalService: NgbModal, private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
+ constructor(private apiservice: MaintenanceService, private modalService: NgbModal, private authService: AuthService, private route: ActivatedRoute, private router: Router) { 
+    // this.imageUrl = 'path/to/fullresimage.jpg'; // Isi dengan URL gambar default jika ada
+    // this.scaleRange = 1;
+    // this.xValue = 0;
+    // this.yValue = 0;
+ }
 
- ngOnInit() {
+ ngOnInit(): void{
    this.getParams();
    this.getBreadCrumbItems();
    this.getDataUserLogin();
+  //  let myNumber: number;
+  //   myNumber = 10;
+
+  //   // Gunakan variabel myNumber di sini sesuai kebutuhan
+  //   console.log(myNumber);
+   
  }
+
+//  valueChanged(value: number) {
+//   if (value === 1) {
+//     this.scaleRange = 1;
+//   } else {
+//     this.scaleRange = value;
+//   }
+// }
+
+// scroll(magnification: number) {
+//   this.scaleRange = magnification;
+// }
+// mouseMove(event: MouseEvent) {
+//     this.xValue = event.clientX;
+//     this.yValue = event.clientY;
+// }
 
  getDataUserLogin(){
    const role = parseInt(this.authService.getRoleID());

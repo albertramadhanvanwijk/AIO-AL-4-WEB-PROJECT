@@ -90,6 +90,18 @@ import { DetailPartEnmixComponent } from './maintenance-part/maintenance-enmix/l
 import { UpdatePartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/update-part-enmix/update-part-enmix.component';
 import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/detail-part-enmix/add-output-enmix/add-output-enmix.component';
 
+// import {ImageZoomModule} from 'angular2-image-zoom';
+
+import { NgxDropzoneModule } from 'ngx-dropzone';
+import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+
+const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
+  url: 'https://httpbin.org/post',
+  maxFilesize: 50,
+  acceptedFiles: 'image/*'
+};
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -179,8 +191,16 @@ import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/la
     CKEditorModule,
     NgbPaginationModule,
     ExportAsModule,
+    NgxDropzoneModule
+    // ImageZoomModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    {
+      provide: DROPZONE_CONFIG,
+      useValue: DEFAULT_DROPZONE_CONFIG
+    }
+  ]
 })
 export class PagesModule {
   constructor() {

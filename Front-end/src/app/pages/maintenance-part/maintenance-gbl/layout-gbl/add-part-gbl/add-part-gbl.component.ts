@@ -11,6 +11,7 @@ declare var $: any;
   styleUrls: ['./add-part-gbl.component.scss']
 })
 export class AddPartGblComponent {
+
   // bread crumb items
   breadCrumbItems!: Array<{}>;
   
@@ -55,9 +56,9 @@ export class AddPartGblComponent {
   }
 
   onFileSelected(event: any) {
-      this.selectedFile = event.target.files[0];
-      console.log(this.selectedFile);
-    }
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);     
+  }
 
   uploadFile() {
       const formData = new FormData();

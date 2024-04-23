@@ -49,9 +49,12 @@ export class AddOutputComponent {
     breadCrumbItem(){
       this.breadCrumbItems = [
         { label: 'List Output' },
-        { label: 'Add output'}
+        { label: 'Add output'},
+        { label: 'Forms' },
+        { label: 'File Upload', active: true }
       ];
     }
+
 
     getParamsId(){
       this.route.paramMap.subscribe(params => {

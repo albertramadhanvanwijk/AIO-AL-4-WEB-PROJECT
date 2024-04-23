@@ -81,10 +81,10 @@
                             <a class="dropdown-item" (click)="viewModal(part.part_id, viewImage)">
                                 <i class="ri-image-fill align-bottom me-2 text-muted"></i> View Picture
                                 </a>
-                            <a *ngIf="userRole === 4" class="dropdown-item"
+                            <!-- <a *ngIf="userRole === 4" class="dropdown-item"
                               [routerLink]="['/update-part-gbl', part.part_id, part.id_area]"><i
                                 class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
-                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-divider"></div> -->
                             <a (click)="modelRefurbished(part.part_id)" *ngIf="userRole === 4 && areaId !== 6"
                               class="dropdown-item" data-bs-toggle="modal" data-bs-target="#refurbishedModal">
                               <i class="ri-share-box-line align-bottom me-2 text-muted"></i> Refurbished</a>
@@ -154,7 +154,9 @@
           <thead>
             <tr class="bg-light text-muted text-center">
               <th>Image Part</th>
+              <th>Description</th>
               <th>Place</th>
+              <th>PIC</th>
             </tr>
           </thead>
           <tbody>
@@ -165,11 +167,29 @@
               <tr class="text-center">
                 <td style="text-align: center;">
                   <div class="card1" style="display: inline-block; text-align: center;">
-                    <img [src]="getImgFile(part.image)" alt=""
-                      style="max-width: 130%; height: auto; object-fit: contain;">
-                  </div>
-                </td>
+                  
+                    <img [src]="getImgFile(part.image)" alt="" style="max-width: 130%; height: auto; object-fit: contain;">
+                    
+                    <!-- <ngx-image-zoom
+                        (zoomScroll)="scroll($event)"
+                        (zoomPosition)="mouseMove($event)"
+                        zoomMode="toggle-click"
+                        [thumbImage]="part.image"
+                        [fullImage]="part.image"
+                        maxZoomRatio="10"
+                        [scrollStepSize]=".1"
+                        magnification="1"
+                        enableScrollZoom="true"
+                        altText="img-not-found">
+                    </ngx-image-zoom> -->
+                
+                </div>
+                <!-- <input type="range" min="1" max="10" step=".1" [(ngModel)]="scaleRange" class="form-range"
+                    style="width: 150px; height: 50px;" #ref (input)="valueChanged(ref.value)">
+                <td>-</td> -->
                 <td>{{part.place}}</td>
+                <td></td>
+                <td></td>
               </tr>
             </ng-container>
           </tbody>
@@ -177,3 +197,12 @@
       </div>
     </div>
   </ng-template>
+
+
+  <!-- [thumbImage]="getImgFile(part.image)"
+  [fullImage]="getImgFile(part.image)"
+  [magnification]="1"
+  [enableScrollZoom]="true"
+  [enableLens]="true"
+  [lensWidth]="200"
+  [lensHeight]="200" -->
