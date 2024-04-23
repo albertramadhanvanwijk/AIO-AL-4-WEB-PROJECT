@@ -222,6 +222,11 @@ export class DetailPartComponent {
     actionButtons.forEach(button => {
       button.classList.add('hidden');
     });
+    // Hide the action table before exporting
+    const actionTable = document.querySelectorAll('.action-table');
+    actionTable.forEach(button => {
+      button.classList.add('hidden');
+    });
   
     const element = document.getElementById('tableToExport');
     const text = `Report Transaction Part`;

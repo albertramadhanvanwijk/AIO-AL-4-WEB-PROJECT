@@ -42,7 +42,7 @@
                         <th>Description</th>
                         <th>Information</th>
                         <th>Status</th>
-                        <th *ngIf="userRole === 3">Action</th>
+                        <th *ngIf="userRole === 3" class="action-table">Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -72,7 +72,6 @@
                             <div ngbDropdown class="dropdown">
                               <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none action-button"
                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
-                                  Action
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
                                   <a class="dropdown-item" (click)="openViewDetailModal(part, viewDetailModal)">
