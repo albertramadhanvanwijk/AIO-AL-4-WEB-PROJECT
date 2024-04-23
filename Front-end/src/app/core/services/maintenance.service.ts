@@ -112,11 +112,14 @@ export class MaintenanceService {
   }
 
   updatePartStatus(partId: number, status: string, comment: string): Observable<any> {
-    const headers = {
-      status: status,
-      comment: comment
+    const headers = this.authService.getHeaders();
+
+    const body = {
+      approval_status: status,
+      komentar: comment
     };
-    return this.http.put(`${this.baseUrl}/master/output/${partId}`, headers);
+
+    return this.http.put(`${this.baseUrl}/master/output/${partId}`, body, { headers });
   }
 
 

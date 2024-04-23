@@ -131,7 +131,7 @@ export class DetailPartComponent {
           this.entires = this.dataOutputPart.length;
           this.qty_stock = res.data[0].qty_stock;
           this.getTotalIn();
-  
+
           // Set default status to "Awaiting Approval" if status is not already set
           this.dataOutputPart.forEach((part: any) => {
             if (!part.status) {
@@ -196,7 +196,8 @@ export class DetailPartComponent {
           return false;
         }
       }
-
+      
+      
       return true;
     });
 
@@ -328,6 +329,7 @@ export class DetailPartComponent {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.displayParts = this.dataOutputPart.slice(startIndex, endIndex);
+    console.log(this.displayParts);
   }
   nextPage() {
     if (this.currentPage < this.totalPages) {
@@ -369,9 +371,9 @@ export class DetailPartComponent {
     if (this.selectedPart.status === 'Rejected Request') {
       this.selectedPart.comment = this.comment;
     }
-    
+
     // Mengirim permintaan untuk memperbarui status part ke backend
-    this.apiservice.updatePartStatus(this.selectedPart.id, this.selectedPart.status, this.comment).subscribe(
+    this.apiservice.updatePartStatus(this.selectedPart.outputpart_id, this.selectedPart.status, this.comment).subscribe(
       (res: any) => {
         console.log(res);
         this.modalService.dismissAll();
