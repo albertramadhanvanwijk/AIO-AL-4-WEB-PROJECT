@@ -140,7 +140,7 @@ const routes: Routes = [
 
   // PAGE MAINTENANCE
   {
-    path: 'maintenance',
+    path: 'maintenance/1',
     component: FirstPageComponent,
   },
   {
@@ -173,7 +173,7 @@ const routes: Routes = [
     component: MaintenancePetComponent,
   },
   {
-    path: 'maintenance-pet',
+    path: 'maintenance/3',
     component: FirstPagePetComponent,
   },
   {
@@ -199,7 +199,7 @@ const routes: Routes = [
     component: MaintenanceGblComponent,
   },
   {
-    path: 'maintenance-gbl',
+    path: 'maintenance/4',
     component: FirstPageGblComponent,
   },
   {
@@ -224,7 +224,7 @@ const routes: Routes = [
     component: MaintenanceCanComponent,
   },
   {
-    path: 'maintenance-can',
+    path: 'maintenance/2',
     component: FirstPageCanComponent,
   },
   {

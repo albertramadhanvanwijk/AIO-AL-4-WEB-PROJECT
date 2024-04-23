@@ -101,6 +101,26 @@ const getTotalPrice = async (req, res) => {
     }
 }
 
+const updatePartStatus = async (req, res) => {
+    const outputId = req.params.outputId;
+    const { status, comment } = req.body;
+  
+    try {
+      // Update the status of the output part in the database
+      const updatedOutput = await model.update(outputId, { status, comment });
+  
+      // Check if the output was updated successfully
+      if (updatedOutput) {
+        return api.ok(res, updatedOutput);
+      } else {
+        return api.error(res, "Output part not found", 404);
+      }
+    } catch (error) {
+      console.error(error);
+      return api.error(res, "Internal Server Error", 500);
+    }
+  };
+
 module.exports = {
     getAllOutputParts,
     getOutputByOutputId,
@@ -111,5 +131,6 @@ module.exports = {
     totalRemainOutByPartId,
     totalRemainInByPartId,
     getDetailOutput,
-    getTotalPrice
-}
+    getTotalPrice,
+    updatePartStatus
+};

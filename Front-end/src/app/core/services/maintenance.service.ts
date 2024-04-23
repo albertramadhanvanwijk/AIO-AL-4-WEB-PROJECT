@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class MaintenanceService {
   private baseUrl = environment.apiUrl;
+  getPartOutputById: any;
+  deleteDetailOutput: any;
 
   constructor(private http: HttpClient, private authService: AuthService) { 
    }
@@ -60,7 +62,7 @@ export class MaintenanceService {
       "is_deleted": 1
     };
     return this.http.put(`${this.baseUrl}/master/delete-part/${partId}`, data, { headers });
-  }
+  }  
 
   getAllStockRemain(): Observable<any> {
     const headers = this.authService.getHeaders();
@@ -87,6 +89,8 @@ export class MaintenanceService {
     return this.http.get(`${this.baseUrl}/master/detail-output/${partId}`, { headers });
   }
 
+  
+
   insertOutput(data: any): Observable<any> {
     const headers = this.authService.getHeaders();
     return this.http.post(`${this.baseUrl}/master/output`, data, { headers });
@@ -106,4 +110,14 @@ export class MaintenanceService {
     const headers = this.authService.getHeaders();
     return this.http.get(`${this.baseUrl}/master/image-url/${partId}`, { headers });
   }
+
+  updatePartStatus(partId: number, status: string, comment: string): Observable<any> {
+    const headers = {
+      status: status,
+      comment: comment
+    };
+    return this.http.put(`${this.baseUrl}/master/output/${partId}`, headers);
+  }
+
+
 }
