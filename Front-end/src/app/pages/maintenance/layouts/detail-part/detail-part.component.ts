@@ -130,8 +130,18 @@ export class DetailPartComponent {
           this.dataOutputPart = res.data;
           this.entires = this.dataOutputPart.length;
           this.qty_stock = res.data[0].qty_stock;
-          this.getTotalIn();
-
+          this.totalIN = 0; // Reset totalIN
+          this.pricePart = res.data[0].price;
+  
+          // Iterate through dataOutputPart and calculate totalIN based on approval status
+          this.dataOutputPart.forEach((part: any) => {
+            if (part.status === 'Approved Request') {
+              this.totalIN += part.stock_in;
+              this.totalIN -= part.stock_out; // Reduce totalIN by stock_out
+            }
+            // You can handle 'Rejected Request' status if needed
+          });
+  
           // Set default status to "Awaiting Approval" if status is not already set
           this.dataOutputPart.forEach((part: any) => {
             if (!part.status) {
@@ -143,6 +153,7 @@ export class DetailPartComponent {
           this.dataOutputPart = [];
           this.entires = 0;
           this.qty_stock = 0;
+          this.totalIN = 0; // Reset totalIN when there is no data
         }
   
         this.calculateTotalPages();
@@ -152,6 +163,8 @@ export class DetailPartComponent {
       }
     )
   }
+  
+  
   
 
   getTotalIn() {
@@ -363,19 +376,29 @@ export class DetailPartComponent {
       Swal.fire('Error', 'Harap berikan alasan untuk menolak permintaan.', 'error');
       return;
     }
-    
+  
     // Mengubah status part menjadi 'Approved Request' jika belum disetujui
     this.selectedPart.status = this.selectedPart.status === 'Approved Request' ? 'Approved Request' : 'Rejected Request';
-    
+  
     // Jika status part adalah 'Rejected Request', menyimpan komentar
     if (this.selectedPart.status === 'Rejected Request') {
       this.selectedPart.comment = this.comment;
     }
-
+  
     // Mengirim permintaan untuk memperbarui status part ke backend
     this.apiservice.updatePartStatus(this.selectedPart.outputpart_id, this.selectedPart.status, this.comment).subscribe(
       (res: any) => {
         console.log(res);
+        // Update totalIN based on the changed status
+        if (this.selectedPart.status === 'Approved Request') {
+          this.totalIN += this.selectedPart.stock_in;
+          this.totalIN -= this.selectedPart.stock_out;
+        } else if (this.selectedPart.status === 'Rejected Request') {
+          // If rejected, revert the changes to totalIN
+          this.totalIN -= this.selectedPart.stock_in;
+        }
+        
+        // Close the modal and show success message
         this.modalService.dismissAll();
         Swal.fire('Success', 'Status berhasil diperbarui.', 'success');
       },
@@ -385,6 +408,7 @@ export class DetailPartComponent {
       }
     );
   }
+  
 
   
 }  
