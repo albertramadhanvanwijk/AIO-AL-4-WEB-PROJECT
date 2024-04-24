@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment.prod';
 import Swal from 'sweetalert2';
 
 
@@ -62,6 +63,9 @@ export class DetailPartComponent {
   exportPdf_now: boolean = false;
   selectedPart: any;
 
+  //Data Parts
+  dataPartById:any;
+
   constructor(
     private apiservice: MaintenanceService,
     private modalService: NgbModal,
@@ -107,6 +111,10 @@ export class DetailPartComponent {
   getDataUserLogin() {
     const role = parseInt(this.authService.getRoleID());
     this.userRole = role
+  }
+
+  getImgFile(file: any) {
+    return environment.apiUrl + '/file/' + file
   }
 
   // DATE FORMATTERS
@@ -164,8 +172,18 @@ export class DetailPartComponent {
     )
   }
   
-  
-  
+// MODAL DELETE
+centerModal(partId: number, removeModal: any) {
+  this.partId = partId;
+  this.modalService.open(removeModal, { centered: true });
+}
+
+  // MODAL View
+  viewModal(partId: number, viewImage: any) {
+    this.partId = partId;
+    this.getPartById();
+    this.modalService.open(viewImage, { centered: true, size: 'lg' });
+  }
 
   getTotalIn() {
     this.apiservice.getTotalRemainInByPartId(this.partId).subscribe(
@@ -182,6 +200,15 @@ export class DetailPartComponent {
         this.titlePart = res.data[0].description;
       }
     )
+  }
+
+  getPartById(){
+    this.apiservice.getPartById(this.partId).subscribe(
+      (res: any) => {
+        this.dataPartById = res.data;
+        console.log(this.dataPartById);
+        
+    })
   }
 
   // Filter Date

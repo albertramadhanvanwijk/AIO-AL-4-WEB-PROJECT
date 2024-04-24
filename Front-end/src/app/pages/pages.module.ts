@@ -4,11 +4,17 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 
+// Mask
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask, IConfig } from 'ngx-mask'
+
 import {
   NgbToastModule,
   NgbProgressbarModule,
 } from '@ng-bootstrap/ng-bootstrap';
 
+import { DropzoneModule } from 'ngx-dropzone-wrapper';
+import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
+import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CountToModule } from 'angular-count-to';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -90,6 +96,13 @@ import { AddPartEnmixComponent } from './maintenance-part/maintenance-enmix/layo
 import { DetailPartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/detail-part-enmix/detail-part-enmix.component';
 import { UpdatePartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/update-part-enmix/update-part-enmix.component';
 import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/detail-part-enmix/add-output-enmix/add-output-enmix.component';
+import {DatePipe} from '@angular/common';
+
+const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
+  url: 'https://httpbin.org/post',
+  maxFilesize: 50,
+  acceptedFiles: 'image/*'
+};
 
 @NgModule({
   declarations: [
@@ -160,6 +173,7 @@ import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/la
 
   ],
   imports: [
+    DropzoneModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -182,6 +196,14 @@ import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/la
     ExportAsModule,
     CommonModule,
     MatMenuModule
+  ],
+  providers: [
+    provideNgxMask(),
+    DatePipe,
+    {
+      provide: DROPZONE_CONFIG,
+      useValue: DEFAULT_DROPZONE_CONFIG
+    }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -42,6 +42,7 @@
                         <th>Description</th>
                         <th>Information</th>
                         <th>Status</th>
+                        <th>Action</th>
                         <th *ngIf="userRole === 3" class="action-table">Action</th>
                       </tr>
                     </thead>
@@ -80,6 +81,27 @@
                                   <a class="dropdown-item" (click)="openRemoveConfirmationModal(part.id, removeModal)">
                                     <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>Remove
                                 </a>                                  
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-center">
+                            <div class="dropdown" ngbDropdown>
+                              <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
+                                <i class="ri-more-2-fill"></i>
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                                <a class="dropdown-item" [routerLink]="['/detail-part', part.part_id]"><i
+                                    class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
+                                <a class="dropdown-item" (click)="viewModal(part.part_id, viewImage)">
+                                  <i class="ri-image-fill align-bottom me-2 text-muted"></i> View Picture
+                                </a>
+                                <a *ngIf="userRole === 3" class="dropdown-item"
+                                  [routerLink]="['/update-part', part.part_id, part.id_area]"><i
+                                    class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
+                                <a (click)="centerModal(part.part_id, removeModal)" *ngIf="userRole === 4"
+                                  class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removeProjectModal"><i
+                                    class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Remove</a>
                               </div>
                             </div>
                           </td>
@@ -264,6 +286,37 @@
           <button type="button" class="btn btn-primary" (click)="submitApproval()">Submit Approval</button>
         </div>
       </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #viewImage let-modal>
+  <div class="modal-body text-center p-5">
+    <div class="table-responsive table-card mt-3 mb-1">
+      <table class="table">
+        <thead>
+          <tr class="bg-light text-muted text-center">
+            <th>Image Part</th>
+            <th>Place</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="isNull">
+            <td colspan="9" class="text-center">No Data</td>
+          </ng-container>
+          <ng-container *ngFor="let part of dataPartById; let i = index">
+            <tr class="text-center">
+              <td style="text-align: center;">
+                <div class="card1" style="display: inline-block; text-align: center;">
+                  <img [src]="getImgFile(part.image)" alt=""
+                    style="max-width: 130%; height: auto; object-fit: contain;">
+                </div>
+              </td>
+              <td>{{part.place}}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
     </div>
   </div>
 </ng-template>

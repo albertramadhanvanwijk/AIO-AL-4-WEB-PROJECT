@@ -26,6 +26,14 @@
                         <label for="outstock" class="form-label">Qty Stock</label>
                         <input [(ngModel)]="qtyStock" type="number" class="form-control" id="outstock" name="outstock" required>
                     </div>
+                    <div class="card-body">
+                      <label for="outstock" class="form-label">Image</label>
+                      <p class="text-muted">FilePond is a JavaScript library that optimizes multiple images for faster
+                          uploads and offers a great, accessible, silky smooth user experience.</p>
+                      <!-- <input type="file" class="filepond filepond-input-multiple" multiple name="filepond"
+                          data-allow-reorder="true" data-max-file-size="3MB" data-max-files="3"> -->
+                      <dropzone class="dropzone_sec"></dropzone>
+                  </div>
                     <div class="mt-2">
                         <label for="outstock" class="form-label">Information</label>
                         <input [(ngModel)]="information" type="text" class="form-control" id="information" name="information" required>

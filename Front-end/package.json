@@ -55,6 +55,7 @@
     "chart.js": "^4.1.2",
     "ckeditor4-angular": "^4.0.1",
     "csv-parser": "^3.0.0",
+    "dropzone": "^6.0.0-beta.2",
     "echarts": "^5.4.3",
     "firebase": "^9.15.0",
     "flatpickr": "^4.6.13",
