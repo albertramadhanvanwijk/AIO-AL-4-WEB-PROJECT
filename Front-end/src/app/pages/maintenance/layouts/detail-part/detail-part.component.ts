@@ -385,8 +385,11 @@ export class DetailPartComponent {
     // Mengubah status part menjadi 'Approved Request' jika belum disetujui
     this.selectedPart.status = this.selectedPart.status === 'Approved Request' ? 'Approved Request' : 'Rejected Request';
   
-    // Jika status part adalah 'Rejected Request', menyimpan komentar
+    // Reset komentar jika status sebelumnya adalah 'Approved Request'
     if (this.selectedPart.status === 'Rejected Request') {
+      this.comment = ''; // Reset komentar
+    } else {
+      // Jika status part adalah 'Rejected Request', menyimpan komentar
       this.selectedPart.comment = this.comment;
     }
   
@@ -413,6 +416,12 @@ export class DetailPartComponent {
       }
     );
   }
+  
+  
+  
+  
+  
+  
   
 
   
