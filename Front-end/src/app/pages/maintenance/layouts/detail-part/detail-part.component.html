@@ -268,3 +268,64 @@
     </div>
   </div>
 </ng-template>
+
+
+
+<!-- View Detail Modal -->
+<ng-template #viewDetailModalAfterApproval let-modal>
+  <div class="modal-header">
+    <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal" (click)="modal.close('Close click')"></button>
+  </div>
+  <div class="modal-body p-5">
+    <h1 class="text-center">Detail Informasi</h1>
+    <div class="card mt-3">
+      <div class="card-body">
+        <!-- Table -->
+        <table class="table">
+          <tbody>
+            <!-- Deskripsi -->
+            <tr>
+              <th class="text-start">Deskripsi</th>
+              <td>{{ selectedPart.description }}</td>
+            </tr>
+            <!-- Nomor Part -->
+            <tr>
+              <th class="text-start">Nomor Part</th>
+              <td>{{ selectedPart.part_number }}</td>
+            </tr>
+            <!-- Stock Masuk -->
+            <tr *ngIf="selectedPart.stock_in !== 0">
+              <th class="text-start" style="width: 30%;">Stock Masuk</th>
+              <td>{{ selectedPart.stock_in }}</td>
+            </tr>
+            <!-- Stock Keluar -->
+            <tr *ngIf="selectedPart.stock_out !== 0">
+              <th class="text-start">Stock Keluar</th>
+              <td>{{ selectedPart.stock_out }}</td>
+            </tr>
+            <!-- Nama Pengguna -->
+            <tr>
+              <th class="text-start">PIC</th>
+              <td>{{ selectedPart.nama_user }}</td>
+            </tr>
+            <!-- Informasi Tambahan -->
+            <tr>
+              <th class="text-start">Informasi Tambahan</th>
+              <td>{{ selectedPart.keterangan }}</td>
+            </tr>
+            <!-- Status  -->
+            <tr>
+              <th class="text-start">Status</th>
+              <td>{{ selectedPart.status }}</td>
+            </tr>       
+            <!-- Komentar  -->
+            <tr>
+              <th class="text-start">Status</th>
+              <td>{{ selectedPart.comment }}</td>
+            </tr>    
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-template>
