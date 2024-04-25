@@ -30,9 +30,9 @@
                 </div>
       
                 <div class="table-responsive table-card mt-3 mb-1">
-                  <table class="table" id="tableToExport">
-                    <thead>
-                      <tr class="bg-light text-muted text-center">
+                  <table class="table table-nowrap mb-0" id="tableToExport">
+                    <thead class="table-light">
+                      <tr class="text-center">
                         <th>No</th>
                         <th>Date</th>
                         <th>Stock In</th>
@@ -42,7 +42,7 @@
                         <th>Description</th>
                         <th>Information</th>
                         <th>Status</th>
-                        <th *ngIf="userRole === 3" class="action-table">Action</th>
+                        <th *ngIf="userRole === 3" class="action-table"></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -69,24 +69,25 @@
                             }">{{ part.status }}</span>
                           </td>
                           <td *ngIf="userRole === 3" class="text-center">
-                            <div ngbDropdown class="dropdown">
-                              <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none action-button"
-                                  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
+                            <div>
+                              <button (click)="openViewDetailModal(part, viewDetailModal)" class="btn btn-sm btn-light text-muted p-1 mt-n2 py-0 fs-15 action-button"
+                                 aria-haspopup="true" aria-expanded="true">
+                                  View
                               </button>
-                              <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                              <!-- <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
                                   <a class="dropdown-item" (click)="openViewDetailModal(part, viewDetailModal)">
                                       <i class="ri-eye-fill align-bottom me-2 text-muted"></i>View
                                   </a>
                                   <a class="dropdown-item" (click)="openRemoveConfirmationModal(part.id, removeModal)">
                                     <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>Remove
-                                </a>                                  
-                              </div>
+                                </a>                                   
+                              </div> -->
                             </div>
                           </td>
                         </tr>                        
                       </ng-container>
                 
-                      <tr class="bg-light text-muted text-center">
+                      <tr class="bg-light table-light text-center">
                         <td colspan="2" class="fw-bold">Total Stock IN :</td>
                         <td colspan="2">{{ totalIN }}</td>
                         <td colspan="2" class="fw-bold">Total Price :</td>
