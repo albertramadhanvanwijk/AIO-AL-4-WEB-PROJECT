@@ -319,6 +319,24 @@ export class DetailPartComponent {
     }
   }
 
+  openViewDetailModalAfterApproval(part: any) {
+    this.selectedPart = part;
+    if (part.status === "Awaiting Approval") {
+      part.comment = "Pending";
+    }
+    this.modalService.open(this.viewDetailModalAfterApproval, { centered: true });
+  }
+
+  openViewDetailModalBasedOnRole(part: any) {
+    if (this.userRole === 3) {
+        this.openViewDetailModal(part);
+    } else if (this.userRole === 4) {
+        this.openViewDetailModalAfterApproval(part);
+    }
+  }
+
+
+
   openRemoveConfirmationModal(partId: number, removeConfirmationModal: any) {
     this.partId = partId;
     this.modalService.open(removeConfirmationModal, { centered: true });

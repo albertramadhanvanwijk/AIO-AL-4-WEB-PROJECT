@@ -42,7 +42,7 @@
                         <th>Description</th>
                         <th>Information</th>
                         <th>Status</th>
-                        <th *ngIf="userRole === 3" class="action-table"></th>
+                        <th *ngIf="userRole === 3 || userRole === 4" class="action-table"></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -68,21 +68,13 @@
                               'badge-soft-danger': part.status === 'Rejected Request'
                             }">{{ part.status }}</span>
                           </td>
-                          <td *ngIf="userRole === 3" class="text-center">
+                          <td class="text-center">
                             <div>
-                              <button (click)="openViewDetailModal(part)" class="btn btn-sm btn-light text-muted p-1 mt-n2 py-0 fs-15 action-button">
-                                  View
-                              </button>
-                              <!-- <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                                  <a class="dropdown-item" (click)="openViewDetailModal(part, viewDetailModal)">
-                                      <i class="ri-eye-fill align-bottom me-2 text-muted"></i>View
-                                  </a>
-                                  <a class="dropdown-item" (click)="openRemoveConfirmationModal(part.id, removeModal)">
-                                    <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>Remove
-                                </a>                                   
-                              </div> -->
+                                <button (click)="openViewDetailModalBasedOnRole(part)" class="btn btn-sm btn-light text-muted p-1 mt-n2 py-0 fs-15 action-button">
+                                    View
+                                </button>
                             </div>
-                          </td>
+                        </td>                                                                   
                         </tr>                        
                       </ng-container>
                 
