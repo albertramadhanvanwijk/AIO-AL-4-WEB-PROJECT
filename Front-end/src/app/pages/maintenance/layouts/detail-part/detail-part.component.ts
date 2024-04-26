@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 })
 export class DetailPartComponent {
   @ViewChild('viewDetailModal') viewDetailModal: any;
+  @ViewChild('viewDetailModalAfterApproval') viewDetailModalAfterApproval!: TemplateRef<any>;
   // BreadCrumb
   breadCrumbItems!: Array<{}>;
 
@@ -308,9 +309,14 @@ export class DetailPartComponent {
   }
 
   // Fungsi untuk membuka modal detail informasi
-  openViewDetailModal(part: any, viewDetailModal: TemplateRef<any>) {
-    this.selectedPart = part; // Mengatur selectedPart sesuai dengan bagian yang dipilih
-    this.modalService.open(viewDetailModal, { centered: true }); // Membuka modal dengan template viewDetailModal
+  openViewDetailModal(part: any) {
+    this.selectedPart = part;
+
+    if (part.status === 'Approved Request' || part.status === 'Rejected Request') {
+      this.modalService.open(this.viewDetailModalAfterApproval, { centered: true });
+    } else {
+      this.modalService.open(this.viewDetailModal, { centered: true });
+    }
   }
 
   openRemoveConfirmationModal(partId: number, removeConfirmationModal: any) {
@@ -384,13 +390,15 @@ export class DetailPartComponent {
   
     // Mengubah status part menjadi 'Approved Request' jika belum disetujui
     this.selectedPart.status = this.selectedPart.status === 'Approved Request' ? 'Approved Request' : 'Rejected Request';
-  
-    // Reset komentar jika status sebelumnya adalah 'Approved Request'
-    if (this.selectedPart.status === 'Rejected Request') {
-      this.comment = ''; // Reset komentar
+
+    // Mengisi komentar otomatis jika status yang dipilih adalah "Approved Request"
+    if (this.selectedPart.status === 'Approved Request') {
+        this.comment = 'Diterima'; // Atur komentar menjadi "Diterima"
+        // Update comment in selectedPart object
+        this.selectedPart.comment = this.comment;
     } else {
-      // Jika status part adalah 'Rejected Request', menyimpan komentar
-      this.selectedPart.comment = this.comment;
+        // Jika status part adalah 'Rejected Request', menyimpan komentar
+        this.selectedPart.comment = this.comment;
     }
   
     // Mengirim permintaan untuk memperbarui status part ke backend

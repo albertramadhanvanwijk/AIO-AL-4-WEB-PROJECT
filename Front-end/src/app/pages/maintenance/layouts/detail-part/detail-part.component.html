@@ -70,8 +70,7 @@
                           </td>
                           <td *ngIf="userRole === 3" class="text-center">
                             <div>
-                              <button (click)="openViewDetailModal(part, viewDetailModal)" class="btn btn-sm btn-light text-muted p-1 mt-n2 py-0 fs-15 action-button"
-                                 aria-haspopup="true" aria-expanded="true">
+                              <button (click)="openViewDetailModal(part)" class="btn btn-sm btn-light text-muted p-1 mt-n2 py-0 fs-15 action-button">
                                   View
                               </button>
                               <!-- <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
@@ -320,9 +319,9 @@
             </tr>       
             <!-- Komentar  -->
             <tr>
-              <th class="text-start">Status</th>
+              <th class="text-start">Komentar</th>
               <td>{{ selectedPart.comment }}</td>
-            </tr>    
+            </tr>
           </tbody>
         </table>
       </div>
