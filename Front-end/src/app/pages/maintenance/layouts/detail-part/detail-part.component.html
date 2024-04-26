@@ -91,14 +91,14 @@
                                 <i class="ri-more-2-fill"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                                <a class="dropdown-item" [routerLink]="['/detail-part', part.part_id]"><i
-                                    class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
+                                <!-- <a class="dropdown-item" [routerLink]="['/detail-part', part.part_id]"><i
+                                    class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a> -->
                                 <a class="dropdown-item" (click)="viewModal(part.part_id, viewImage)">
                                   <i class="ri-image-fill align-bottom me-2 text-muted"></i> View Picture
                                 </a>
-                                <a *ngIf="userRole === 3" class="dropdown-item"
-                                  [routerLink]="['/update-part', part.part_id, part.id_area]"><i
-                                    class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
+                                <a *ngIf="userRole === 4" class="dropdown-item"
+                              [routerLink]="['/update-transaction-part', partId]"><i
+                                class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
                                 <a (click)="centerModal(part.part_id, removeModal)" *ngIf="userRole === 4"
                                   class="dropdown-item" data-bs-toggle="modal" data-bs-target="#removeProjectModal"><i
                                     class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Remove</a>

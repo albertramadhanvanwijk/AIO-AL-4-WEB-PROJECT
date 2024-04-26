@@ -97,6 +97,7 @@ import { DetailPartEnmixComponent } from './maintenance-part/maintenance-enmix/l
 import { UpdatePartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/update-part-enmix/update-part-enmix.component';
 import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/detail-part-enmix/add-output-enmix/add-output-enmix.component';
 import {DatePipe} from '@angular/common';
+import { UpdateTransactionPartComponent } from './maintenance/layouts/detail-part/update-transaction-part/update-transaction-part.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   url: 'https://httpbin.org/post',
@@ -169,7 +170,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     AddPartEnmixComponent,
     DetailPartEnmixComponent,
     UpdatePartEnmixComponent,
-    AddOutputEnmixComponent
+    AddOutputEnmixComponent,
+    UpdateTransactionPartComponent
 
   ],
   imports: [

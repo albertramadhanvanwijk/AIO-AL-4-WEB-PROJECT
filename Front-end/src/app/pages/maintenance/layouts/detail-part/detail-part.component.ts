@@ -116,6 +116,7 @@ export class DetailPartComponent {
   getImgFile(file: any) {
     return environment.apiUrl + '/file/' + file
   }
+  
 
   // DATE FORMATTERS
   formatDate(isoDateString: string): string {
