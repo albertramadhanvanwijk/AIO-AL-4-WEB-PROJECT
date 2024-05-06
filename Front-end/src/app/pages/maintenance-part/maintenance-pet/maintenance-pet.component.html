@@ -68,7 +68,7 @@
                       <td *ngIf="userRole === 3">{{part.price | currency:'IDR '}}</td>
                       <td *ngIf="userRole === 3">{{part.price * part.qty_stock | currency:'IDR '}}</td>
                       <td> {{part.qty_stock}} </td>
-                      <td class="text-center">
+                      <td class="text-center"> 
                         <div class="dropdown" ngbDropdown>
                           <button class="btn btn-link text-muted p-1 mt-n2 py-0 text-decoration-none fs-15 arrow-none"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ngbDropdownToggle>
