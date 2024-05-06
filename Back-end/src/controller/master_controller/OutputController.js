@@ -1,5 +1,6 @@
 const model = require("../../model/output.model")
 const api = require("../../tools/common");
+const {sendNotification} = require ('./../../services/NotificationService')
 
 const getAllOutputParts = async (req, res) => {
     try{
@@ -34,6 +35,9 @@ const insertOutputPart = async (req, res) => {
     const newData = req.body
     try{
         const data = await model.insert(newData)
+        sendNotification('requestApproval', {
+            
+        })
         return api.ok(res, data)
     }
     catch{
