@@ -1,5 +1,6 @@
 const model = require("../../model/output.model")
 const api = require("../../tools/common");
+const {sendNotification} = require ('./../../services/NotificationService')
 
 const getAllOutputParts = async (req, res) => {
     try{
@@ -34,12 +35,37 @@ const insertOutputPart = async (req, res) => {
     const newData = req.body
     try{
         const data = await model.insert(newData)
+        sendNotification('requestApproval', {
+            
+        })
         return api.ok(res, data)
     }
     catch{
         return api.error(res, "Internal Server Error", 500)
     }
 }
+
+// const insertOutputPart = async (req, res) => {
+//     const newData = req.body;
+//     try {
+//         const data = await model.insert(newData);
+//         const notificationData = {
+//             user_name: newData.user_name,
+//             description: newData.description,
+//             part_number: newData.part_number,
+//             stockIn: newData.stock_in || 0,
+//             stockOut: newData.stock_out || 0,
+//             status: newData.status,
+//             keterangan: newData.keterangan,
+//             comment: newData.comment,
+//         };
+//         sendNotification('requestApproval', notificationData);
+        
+//         return api.ok(res, data);
+//     } catch (error) {
+//         return api.error(res, "Internal Server Error", 500);
+//     }
+// };
 
 const updateByOutputId = async (req, res) => {
     const outputId = req.params.outputId

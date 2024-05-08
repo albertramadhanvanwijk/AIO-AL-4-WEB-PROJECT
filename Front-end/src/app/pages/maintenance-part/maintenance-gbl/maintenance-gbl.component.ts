@@ -262,5 +262,3 @@ formatDate(isoDateString: string): string {
    this.router.navigate(['/view-picture', partId]);
  }
 }
-
-
