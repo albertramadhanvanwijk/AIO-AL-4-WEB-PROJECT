@@ -1,4 +1,6 @@
 const model = require("../../model/output.model")
+const userModel = require("../../model/user.model")
+const partModel = require("../../model/parts.model")
 const api = require("../../tools/common");
 const {sendNotification} = require ('./../../services/NotificationService')
 
@@ -32,16 +34,18 @@ const getOutputByPartId = async (req, res) => {
 }
 
 const insertOutputPart = async (req, res) => {
+    let dataUser = await userModel.getById(req.body.id_user) // Get data user
+    let dataPart = await partModel.getById(req.body.part_id) // Get data part
     const newData = req.body
     try{
         const data = await model.insert(newData)
         sendNotification('requestApproval', {
-            user_name: newData.user_name,
-            description: newData.description,
-            part_number: newData.part_number,
-            stockIn: newData.stock_in || 0,
-            stockOut: newData.stock_out || 0,
-            status: newData.status,
+            user_name: dataUser[0].nama_user,
+            description: dataPart[0].description,
+            part_number: dataPart[0].part_number,
+            stock_in: newData.stock_in || '0',
+            stock_out: newData.stock_out || '0',
+            status: 'Request Approval',
             keterangan: newData.keterangan
         })
         return api.ok(res, data)
