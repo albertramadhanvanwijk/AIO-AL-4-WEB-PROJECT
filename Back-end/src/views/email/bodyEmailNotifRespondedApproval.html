@@ -1,93 +1,295 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Complaint Management System</title>
-</head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
-  <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #3498db;">
-    <tr>
-      <td align="center">
-        <table border="0" cellpadding="0" cellspacing="0" width="600" style="padding: 20px;">
-          <tr>
-            <td>
-              <h2 style="color: #ffffff; margin-bottom: 10px; text-align: center;">Responed Approval</h2></td>
-          </tr>
-          <tr>
-            <td align="left" style="background-color: #ffffff; padding: 40px;" colspan="2">
-              <p style="color: #666666; font-size: 16px; line-height: 1.6em; margin-top: 0px;">Halo Tim QA,</p>
-              <p style="color: #666666; font-size: 16px; line-height: 1.6em;">Terdapat data complaint masuk yang baru. </p>
-              <p style="color: #666666; font-size: 16px; line-height: 1.6em;">Detail Keluhan:</p>
-              <table border="0" cellpadding="0" cellspacing="0" width="560">
-              <tr>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">Complaint Title: </td>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">{{complaint_title}}</td>
-              </tr>
-              <tr>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">Complainant Name: </td>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">{{complainant_name}}</td>
-              </tr>
-              <tr>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">Product: </td>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">{{complaint_product}}</td>
-              </tr>
-              <tr>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">Product Source: </td>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">{{complaint_product_source}}</td>
-              </tr>
-              <tr>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">Complaint Source: </td>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em;">{{complaint_source}}</td>
-              </tr>
-              <tr>
-                <td style="color: #666666; font-size: 16px; line-height: 1.6em; padding-top: 30px; padding-bottom: 30px;" colspan="2">Silakan buka aplikasi melalui link berikut: </td>
-              </tr>
-            </table>
-            <div align="center" style="color: #666666; font-size: 16px; line-height: 1.6em;"> 
-            <a href="{{link}}" style=" 
-              text-align: center; font-family: Arial,sans-serif;
-              box-sizing: border-box;
-              font-size: 14px;
-              color: #FFF;
-              text-decoration: none;
-              line-height: 1.2em;
-              font-weight: bold;
-              text-align: center;
-              cursor: pointer;
-              display: inline-block;
-              border-radius: 5px;
-              text-transform: capitalize;
-              background-color: #1a9dc5;
-              margin: 0;
-              border-color: #1a9dc5;
-              border-style: solid;
-              border-width: 8px 16px;
-              width: 100%;">Open</a>
+<!-- <!DOCTYPE HTML
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+  xmlns:o="urn:schemas-microsoft-com:office:office">
+
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Approval Management System - Production AIO</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet" type="text/css">
+  </head>
+
+<body class="clean-body u_body"
+  style="margin: 0;padding: 0;-webkit-text-size-adjust: 100%;background-color: #c2e0f4;color: #000000">
+  <table id="u_body"
+    style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;min-width: 320px;Margin: 0 auto;background-color: #c2e0f4;width:100%"
+    cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr style="vertical-align: top">
+        <td style="word-break: break-word;border-collapse: collapse !important;vertical-align: top">
+          <div class="u-row-container" style="padding: 0px;background-color: transparent">
+            <div class="u-row"
+              style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #ffffff;">
+              <div
+                style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
+                <div class="u-col u-col-100"
+                  style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">
+                  <div style="height: 100%;width: 100% !important;">
+                    <div
+                      style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;">
+                      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0"
+                        cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td class="v-container-padding-padding"
+                              style="overflow-wrap:break-word;word-break:break-word;padding:0px 0px 10px;font-family:arial,helvetica,sans-serif;"
+                              align="left">
+                              <table height="0px" align="center" border="0" cellpadding="0" cellspacing="0" width="100%"
+                                style="border-collapse: collapse;table-layout: fixed;border-spacing: 0;mso-table-lspace: 0pt;mso-table-rspace: 0pt;vertical-align: top;border-top: 6px solid #6f9de1;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">
+                                <tbody>
+                                  <tr style="vertical-align: top">
+                                    <td
+                                      style="word-break: break-word;border-collapse: collapse !important;vertical-align: top;font-size: 0px;line-height: 0px;mso-line-height-rule: exactly;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%">
+                                      <span>&#160;</span>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table id="u_content_image_4" style="font-family:arial,helvetica,sans-serif;" role="presentation"
+                        cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td class="v-container-padding-padding"
+                              style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px;font-family:arial,helvetica,sans-serif;"
+                              align="left">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <p class="content-block" style="font-family: 'Monotype Corsiva',Georgia,Arial,sans-serif; 
-              box-sizing: border-box;
-              font-size: 20px; vertical-align: top; margin: 0; padding: 20px 0 20px;"
-              valign="top">
-              Thank you,
-            </p>
-            <p
-            style="color: #666666; font-family: Georgia,Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
-            <span class="content-block"
-            style="font-family: Georgia,Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;"
-            valign="top">
-            <p>Complaint Management System</p>
-            </span>
-            </p>
-            </td>
-          </tr>
-        </table>
-        <p class="content-block"
-			style="color: #ffffff; text-align: center;font-family: Georgia,Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0;"
-			valign="top">
-			Copyrights 2023. All rights reserved by PT Amerta Indah Otsuka
-			<br><br>
-          </p>
-      </td>
-    </tr>
+          </div>
+
+          <div class="u-row-container" style="padding: 0px;background-color: transparent">
+            <div class="u-row"
+              style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #ffffff;">
+              <div
+                style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
+                <div class="u-col u-col-100"
+                  style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">
+                  <div
+                    style="height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+                    <div
+                      style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+                      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0"
+                        cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td class="v-container-padding-padding"
+                              style="overflow-wrap:break-word;word-break:break-word;padding:20px;font-family:arial,helvetica,sans-serif;"
+                              align="left">
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table id="u_content_heading_5" style="font-family:arial,helvetica,sans-serif;"
+                        role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td class="v-container-padding-padding"
+                              style="overflow-wrap:break-word;word-break:break-word;padding:9px 30px 40px 31px;font-family:arial,helvetica,sans-serif;"
+                              align="left">
+                              <h1 class="v-text-align v-font-size"
+                                style="margin: 0px; color: #023047; line-height: 170%; text-align: center; word-wrap: break-word; font-family: 'Open Sans',sans-serif; font-size: 26px; font-weight: 400;">
+                                <span><strong>Hello there! Your Approval Output Part is<br />awaiting your
+                                    attention</strong></span></h1>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="u-row-container" style="padding: 0px;background-color: transparent">
+            <div class="u-row"
+              style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #ffffff;">
+              <div
+                style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
+                <div class="u-col u-col-100"
+                  style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">
+                  <div
+                    style="height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+                    <div
+                      style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+                      <table id="u_content_text_2" style="font-family:arial,helvetica,sans-serif;" role="presentation"
+                        cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td class="v-container-padding-padding"
+                              style="overflow-wrap:break-word;word-break:break-word;padding:35px 55px 10px;font-family:arial,helvetica,sans-serif;"
+                              align="left">
+                              <div class="v-text-align v-font-size"
+                                style="font-size: 14px; color: #333333; line-height: 180%; text-align: left; word-wrap: break-word;">
+                                <p style="font-size: 14px; line-height: 180%;"><span
+                                    style="font-size: 18px; line-height: 32.4px; font-family: Lato, sans-serif;"><strong><span
+                                        style="line-height: 32.4px; font-size: 18px;">Hi
+                                        Supervisor, </span></strong></span></p>
+                                <p style="font-size: 14px; line-height: 180%;"> </p>
+                                <p style="font-size: 14px; line-height: 180%;">Received your email and hope it reads to
+                                  you well. Please immediately see approval of the Output Part request immediately.</p>
+                                <p style="font-size: 14px; line-height: 180%;"> </p>
+                                <p style="font-size: 14px; line-height: 180%;"><span
+                                    style="font-size: 16px; line-height: 28.8px; font-family: Lato, sans-serif;"><strong><span
+                                        style="line-height: 28.8px; font-size: 16px;">To proceed with approval, we will
+                                        provide the following Output Part details:</span></strong></span></p>
+                                <ul style="list-style-type: square;">
+                                  <li style="font-size: 14px; line-height: 28.8px;"><span
+                                      style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>PIC
+                                        {{user_name}}</strong></span></li>
+                                  <li style="font-size: 14px; line-height: 28.8px;"><span
+                                      style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>{{description}}</strong></span>
+                                  </li>
+                                  <li style="font-size: 14px; line-height: 28.8px;"><span
+                                      style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>{{part_number}}</strong></span><span
+                                      style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"></span>
+                                  </li>
+                                  <li style="font-size: 14px; line-height: 28.8px;"><span
+                                      style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>{{stock_in}}</strong></span>
+                                  </li>
+                                  <li style="font-size: 14px; line-height: 28.8px;"><span
+                                      style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>{{stock_out}}</strong></span>
+                                  </li>
+                                  <li style="font-size: 14px; line-height: 28.8px;"><span
+                                      style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>{{status}}</strong></span>
+                                  </li>
+                                  <li style="font-size: 14px; line-height: 28.8px;"><span
+                                      style="font-family: Lato, sans-serif; font-size: 16px; line-height: 28.8px;"><strong>{{keterangan}}</strong></span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0"
+                        cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td class="v-container-padding-padding"
+                              style="overflow-wrap:break-word;word-break:break-word;padding:20px 10px 30px;font-family:arial,helvetica,sans-serif;"
+                              align="left">
+                              <div class="v-text-align" align="center">
+                                <a href="https://unlayer.com" target="_blank" class="v-button v-font-size"
+                                  style="box-sizing: border-box;display: inline-block;text-decoration: none;-webkit-text-size-adjust: none;text-align: center;color: #FFFFFF; background-color: #33428d; border-radius: 44px;-webkit-border-radius: 44px; -moz-border-radius: 44px; width:auto; max-width:100%; overflow-wrap: break-word; word-break: break-word; word-wrap:break-word; mso-border-alt: none;font-size: 14px;">
+                                  <span style="display:block;padding:20px 70px;line-height:120%;"><strong><span
+                                        style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 16.8px;">Check
+                                        Now</span></strong></span>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table id="u_content_text_3" style="font-family:arial,helvetica,sans-serif;" role="presentation"
+                        cellpadding="0" cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td class="v-container-padding-padding"
+                              style="overflow-wrap:break-word;word-break:break-word;padding:10px 55px 40px;font-family:arial,helvetica,sans-serif;"
+                              align="left">
+
+                              <div class="v-text-align v-font-size"
+                                style="font-size: 14px; line-height: 170%; text-align: left; word-wrap: break-word;">
+                                <p style="font-size: 14px; line-height: 170%;"><span
+                                    style="font-family: Lato, sans-serif; font-size: 16px; line-height: 27.2px;">Should
+                                    you have any questions or concerns about the process, don't hesitate to reach out to
+                                    your point person. They're here to help you!</span></p>
+                                <p style="font-size: 14px; line-height: 170%;"> </p>
+                                <p style="font-size: 14px; line-height: 170%; text-align: right;"><span
+                                    style="font-family: Lato, sans-serif; font-size: 16px; line-height: 27.2px;">With
+                                    Regards,</span></p>
+                                <p style="font-size: 14px; line-height: 170%; text-align: right;"> </p>
+                                <p style="line-height: 170%; text-align: right;"><strong>Helpful Approval Support
+                                    System</strong></p>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="u-row-container" style="padding: 0px;background-color: transparent">
+            <div class="u-row"
+              style="margin: 0 auto;min-width: 320px;max-width: 600px;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #080f30;">
+              <div
+                style="border-collapse: collapse;display: table;width: 100%;height: 100%;background-color: transparent;">
+                <div class="u-col u-col-100"
+                  style="max-width: 320px;min-width: 600px;display: table-cell;vertical-align: top;">
+                  <div
+                    style="height: 100%;width: 100% !important;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+                    <div
+                      style="box-sizing: border-box; height: 100%; padding: 0px;border-top: 0px solid transparent;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 0px solid transparent;border-radius: 0px;-webkit-border-radius: 0px; -moz-border-radius: 0px;">
+                      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0"
+                        cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td class="v-container-padding-padding"
+                              style="overflow-wrap:break-word;word-break:break-word;padding:42px 10px 15px;font-family:arial,helvetica,sans-serif;"
+                              align="left">
+                              <div align="center">
+                                <div style="display: table; max-width:44px;">
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table style="font-family:arial,helvetica,sans-serif;" role="presentation" cellpadding="0"
+                        cellspacing="0" width="100%" border="0">
+                        <tbody>
+                          <tr>
+                            <td class="v-container-padding-padding"
+                              style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 35px;font-family:arial,helvetica,sans-serif;"
+                              align="left">
+                              <div class="v-text-align v-font-size"
+                                style="font-size: 14px; color: #ffffff; line-height: 210%; text-align: center; word-wrap: break-word;">
+                                <p style="font-size: 14px; line-height: 210%;"> </p>
+                                <p style="font-size: 14px; line-height: 210%;"><span
+                                    style="font-family: Lato, sans-serif; font-size: 14px; line-height: 29.4px;">©Copyrights
+                                    2024. </span></p>
+                                <p style="font-size: 14px; line-height: 210%;"><span
+                                    style="font-family: Lato, sans-serif; font-size: 14px; line-height: 29.4px;">All
+                                    rights reserved by PT Amerta Indah Otsuka</span></p>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </body>
-</html>
+
+</html> -->
