@@ -5,6 +5,7 @@ import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Router } from '@angular/router';
 declare var $: any;
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-output',
@@ -144,6 +145,33 @@ export class AddOutputComponent {
 
   // FORM
   onSubmit() {
+    // Memeriksa apakah semua kolom formulir telah diisi
+    if (!this.selectedFile || !this.partId || !this.qtyStock || !this.information || !this.category) {
+      // Membuat pesan kesalahan yang dinamis sesuai dengan kolom yang belum diisi
+      let errorMessage = "Please fill in the following fields:<br/>";
+      if (!this.selectedFile) {
+        errorMessage += "- Image<br/>";
+      }
+      if (!this.partId) {
+        errorMessage += "- Part ID<br/>";
+      }
+      if (!this.qtyStock) {
+        errorMessage += "- Quantity Stock<br/>";
+      }
+      if (!this.information) {
+        errorMessage += "- Information<br/>";
+      }
+      if (!this.category) {
+        errorMessage += "- Category<br/>";
+      }
+      // Menampilkan sweetalert dengan pesan kesalahan
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        html: errorMessage,
+      });
+      return; // Hentikan eksekusi lebih lanjut
+    }
     if (parseInt(this.category) === 1 || parseInt(this.category) === 2) {
       if (this.selectedFile) {
         // Jika ada file yang dipilih, unggah file terlebih dahulu
