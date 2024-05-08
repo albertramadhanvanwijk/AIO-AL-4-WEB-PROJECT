@@ -340,12 +340,10 @@ export class DetailPartComponent {
   openViewDetailModalBasedOnRole(part: any) {
     if (this.userRole === 3) {
         this.openViewDetailModal(part);
-    } else if (this.userRole === 4) {
+    } else if (this.userRole === 4 || this.userRole === 1 || this.userRole === 2) {
         this.openViewDetailModalAfterApproval(part);
     }
   }
-
-
 
   openRemoveConfirmationModal(partId: number, removeConfirmationModal: any) {
     this.partId = partId;
