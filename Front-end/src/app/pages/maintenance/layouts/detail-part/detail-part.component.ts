@@ -7,6 +7,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Component({
@@ -90,6 +91,10 @@ export class DetailPartComponent {
 
   getBreadCrumbItems() {
     this.breadCrumbItems = [{ label: "List output part" }];
+  }
+
+  getImgFile(file: any) {
+    return environment.apiUrl + '/file/' + file
   }
 
   getParamsId() {

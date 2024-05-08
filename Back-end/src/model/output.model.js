@@ -41,7 +41,7 @@ const totalInByIdPart = async (partId) => {
 
 const getDetailOutput = async (partId) => await project
     .select(
-        'o.approval_status as status', 'o.komentar as comment', 'o.outputpart_id', 'o.part_id', 'o.id_category', 'o.stock_in', 'o.stock_out', 'o.id_user', 'o.is_deleted', 'o.created_at', 'o.updated_at', 'o.keterangan', 'p.part_id', 'p.id_area', 'p.part_number', 'p.description', 'p.qty_stock', 'p.price', 'a.id_area', 'a.nama_area', 'u.id_user', 'u.nama_user'
+        'o.approval_status as status', 'o.image', 'o.komentar as comment', 'o.outputpart_id', 'o.part_id', 'o.id_category', 'o.stock_in', 'o.stock_out', 'o.id_user', 'o.is_deleted', 'o.created_at', 'o.updated_at', 'o.keterangan', 'p.part_id', 'p.id_area', 'p.part_number', 'p.description', 'p.qty_stock', 'p.price', 'a.id_area', 'a.nama_area', 'u.id_user', 'u.nama_user'
     )
     .from('output_part as o')
     .join('parts as p', 'p.part_id', 'o.part_id')
