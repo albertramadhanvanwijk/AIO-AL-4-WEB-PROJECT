@@ -89,10 +89,6 @@ export class MaintenanceService {
     return this.http.get(`${this.baseUrl}/master/detail-output/${partId}`, { headers });
   }
 
-  
-
-  
-
   insertOutput(data: any): Observable<any> {
     const headers = this.authService.getHeaders();
     return this.http.post(`${this.baseUrl}/master/output`, data, { headers });

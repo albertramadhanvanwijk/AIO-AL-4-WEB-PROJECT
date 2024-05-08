@@ -53,11 +53,10 @@ export class AddOutputComponent {
     this.selectedFile = event.target.files[0];
     console.log(this.selectedFile);
   }
-
+  
   uploadFile() {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
-
     return this.apiService.uploadDocument(formData);
   }
 
@@ -122,7 +121,6 @@ export class AddOutputComponent {
         "qty_stock": this.dataPart.qty_stock - this.qtyStock
       };
     }
-
     this.apiService.updatePart(this.partId, this.newDataParts).subscribe(
       (res: any) => {
         console.log("qty stock terupdate");
@@ -146,22 +144,25 @@ export class AddOutputComponent {
 
   // FORM
   onSubmit() {
-    if (parseInt(this.category) === 1) {
+    if (parseInt(this.category) === 1 || parseInt(this.category) === 2) {
       if (this.selectedFile) {
+        // Jika ada file yang dipilih, unggah file terlebih dahulu
         this.uploadFile().subscribe(
           response => {
+            // Setel nama file yang diunggah
             this.filename = response.filename;
-            console.log('File sudah di upload:', this.filename);
+            console.log('File sudah diupload:', this.filename);
+            // Setel data yang akan dikirim ke backend
             let data = {
               "part_id": this.partId,
-              "stock_in": this.qtyStock,
-              "stock_out": 0,
+              "stock_in": parseInt(this.category) === 1 ? this.qtyStock : 0,
+              "stock_out": parseInt(this.category) === 2 ? this.qtyStock : 0,
               "id_category": parseInt(this.category),
               "image": this.filename,
               "id_user": parseInt(this.userId),
               "keterangan": this.information
             };
-            // Call function to submit data
+            // Panggil fungsi untuk mengirim data
             this.submitData(data);
           },
           error => {
@@ -169,21 +170,22 @@ export class AddOutputComponent {
           }
         );
       } else {
+        // Jika tidak ada file yang dipilih, langsung kirim data tanpa pengunggahan file
         let data = {
           "part_id": this.partId,
-          "stock_in": this.qtyStock,
-          "stock_out": 0,
+          "stock_in": parseInt(this.category) === 1 ? this.qtyStock : 0,
+          "stock_out": parseInt(this.category) === 2 ? this.qtyStock : 0,
           "id_category": parseInt(this.category),
           "image": this.filename,
           "id_user": parseInt(this.userId),
           "keterangan": this.information
         };
-        // Call function to submit data
+        // Panggil fungsi untuk mengirim data
         this.submitData(data);
       }
     }
-  }
-
+  }  
+  
   submitData(data: any) {
     this.apiService.insertOutput(data).subscribe(
       (res: any) => {

@@ -20,7 +20,7 @@ const generateConfig = async (type, param) => {
     if(type == 'requestApproval') {
         title = "Permintaan Persetujuan Part.";
         // target_user = await userModel.getByRoleId(3); 
-        target_user = [{email: 'farhannn1702@gmail.com'}]
+        target_user = [{email: 'albertramadhanvanwijk@gmail.com'},{email: 'farhannn1702@gmail.com'}]
         files.email = "bodyEmailNotifRequestApproval.html";
         // {email: 'adnanwafeeq1@gmail.com'}
     } else {

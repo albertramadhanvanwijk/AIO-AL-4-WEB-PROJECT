@@ -15,6 +15,5 @@ module.exports = {
     getById,
     insert,
     update,
-    deleteData,
-    
+    deleteData
 };
