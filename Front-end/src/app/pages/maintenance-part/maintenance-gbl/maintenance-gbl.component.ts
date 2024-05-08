@@ -90,7 +90,7 @@ export class MaintenanceGblComponent {
    this.fecthParts();
 
    if(this.areaId === 19){
-     this.areaName = "PREPARASI"
+     this.areaName = "PREPARASI GBL"
    }
    if(this.areaId === 20){
      this.areaName = "PACKING IN"
