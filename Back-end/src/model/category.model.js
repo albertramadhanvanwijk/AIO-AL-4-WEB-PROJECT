@@ -8,13 +8,12 @@ const insert = async (data) => await project('category').insert(data);
 
 const update = async (id, data) => await project('category').where('id_category', id).update(data);
 
-const deleteData = async (id) => await project('category').where('id_category', id).del();
+const deleteData = async (id) => await project('category').where('id_category', id).delete(data);
 
 module.exports = {
     getAll,
     getById,
     insert,
     update,
-    deleteData,
-    
+    deleteData
 };

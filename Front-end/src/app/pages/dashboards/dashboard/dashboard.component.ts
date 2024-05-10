@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
   team!: string;
   userId!: any;
   areaId!: any;
+  
 
   // TOTAL DOCUMENT
   documentsGeneral!: number;

@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dist": "ng build --base-href /al4-monitoring/ --deploy-url /al4-monitoring/ --output-hashing=all"
   },
   "private": true,
   "dependencies": {

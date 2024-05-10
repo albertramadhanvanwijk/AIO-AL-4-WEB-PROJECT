@@ -204,6 +204,5 @@ export class ApiService {
     const headers = this.authService.getHeaders()
     return this.http.get(`${this.baseUrl}/master/grafik/packing/${month}/${year}`, { headers });
   }
-  
 
 }

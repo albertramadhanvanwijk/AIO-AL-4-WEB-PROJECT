@@ -35,7 +35,6 @@ import { FirstPageComponent } from './maintenance/first-page/first-page.componen
 import { QuizComponent } from './quiz/quiz.component';
 import { QuizMasterListComponent } from './quiz-master-list/quiz-master-list.component';
 import { AddQuestionComponent } from './quiz-master-list/add-question/add-question.component';
-import { OplComponent } from './maintenance/opl/opl.component';
 import { EditQuestionComponent } from './quiz-master-list/edit-question/edit-question.component';
 import { DetailQuestionComponent } from './quiz-master-list/detail-question/detail-question.component';
 import { EditAnswerComponent } from './quiz-master-list/edit-answer/edit-answer.component';
@@ -77,10 +76,6 @@ const routes: Routes = [
   {
     path: 'master',
     component: MasterComponent,
-  },
-  {
-    path: 'OPL',
-    component: OplComponent,
   },
 
   {
@@ -140,7 +135,7 @@ const routes: Routes = [
 
   // PAGE MAINTENANCE
   {
-    path: 'maintenance',
+    path: 'maintenance/1',
     component: FirstPageComponent,
   },
   {
@@ -173,7 +168,7 @@ const routes: Routes = [
     component: MaintenancePetComponent,
   },
   {
-    path: 'maintenance-pet',
+    path: 'maintenance/3',
     component: FirstPagePetComponent,
   },
   {
@@ -199,7 +194,7 @@ const routes: Routes = [
     component: MaintenanceGblComponent,
   },
   {
-    path: 'maintenance-gbl',
+    path: 'maintenance/4',
     component: FirstPageGblComponent,
   },
   {
@@ -224,7 +219,7 @@ const routes: Routes = [
     component: MaintenanceCanComponent,
   },
   {
-    path: 'maintenance-can',
+    path: 'maintenance/2',
     component: FirstPageCanComponent,
   },
   {

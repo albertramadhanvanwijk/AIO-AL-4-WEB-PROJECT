@@ -156,6 +156,7 @@ export class SopUtamaComponent {
     this.sopService.getAllAreas().subscribe(
       (res: any) => {
         this.areas = res.data;
+        console.log(this.areas)
       },
       (error: any) => {
         console.error(error);
