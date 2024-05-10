@@ -122,12 +122,12 @@
                                     <h4 class="fs-22 fw-semibold ff-secondary mb-0">
                                        {{area.nama_area}} PARTS
                                     </h4>
-                                  <ng-container *ngIf="stockRemainGrouped && stockRemainGrouped[area.id_area] && stockRemainGrouped[area.id_area].length > 0">
+                                    <ng-container *ngIf="isStockAvailable(area.id_area)">
                                         <p class="text-success mt-2">
                                             Stock Ready
                                         </p>
                                     </ng-container>
-                                    <ng-container *ngIf="stockRemainGrouped && (!stockRemainGrouped[area.id_area] || stockRemainGrouped[area.id_area].length === 0)">
+                                    <ng-container *ngIf="!isStockAvailable(area.id_area)">
                                         <p class="text-danger mt-2">
                                             0 / Stock Not Found
                                         </p>

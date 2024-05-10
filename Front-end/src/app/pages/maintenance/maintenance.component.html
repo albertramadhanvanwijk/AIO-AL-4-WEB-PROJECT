@@ -41,8 +41,8 @@
                     <th>DATE</th>
                     <th>Part Number</th>
                     <th>Description</th>
-                    <th *ngIf="userRole === 3">Price</th>
-                    <th *ngIf="userRole === 3">Total</th>
+                    <th>Price</th>
+                    <th>Total</th>
                     <th>Stock</th>
                     <th>Action</th>
                   </tr>
@@ -65,8 +65,8 @@
                       </ng-container>
                       <td>{{part.part_number}}</td>
                       <td>{{part.description}}</td>
-                      <td *ngIf="userRole === 3">{{part.price | currency:'IDR '}}</td>
-                      <td *ngIf="userRole === 3">{{part.price * part.qty_stock | currency:'IDR '}}</td>
+                      <td>{{part.price | currency:'IDR '}}</td>
+                      <td>{{part.price * part.qty_stock | currency:'IDR '}}</td>
                       <td> {{part.qty_stock}} </td>
                       <td class="text-center">
                         <div class="dropdown" ngbDropdown>

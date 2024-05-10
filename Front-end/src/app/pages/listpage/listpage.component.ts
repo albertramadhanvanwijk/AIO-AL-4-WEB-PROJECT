@@ -21,8 +21,6 @@ export class ListpageComponent implements OnInit {
   namaUserRole!: string;
   team!: string;
   areaId!: any;
-  userId!: number;
-  line!:any;
 
   // Tambahkan variabel untuk mengontrol keadaan filter
   showFilter: boolean = false;
@@ -51,14 +49,6 @@ export class ListpageComponent implements OnInit {
     });
 
     this.getAreaId();
-
-    // Memeriksa apakah pengguna memiliki akses
-    if (this.userRole !== 1) { // Jika bukan admin
-      if (this.areaId !== 1) { // Jika bukan dari IBF (id_line 1)
-        // Tindakan untuk menampilkan pesan atau mengarahkan ke halaman lain
-        // Contoh: this.router.navigate(['/forbidden']);
-      }
-    }
   }
 
   getAreaId() {
@@ -84,23 +74,12 @@ export class ListpageComponent implements OnInit {
       this.namaUserRole = 'SPV';
     }
   }
-  getLine() {
-    if (this.userId === 1) {
-      this.line = 'AL4';
-    } else if (this.userId === 2) {
-      this.line = 'CAN';
-    } else if (this.userId === 3) {
-      this.line = 'PET';
-    }else if (this.userId === 4) {
-      this.line = 'GBL';
-  }
-  }
+
   getDataUserLogin() {
     const role = this.authService.getRoleID();
     this.userRole = parseInt(role);
     this.userName = this.authService.getUserName();
     this.userArea = this.authService.getAreaName();
-    this.userId = this.authService.getLine();
   }
 
   getBreadCrumbItems(){

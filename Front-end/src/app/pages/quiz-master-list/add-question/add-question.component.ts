@@ -41,7 +41,7 @@ export class AddQuestionComponent {
   getAreas() {
     this.sopService.getAllAreas().subscribe((res: any) => {
       // console.log(res.data);
-      this.areas = res.data.filter((area: any) => area.id_line === 1);
+      this.areas = res.data;
     });
   }
 

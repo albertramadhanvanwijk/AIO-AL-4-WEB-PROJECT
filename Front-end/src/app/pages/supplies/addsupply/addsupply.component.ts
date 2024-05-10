@@ -41,7 +41,7 @@ export class AddSupplyComponent implements OnInit {
   fetchAreas(): void {
     this.apiService.getAllAreas().subscribe(
       (res: any) => {
-        this.areas = res.data.filter((area: any) => area.id_line === 1);
+        this.areas = res.data;
       },
       (error: any) => {
         console.error(error);

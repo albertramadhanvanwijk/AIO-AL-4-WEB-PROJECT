@@ -49,12 +49,11 @@ const getUserByTeamId = async (req, res) => {
 };
 
 const getUserByAreaId = async (req, res) => {
-    const areaId = req.params.areaId;
-    const groupId = req.params.groupId;
-    const idLine = req.params.idLine; // Tambahkan ini untuk mengambil id_line dari request
+    const areaId = req.params.areaId
+    const groupId = req.params.groupId
     if (!isNaN(areaId, groupId)) {
         try {
-            const data = await userModel.getByAreaId(areaId, groupId, idLine); // Sertakan id_line sebagai argumen
+            const data = await userModel.getByAreaId(areaId, groupId);
             return api.ok(res, data);
         } catch (error) {
             return api.error(res, "Internal Server Error", 500);

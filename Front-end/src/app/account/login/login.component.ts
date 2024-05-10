@@ -4,7 +4,6 @@ import { SharedServiceService } from 'src/app/core/services/shared-service.servi
 
 // Login Auth
 import { AuthService } from 'src/app/core/services/auth.service';
-import { GlobalComponent } from 'src/app/global-component';
 
 @Component({
   selector: 'app-login',
@@ -41,17 +40,8 @@ export class LoginComponent implements OnInit {
         this.authService.saveToken(response.token, response.userData[0].role_id, response.userData[0].id_user, response.userData[0].nama_user, response.userData[0].name, response.userData[0].nama_area, response.userData[0].nik, response.userData[0].group_id, response.userData[0].id_line);
         this.sharedService.notifyUserLoggedIn();
         // Simpan token setelah berhasil login
-        // this.router.navigate(['']).then(() => {
-        //   location.reload()
-        // })
-        const idLine = +this.authService.getLine()!
+        this.router.navigate(['']);
         this.cdRef.detectChanges();
-        if (idLine === 1) {
-          window.location.href = window.location.origin
-        } else {
-          window.location.href = window.location.origin + `/maintenance/${idLine}`
-        }
-        
         
       },
       (error) => {

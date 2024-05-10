@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { SopService } from 'src/app/core/services/sop.service';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
 declare var $: any;
 
 @Component({
@@ -32,8 +31,7 @@ export class AddPartPetComponent {
   filename!: string;
   
   
-  constructor(private http: HttpClient, private apiService: MaintenanceService, private router: Router, private sopService: SopService, private location: Location) {}
-
+  constructor(private http: HttpClient, private apiService: MaintenanceService, private router: Router, private sopService: SopService) {}
   
   ngOnInit(){
       this.getbreadCrumbItems();
@@ -148,8 +146,8 @@ export class AddPartPetComponent {
   }
   
   closeModal(){
-    $('#successModal').modal('hide');
-    this.location.back();
+      $('#successModal').modal('hide');
+      this.router.navigate(['/maintenance-pet']);
   }
 
 }

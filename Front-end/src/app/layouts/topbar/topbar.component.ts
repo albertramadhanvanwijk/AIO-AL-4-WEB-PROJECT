@@ -192,7 +192,5 @@ export class TopbarComponent implements OnInit {
     searchOptions.classList.add("d-none");
     searchInputReponsive.value = "";
   }
-  // openApprovalDropdownModal() {
 
-  // }
 }

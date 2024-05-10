@@ -55,7 +55,7 @@ export class SopService {
     const headers = this.authService.getHeaders();
     return this.http.get(`${this.baseUrl}/master/documents`, { headers });
   }
-  
+
   getUserProgress(id_area: number, id_user: number): Observable<any> {
     const headers = this.authService.getHeaders();
     return this.http.get(

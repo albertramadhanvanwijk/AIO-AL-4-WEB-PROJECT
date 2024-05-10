@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 04:49 AM
+-- Generation Time: Mar 17, 2024 at 01:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -284,8 +284,7 @@ INSERT INTO `output_part` (`outputpart_id`, `part_id`, `id_category`, `stock_in`
 (10, 3, 1, 1, 0, 66, 'Test', 0, '2024-03-12 07:22:37', '2024-03-12 07:22:37'),
 (11, 5, 1, 2, 0, 66, 'Test', 0, '2024-03-12 07:26:17', '2024-03-12 07:26:17'),
 (12, 5, 1, 1, 0, 66, 'Test', 0, '2024-03-12 07:26:53', '2024-03-12 07:26:53'),
-(13, 3, 2, 0, 1, 62, 'ambil', 0, '2024-03-14 01:43:47', '2024-03-14 01:43:47'),
-(16, 3, 2, 0, 3, 62, 'ambil', 0, '2024-03-18 02:47:49', '2024-03-18 02:47:49');
+(13, 3, 2, 0, 1, 62, 'ambil', 0, '2024-03-14 01:43:47', '2024-03-14 01:43:47');
 
 -- --------------------------------------------------------
 
@@ -316,7 +315,7 @@ CREATE TABLE `parts` (
 INSERT INTO `parts` (`part_id`, `id_area`, `part_number`, `description`, `qty_stock`, `price`, `refurbished_at`, `line`, `image`, `place`, `is_deleted`, `created_at`, `update_at`) VALUES
 (1, 1, 98989898, 'Test', 8, 400000, NULL, 'AL4', NULL, 'Rak', 1, '2024-03-10 07:29:55', '2024-03-12 02:48:11'),
 (2, 2, 90909090, 'Test 1', 4, 10000, NULL, '', NULL, NULL, 0, '2024-03-11 04:09:13', '2024-03-11 12:40:38'),
-(3, 1, 1, '1', 9, 21000, '2024-03-12', '', '1710206527363-474259546.png', 'Rak', 0, '2024-03-12 01:22:07', '2024-03-18 02:47:49'),
+(3, 1, 1, '1', 12, 21000, '2024-03-12', '', '1710206527363-474259546.png', 'Rak', 0, '2024-03-12 01:22:07', '2024-03-14 01:43:47'),
 (4, 1, 10, 'Test fix', 2, 20000, NULL, 'AL4', '1710214418411-825664086.jpeg', 'Lemari', 0, '2024-03-12 01:37:46', '2024-03-12 03:33:38'),
 (5, 7, 1, 'Test Pet', 9, 100000, NULL, 'PET', '1710216483084-546785154.png', 'Lemari', 0, '2024-03-12 04:08:03', '2024-03-12 07:26:53'),
 (6, 12, 2, 'test injection (bekas)', 1, 100000, '2024-03-12', 'PET', '1710217081972-468878034.png', 'Rak', 0, '2024-03-12 04:18:02', '2024-03-13 00:44:38'),
@@ -331,19 +330,7 @@ INSERT INTO `parts` (`part_id`, `id_area`, `part_number`, `description`, `qty_st
 (15, 14, 231, 'HHH', 23, 54545, NULL, 'CAN', '1710383575746-174164077.png', 'HHH', 0, '2024-03-14 02:32:55', '2024-03-14 02:32:55'),
 (16, 21, 5, 'dd', 31, 131313, NULL, 'GBL', '1710383817921-827083070.png', 'dddd', 0, '2024-03-14 02:36:58', '2024-03-14 02:36:58'),
 (17, 22, 34, 'dd', 31, 131313, NULL, 'PET', '1710575895239-475515614.png', 'dddd', 0, '2024-03-16 07:58:15', '2024-03-16 07:58:15'),
-(18, 23, 1, 'test', 23, 2434, NULL, 'GBL', '1710576121467-345402744.png', 'fgfgfg', 0, '2024-03-16 08:02:01', '2024-03-16 08:02:01'),
-(19, 3, 5, 'test', 23, 2434, NULL, 'AL4', '1710723476278-531131364.png', 'fgfgfg', 0, '2024-03-18 00:57:56', '2024-03-18 00:57:56'),
-(20, 21, 3, 'qas', 12, 2323, NULL, 'GBL', '1710726868586-138826453.png', 'asd', 0, '2024-03-18 01:54:28', '2024-03-18 01:54:28'),
-(21, 15, 1, 'aa', 12, 23323, NULL, 'CAN', '1710728884564-825897210.png', 'sdds', 0, '2024-03-18 02:28:04', '2024-03-18 02:28:04'),
-(22, 17, 67, 'gh', 34, 23232, NULL, 'CAN', '1710731770584-796390102.png', 'gfggfgf', 0, '2024-03-18 03:16:10', '2024-03-18 03:16:10'),
-(23, 6, 1, 'asss', 12, 34544, NULL, 'AL4', '1710812002952-429481701.png', 'wes', 0, '2024-03-19 01:33:23', '2024-03-19 01:33:23'),
-(24, 1, 2, 'www', 221, 1213, NULL, 'AL4', '1710812131147-571602154.png', 'fdddd', 0, '2024-03-19 01:35:31', '2024-03-19 01:35:31'),
-(25, 17, 4546, 'test', 34, 244333, NULL, 'CAN', '1710812210622-5912861.png', 'test', 0, '2024-03-19 01:36:50', '2024-03-19 01:36:50'),
-(26, 6, 2, 'test', 13, 4455, '2024-03-19', 'AL4', '1710812359261-815046731.png', 'ggff', 0, '2024-03-19 01:38:28', '2024-03-19 01:39:19'),
-(27, 12, 0, 'lll', 90, 9090, NULL, 'PET', '1710812483866-140288008.png', 'lll', 0, '2024-03-19 01:41:23', '2024-03-19 01:41:23'),
-(28, 12, 123, 'pet', 123, 37, NULL, 'PET', '1710812739083-758162339.png', 'pet', 0, '2024-03-19 01:45:39', '2024-03-19 01:45:39'),
-(29, 25, 12, 'fds', 23, 12, NULL, 'GBL', NULL, NULL, 0, '2024-03-19 01:57:20', '2024-03-19 01:57:20'),
-(30, 24, 123323, 'sdassdas', 12, 3232, NULL, 'GBL', '1710813610784-100691935.png', 'ffff', 0, '2024-03-19 02:00:10', '2024-03-19 02:00:10');
+(18, 23, 1, 'test', 23, 2434, NULL, 'GBL', '1710576121467-345402744.png', 'fgfgfg', 0, '2024-03-16 08:02:01', '2024-03-16 08:02:01');
 
 -- --------------------------------------------------------
 
@@ -408,7 +395,7 @@ CREATE TABLE `supply` (
 --
 
 INSERT INTO `supply` (`id_supply`, `nama_supply`, `id_area`, `stok`, `no_material`, `eom`, `minimal_stok`, `is_deleted`, `max_stok`, `resv_date`) VALUES
-(1, 'ayam', 2, 16, '7000009499', 'PC', 10, 0, 16, '0000-00-00'),
+(1, 'ayam', 2, 15, '7000009499', 'PC', 10, 0, 16, '0000-00-00'),
 (2, 'a', 2, 5, '23', 'test', 12, 0, 32, '0000-00-00');
 
 -- --------------------------------------------------------
@@ -459,9 +446,7 @@ CREATE TABLE `transaction` (
 INSERT INTO `transaction` (`id_transaction`, `id_supply`, `id_category`, `tanggal`, `id_user`, `jumlah`, `id_area`, `resv_date`, `description`, `is_deleted`) VALUES
 (1, 1, 1, '2024-03-12 17:00:00', 1, 12, 2, '2024-03-11', 'sd', 0),
 (2, 1, 1, '2024-03-12 17:00:00', 1, 3, 2, '2024-03-11', 'masuk', 0),
-(3, 2, 1, '2024-03-15 17:00:00', 1, 5, 2, '2024-03-13', 'dfdf', 0),
-(4, 1, 1, '2024-03-17 17:00:00', 62, 8, 2, '2024-03-16', 'asa', 0),
-(5, 1, 2, '2024-03-17 17:00:00', 62, 7, 2, NULL, 'ass', 0);
+(3, 2, 1, '2024-03-15 17:00:00', 1, 5, 2, '2024-03-13', 'dfdf', 0);
 
 -- --------------------------------------------------------
 
@@ -509,7 +494,7 @@ INSERT INTO `user` (`id_user`, `nama_user`, `nik`, `password`, `role_id`, `id_ar
 (22, 'Arif Hamdani', 4158, '123', 2, 2, 3, 1),
 (23, 'Azis Rahman Siregar', 3882, '123', 2, 2, 3, 1),
 (24, 'Badarudin', 4296, '123', 2, 2, 3, 1),
-(25, 'Mulki Udhia Khatami', 3934, '123', 2, 2, 4, 1),
+(25, 'Mulki Udhia Khatami', 3934, '123', 2, 2, 3, 1),
 (26, 'Deza Ariffandy', 2083, '123', 2, 1, 3, 1),
 (27, 'M. Latief', 4076, '123', 2, 1, 3, 1),
 (28, 'Gilang Cahya', 4289, '123', 2, 1, 3, 1),
@@ -547,18 +532,7 @@ INSERT INTO `user` (`id_user`, `nama_user`, `nik`, `password`, `role_id`, `id_ar
 (60, 'Dicky Jainul Bahar', 4059, '123', 2, 3, 5, 1),
 (61, 'Rizki Ramadhan', 4160, '123', 2, 3, 5, 1),
 (62, 'M. Fajar', 3956, '123', 4, 4, 1, 1),
-(66, 'Test', 1111, '123', 4, 13, 1, 3),
-(67, 'ZAKA', 3430, '123', 1, 25, 1, 1),
-(68, 'Irniawan Ardiansyah', 1826, '123', 2, 19, NULL, 4),
-(73, 'Sudrajat', 2571, '123', 2, 19, NULL, 4),
-(74, 'Akbar Dzikrullah', 3365, '123', 2, 22, NULL, 4),
-(75, 'Reafli Rizki Alfatoni', 3382, '123', 2, 22, NULL, 4),
-(76, 'Muhammad Fikri A', 3451, '123', 2, 20, NULL, 4),
-(77, 'Muhammad IRFAN', 3429, '123', 4, 25, NULL, 4),
-(78, 'Muhammad Fikri A', 3451, '123', 2, 21, NULL, 4),
-(79, 'Bayu Herlambang', 571, '123', 3, 25, NULL, 4),
-(80, 'Herra Irawan ', 1974, '123', 3, 25, NULL, 4),
-(81, 'Richi Ries Riyatna', 1817, '123', 3, 25, NULL, 4);
+(66, 'Test', 1111, '123', 4, 13, NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -717,13 +691,7 @@ INSERT INTO `userprogress` (`userprogress_id`, `id_user`, `document_id`, `comple
 (137, 7, 28, 1),
 (138, 7, 29, 1),
 (139, 7, 30, 1),
-(140, 7, 31, 1),
-(141, 1, 111, 0),
-(142, 1, 115, 0),
-(143, 1, 114, 0),
-(144, 1, 110, 0),
-(145, 1, 112, 0),
-(146, 1, 113, 0);
+(140, 7, 31, 1);
 
 -- --------------------------------------------------------
 
@@ -1045,13 +1013,13 @@ ALTER TABLE `line`
 -- AUTO_INCREMENT for table `output_part`
 --
 ALTER TABLE `output_part`
-  MODIFY `outputpart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `outputpart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `parts`
 --
 ALTER TABLE `parts`
-  MODIFY `part_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `part_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `questions`
@@ -1087,19 +1055,19 @@ ALTER TABLE `team`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_transaction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `userprogress`
 --
 ALTER TABLE `userprogress`
-  MODIFY `userprogress_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+  MODIFY `userprogress_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `userrole`
