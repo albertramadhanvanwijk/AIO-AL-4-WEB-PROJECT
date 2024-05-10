@@ -3,8 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { SopService } from 'src/app/core/services/sop.service';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
-
 declare var $: any;
 
 @Component({
@@ -33,7 +31,7 @@ export class AddPartGblComponent {
   filename!: string;
   
   
-  constructor(private http: HttpClient, private apiService: MaintenanceService, private router: Router, private sopService: SopService, private location: Location) {}
+  constructor(private http: HttpClient, private apiService: MaintenanceService, private router: Router, private sopService: SopService) {}
   
   ngOnInit(){
       this.getbreadCrumbItems();
@@ -51,7 +49,7 @@ export class AddPartGblComponent {
       this.sopService.getAllAreas().subscribe(
           (res: any) => {
               this.dataArea = res.data;
-              this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 4 && item.id_area != 25)
+              this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 4 && item.id_area != 24)
           }
       )
   }
@@ -69,7 +67,7 @@ export class AddPartGblComponent {
   }
   
   onSubmit(){
-      if (parseInt(this.areaId) === 24) {
+      if (parseInt(this.areaId) === 25) {
           if (this.selectedFile) {
               this.uploadFile().subscribe(
                   response => {
@@ -148,9 +146,9 @@ export class AddPartGblComponent {
   }
   
   closeModal(){
-    $('#successModal').modal('hide');
-    this.location.back();
-}
+      $('#successModal').modal('hide');
+      this.router.navigate(['/maintenance-gbl']);
+  }
 
 }
 

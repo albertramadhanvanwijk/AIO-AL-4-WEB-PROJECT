@@ -90,7 +90,7 @@ export class MaintenanceGblComponent {
    this.fecthParts();
 
    if(this.areaId === 19){
-     this.areaName = "PREPARASI GBL"
+     this.areaName = "PREPARASI"
    }
    if(this.areaId === 20){
      this.areaName = "PACKING IN"
@@ -262,3 +262,5 @@ formatDate(isoDateString: string): string {
    this.router.navigate(['/view-picture', partId]);
  }
 }
+
+

@@ -48,15 +48,14 @@ export class SidebarComponent implements OnInit {
   }
 
   getMenuItem(): void {
-    console.log(this.userLine);
-    
-    this.menuItems = MENU.map((item) => {
-      if (item.subItems && item.subItems.length > 0) {
-        item.subItems = item.subItems.filter((obj: MenuItem) => obj.id_line === this.userLine);
-      }
+    this.menuItems = MENU.map(item => {
+      // if (item.subItems && item.subItems.length > 0) {
+      //   item.subItems = item.subItems.filter((subItem: MenuItem) => {
+      //     return this.checkVisibility(subItem);
+      //   });
+      // }
       return item;
-    }).filter(item => item.id_line === this.userLine || item.id_line === -1)
-    
+    });
   }
   
   checkVisibility(item: MenuItem): boolean {

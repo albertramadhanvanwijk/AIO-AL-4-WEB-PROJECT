@@ -28,7 +28,7 @@
           <label for="selectedArea" class="form-label">Pilih Area</label>
           <select class="form-select" id="selectedArea" [(ngModel)]="newSupply.id_area" name="id_area" required>
             <option value="" disabled>Pilih Area</option>
-            <option *ngFor="let area of areas" [value]="area.id">{{ area.nama_area }}</option>
+            <option *ngFor="let area of areas" [value]="area.id_area">{{ area.nama_area }}</option>
           </select>
         </div>
         <div class="mb-3">

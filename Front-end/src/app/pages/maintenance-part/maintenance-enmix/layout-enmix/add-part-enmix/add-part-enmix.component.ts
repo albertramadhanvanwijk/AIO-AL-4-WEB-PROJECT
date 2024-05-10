@@ -13,7 +13,7 @@ declare var $: any;
 export class AddPartEnmixComponent {
 // bread crumb items
 breadCrumbItems!: Array<{}>;
-    
+  
 // Data Area
 dataArea: any[] = [];
 dataAreaByLine:any;
@@ -49,7 +49,7 @@ getAllArea(){
     this.sopService.getAllAreas().subscribe(
         (res: any) => {
             this.dataArea = res.data;
-            this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 1 && item.id_area != 4)
+            this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 3 && item.id_area != 13)
         }
     )
 }
@@ -67,7 +67,7 @@ uploadFile() {
 }
 
 onSubmit(){
-    if (parseInt(this.areaId) === 6) {
+    if (parseInt(this.areaId) === 12) {
         if (this.selectedFile) {
             this.uploadFile().subscribe(
                 response => {
@@ -86,7 +86,7 @@ onSubmit(){
                 "description": this.description,
                 "refurbished_at": new Date(),
                 "qty_stock": this.qtyStock,
-                "line": "AL4",
+                "line": "PET",
                 "price": this.price,
                 "image": this.filename,
                 "place": this.place,
@@ -111,7 +111,7 @@ onSubmit(){
                 "part_number": this.partNumber,
                 "description": this.description,
                 "qty_stock": this.qtyStock,
-                "line": "AL4",
+                "line": "PET",
                 "price": this.price,
                 "image": this.filename,
                 "place": this.place
@@ -128,7 +128,7 @@ insertDocument(data?: any){
             "part_number": this.partNumber,
             "description": this.description,
             "qty_stock": this.qtyStock,
-            "line": "AL4",
+            "line": "PET",
             "price": this.price,
             "image": this.filename,
             "place": this.place,
@@ -147,7 +147,7 @@ showModal(){
 
 closeModal(){
     $('#successModal').modal('hide');
-    this.router.navigate(['/maintenance']);
+    this.router.navigate(['/maintenance-pet']);
 }
 
 }

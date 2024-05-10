@@ -33,10 +33,6 @@ export class MasterComponent implements OnInit {
   filteredSearchUsers: any[] = [];
   searchTerm: string = '';
 
-  // List of available page sizes
-  pageSizes: number[] = [10, 25, 50, 100];
-  selectedPageSize: number = 10; // Default page size
-
   constructor(private apiService: ApiService, private router: Router, private sopService: SopService, private authService: AuthService) { }
 
   isUserAdmin(): boolean {
@@ -125,8 +121,6 @@ export class MasterComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.displayUsers = this.filteredSearchUsers.slice(startIndex, endIndex);
-    this.startIndex = startIndex;
-    this.endIndex = endIndex;
   }
 
   nextPage(): void {
@@ -146,7 +140,8 @@ export class MasterComponent implements OnInit {
   }
 
   getEndIndex(): number {
-    return Math.min(this.currentPage * this.pageSize, this.totalEntries);
+    const endIndex: number = this.currentPage * this.pageSize;
+    return Math.min(endIndex, this.totalEntries);
   }
 
   searchUsers(): void {
@@ -167,10 +162,6 @@ export class MasterComponent implements OnInit {
       }
     );
   }
-
-  // Method to change page size
-  changePageSize(): void {
-    this.pageSize = this.selectedPageSize;
-    this.updatePagination();
-  }
+  
 }
+
