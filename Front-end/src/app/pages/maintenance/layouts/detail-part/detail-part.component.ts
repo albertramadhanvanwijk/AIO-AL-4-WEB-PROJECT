@@ -46,8 +46,6 @@ export class DetailPartComponent {
   dataPart!: any;
   part: any = {};
   comment: string = '';
-  pendingApprovals: any[] = [];
-  showApprovalList: boolean = false;
 
   // Data User Login
   userRole!: any;
@@ -140,19 +138,12 @@ export class DetailPartComponent {
           this.qty_stock = res.data[0].qty_stock;
           this.totalIN = 0; // Reset totalIN
           this.pricePart = res.data[0].price;
-          // Filter pengajuan yang menunggu persetujuan
-          this.pendingApprovals = res.data.filter((part: any) => part.status === "Awaiting Approval");
-          // Set nilai properti showApprovalList jika terdapat pengajuan yang menunggu persetujuan
-          this.showApprovalList = this.pendingApprovals.length > 0;
-          // Iterate through dataOutputPart and calculate totalIN based on approval status
           this.dataOutputPart.forEach((part: any) => {
             if (part.status === 'Approved Request') {
               this.totalIN += part.stock_in;
               this.totalIN -= part.stock_out; // Reduce totalIN by stock_out
             }
-            // You can handle 'Rejected Request' status if needed
           });
-  
           // Set default status to "Awaiting Approval" if status is not already set
           this.dataOutputPart.forEach((part: any) => {
             if (!part.status) {

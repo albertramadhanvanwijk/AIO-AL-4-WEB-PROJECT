@@ -22,7 +22,6 @@ const generateConfig = async (type, param) => {
         // target_user = await userModel.getByRoleId(3); 
         target_user = [{email: 'farhannn1702@gmail.com'}]
         files.email = "bodyEmailNotifRequestApproval.html";
-        // {email: 'adnanwafeeq1@gmail.com'}
     } else {
         console.log('Notification type not found!')
         throw Error('Notification type not found!');
