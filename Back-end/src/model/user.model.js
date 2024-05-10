@@ -48,7 +48,7 @@ const getUser = async () => {
     `);
 };
 
-
+const getSpvByLine = async (id, idLine) => await project.select('*').from('user').where('role_id', id).andWhere('id_line', idLine);
 
 module.exports = {
     getAll,
@@ -63,5 +63,6 @@ module.exports = {
     getUser,
     getAllRole,
     getAllTeam,
-    getAllLine
+    getAllLine,
+    getSpvByLine
 };

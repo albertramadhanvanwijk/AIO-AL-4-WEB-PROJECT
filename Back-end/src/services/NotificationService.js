@@ -19,18 +19,19 @@ const generateConfig = async (type, param) => {
     //edit if have different type of notification
     if(type == 'requestApproval') {
         title = "Permintaan Persetujuan Part.";
-        // target_user = await userModel.getByRoleId(3); 
-        target_user = [{email: 'albertramadhanvanwijk@gmail.com'},{email: 'farhannn1702@gmail.com'},{email: 'adnanwafeeq1@gmail.com'}]
+        target_user = await userModel.getSpvByLine(3, param.id_line); // Get Data User SPV By Line
+        // target_user = [{email: 'albertramadhanvanwijk@gmail.com'},{email: 'farhannn1702@gmail.com'},{email: 'adnanwafeeq1@gmail.com'}]
         files.email = "bodyEmailNotifRequestApproval.html";
     } else {
         console.log('Notification type not found!')
         throw Error('Notification type not found!');
     }
-    console.log(target_user)
+
     for (let i = 0; i < target_user.length; i++){
 
         recipients.email.push(target_user[i].email);
     }
+
     return { recipients, files, title }
 }
 
