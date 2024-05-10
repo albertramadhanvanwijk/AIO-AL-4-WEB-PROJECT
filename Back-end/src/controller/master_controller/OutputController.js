@@ -40,6 +40,7 @@ const insertOutputPart = async (req, res) => {
     try{
         const data = await model.insert(newData)
         sendNotification('requestApproval', {
+            id_line: dataUser[0].id_line,
             user_name: dataUser[0].nama_user,
             description: dataPart[0].description,
             part_number: dataPart[0].part_number,
