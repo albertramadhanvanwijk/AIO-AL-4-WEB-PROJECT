@@ -10,6 +10,7 @@ export interface MenuItem {
   isLayout?: boolean;
   role?: number;
   id_line?: number;
+  accessible_lines?: number[];
 }
 
 // Fungsi untuk menyesuaikan akses menu berdasarkan id_line
@@ -20,7 +21,7 @@ function customizeMenuAccess(menuItems: MenuItem[], userLineId: number): MenuIte
   } else {
     // Jika id_line pengguna adalah 2, 3, 4, atau 5, hanya tampilkan menu 'Maintenance Part'
     return menuItems.filter(item => {
-      if (item.label === 'Maintenance Part') {
+      if (item.label === 'Maintenance Part' ) {
         return true; // Tampilkan menu 'Maintenance Part' untuk semua id_line selain 1
       } else if (item.label === 'Supplies' || item.label === 'Standard Operating Procedure') {
         // Tampilkan 'Supplies' dan 'Standard Operating Procedure' hanya jika id_line-nya sesuai
@@ -28,7 +29,9 @@ function customizeMenuAccess(menuItems: MenuItem[], userLineId: number): MenuIte
       }
       return false;
     });
+
   }
+  return menuItems
 }
 
 // Contoh penggunaan

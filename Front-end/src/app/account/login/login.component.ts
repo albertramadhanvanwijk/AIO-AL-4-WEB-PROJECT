@@ -47,9 +47,15 @@ export class LoginComponent implements OnInit {
         const idLine = +this.authService.getLine()!
         this.cdRef.detectChanges();
         if (idLine === 1) {
-          window.location.href = window.location.origin
+          // window.location.href = window.location.origin
+          this.router.navigate(['/']).then(() => {
+            location.reload()
+          })
         } else {
-          window.location.href = window.location.origin + `/maintenance/${idLine}`
+          // window.location.href = window.location.origin + `/maintenance/${idLine}`
+          this.router.navigate(['/maintenance/' +idLine]).then(() => {
+            location.reload()
+          })
         }
         
         

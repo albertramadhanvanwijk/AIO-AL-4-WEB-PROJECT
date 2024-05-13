@@ -14,7 +14,9 @@ export const MENU: MenuItem[] = [
     icon: 'ri-user-3-line',
     link: '/master',
     role: 1,
-    id_line: 1
+    // id_line: 1
+    accessible_lines: [1,2,3,4]
+
   },
   {
     id: 3,

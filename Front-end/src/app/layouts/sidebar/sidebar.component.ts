@@ -52,11 +52,12 @@ export class SidebarComponent implements OnInit {
     
     this.menuItems = MENU.map((item) => {
       if (item.subItems && item.subItems.length > 0) {
-        item.subItems = item.subItems.filter((obj: MenuItem) => obj.id_line === this.userLine);
+        item.subItems = item.subItems.filter((obj: MenuItem) => {
+          return obj.id_line === this.userLine || (obj.accessible_lines && obj.accessible_lines.includes(this.userLine));
+        });
       }
       return item;
-    }).filter(item => item.id_line === this.userLine || item.id_line === -1)
-    
+    }).filter(item => item.id_line === this.userLine || item.id_line === -1 || (item.accessible_lines && item.accessible_lines.includes(this.userLine)));
   }
   
   checkVisibility(item: MenuItem): boolean {
