@@ -3,7 +3,8 @@ const { generateToken } = require("../../services/auth.service");
 
 const login = async (req, res) => {
   const { nik, password } = req.body;
-
+  // console.log(req.body);
+  // return
   if (!nik || !password) {
     return res.status(400).json({ message: 'Please provide both nik and password.' });
   }
@@ -12,7 +13,7 @@ const login = async (req, res) => {
   if(!user.length > 0){
     return res.status(401).json({ message: 'Account not found!' });
   }
-
+  
   // Generate a JWT token and send it in the response
   const payload = {
     id: user.id,

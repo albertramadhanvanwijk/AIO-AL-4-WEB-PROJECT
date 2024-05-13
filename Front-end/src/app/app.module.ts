@@ -18,6 +18,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 
@@ -52,7 +53,8 @@ export function createTranslateLoader(http: HttpClient): any {
     FormsModule
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent]
 })
