@@ -55,7 +55,8 @@ export class SidebarComponent implements OnInit {
         item.subItems = item.subItems.filter((obj: MenuItem) => obj.id_line === this.userLine);
       }
       return item;
-    }).filter(item => item.id_line === this.userLine || item.id_line === -1)
+    }).filter(item => item.id_line === this.userLine || item.id_line === -1 || item.accessible_lines.includes(this.userLine))
+
     
   }
   

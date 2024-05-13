@@ -14,8 +14,10 @@ export const MENU: MenuItem[] = [
     icon: 'ri-user-3-line',
     link: '/master',
     role: 1,
-    id_line: 1
+    id_line: 1,
+    // Menambahkan kondisi untuk memeriksa apakah id_line adalah 1, 2, 3, atau 4
   },
+  
   {
     id: 3,
     label: 'Supplies',
