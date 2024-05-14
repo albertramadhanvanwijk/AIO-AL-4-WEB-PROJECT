@@ -11,6 +11,7 @@ export class MaintenanceService {
   private baseUrl = environment.apiUrl;
   getPartOutputById: any;
   deleteDetailOutput: any;
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private authService: AuthService) { 
    }
@@ -18,6 +19,10 @@ export class MaintenanceService {
   // File PDF
   uploadDocument(formData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/upload`, formData);
+  }
+  uploadFile(file: FormData): Observable<any> {
+    const url = `${this.apiUrl}/upload`;
+    return this.http.post(url, file);
   }
 
   getFileDocument(fileName: string): Observable<any> {

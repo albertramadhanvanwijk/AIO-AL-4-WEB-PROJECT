@@ -15,6 +15,7 @@ import { Location } from '@angular/common';
   templateUrl: './detail-part.component.html',
   styleUrls: ['./detail-part.component.scss']
 })
+
 export class DetailPartComponent {
   @ViewChild('viewDetailModal') viewDetailModal: any;
   @ViewChild('viewDetailModalAfterApproval') viewDetailModalAfterApproval!: TemplateRef<any>;
@@ -29,7 +30,7 @@ export class DetailPartComponent {
   displayParts: any[] = [];
   entires: any;
   document_id!: string;
-
+  filename: string = '';
   titlePart!: any;
 
   // SEARCH
@@ -46,6 +47,8 @@ export class DetailPartComponent {
   dataPart!: any;
   part: any = {};
   comment: string = '';
+  selectedFile: File | null = null;
+
 
   // Data User Login
   userRole!: any;
@@ -93,7 +96,10 @@ export class DetailPartComponent {
   getBreadCrumbItems() {
     this.breadCrumbItems = [{ label: "List output part" }];
   }
-
+  getUploadedFileUrl(): string {
+    return environment.apiUrl + '/file/' + this.filename;
+  }
+  
   getImgFile(file: any) {
     return environment.apiUrl + '/file/' + file
   }
@@ -248,7 +254,6 @@ export class DetailPartComponent {
         pdf.setFontSize(14);
         pdf.text(`PT Amerta Indah Otsuka`, 30, y);
         y += 20;
-  
         pdf.setFontSize(18);
         pdf.text(`${this.titlePart}`, 30, y);
         y += 20;
@@ -397,7 +402,27 @@ export class DetailPartComponent {
     }
 
   }
-
+  submitImage() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('image', this.selectedFile);
+      this.apiservice.uploadFile(formData).subscribe(
+        (res) => {
+          // Proses berhasil upload
+          console.log('Image uploaded successfully:', res);
+          // Lakukan penanganan lanjutan jika diperlukan
+        },
+        (error) => {
+          // Proses gagal upload
+          console.error('Error uploading image:', error);
+          // Lakukan penanganan error jika diperlukan
+        }
+      );
+    } else {
+      console.error('No file selected.');
+      // Tampilkan pesan atau lakukan penanganan jika tidak ada file yang dipilih
+    }
+  }
   // Function to submit approval
   submitApproval() {
     // Memeriksa apakah status part adalah 'Rejected Request' dan komentar tidak diisi
@@ -443,8 +468,33 @@ export class DetailPartComponent {
     );
 
   }
+  
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.uploadFile(file);
+    }
+  }
+  
+  uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+  
+    this.apiservice.uploadFile(formData).subscribe(
+      (response: any) => {
+        // Tindakan setelah unggahan berhasil
+        console.log('File uploaded successfully', response);
+        Swal.fire('Success', 'File berhasil diunggah.', 'success');
+      },
+      (error: any) => {
+        // Tindakan setelah unggahan gagal
+        console.error('File upload failed', error);
+        Swal.fire('Error', 'Gagal mengunggah file. Silakan coba lagi.', 'error');
+      }
+    );
+  }
 
   goBack(): void {
-      this.location.back();
+    this.location.back();
   }  
 }  
