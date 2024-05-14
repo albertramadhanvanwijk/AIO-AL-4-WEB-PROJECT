@@ -21,18 +21,18 @@
                     <label class="form-label" for="area">Part Area</label>
                     <select class="form-select" [(ngModel)]="areaId" id="area" name="area" required>
                        <ng-container *ngFor="let area of dataAreaByLine">
-                       <ng-container *ngIf="areaId !==6">
-                        <ng-container *ngIf="area.id_area !== 6">
+                       <ng-container *ngIf="areaId !==25">
+                        <ng-container *ngIf="area.id_area !== 25">
                           <option [value]="area.id_area"> {{area.nama_area}} </option>
                         </ng-container>
                        </ng-container>
-                        <ng-container *ngIf="areaId === 6">
+                        <ng-container *ngIf="areaId === 25">
                           <option [value]="area.id_area"> {{area.nama_area}} </option>
                         </ng-container>
                        </ng-container>
                       </select>                   
                 </div>
-                <ng-container *ngIf="areaId===6">
+                <ng-container *ngIf="areaId===25">
                   <div class="mb-3 mt-2">
                     <label class="form-label" for="refurbished_at">Refurbished Date</label>
                     <input  type="date" [(ngModel)]="refurbished_at" class="form-control" id="refurbished_at" name="refurbished_at" required>

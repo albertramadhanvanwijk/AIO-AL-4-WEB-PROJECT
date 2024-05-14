@@ -81,7 +81,7 @@ export class UpdatePartGblComponent {
       this.sopService.getAllAreas().subscribe(
         (res: any) => {
           this.dataArea = res.data;
-          this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 3 && item.id_area != 13)
+          this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 4 && item.id_area != 25)
         }
       )
      }
@@ -95,7 +95,7 @@ export class UpdatePartGblComponent {
      }
   
      updatePart(){
-      if(parseInt(this.areaId) === 6){
+      if(parseInt(this.areaId) === 25){
         if (this.selectedFile) {
           this.uploadFile().subscribe(
             response => {

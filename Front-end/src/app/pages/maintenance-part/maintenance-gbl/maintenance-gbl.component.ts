@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
 import Swal from 'sweetalert2';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-maintenance-gbl',
@@ -17,7 +18,7 @@ export class MaintenanceGblComponent {
   
  // PAGINATION
  index: number = 1;
- pageSize: number = 20;
+ pageSize: number = 1000;
  currentPage: number = 1;
  totalPages: number = 0;
  displayParts: any;
@@ -46,7 +47,7 @@ export class MaintenanceGblComponent {
  stockRemain: any;
 
 
- constructor(private apiservice: MaintenanceService, private modalService: NgbModal, private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
+ constructor(private apiservice: MaintenanceService, private modalService: NgbModal, private authService: AuthService, private route: ActivatedRoute, private router: Router, private location: Location) { }
 
  ngOnInit() {
    this.getParams();
@@ -115,7 +116,7 @@ export class MaintenanceGblComponent {
  // update refurbushid
  toRefurbished(partId: number){
    let data = {
-     "id_area": 12,
+     "id_area": 24,
      "refurbished_at": new Date()
    }
    
@@ -261,4 +262,9 @@ formatDate(isoDateString: string): string {
  onViewPicture(partId: number) {
    this.router.navigate(['/view-picture', partId]);
  }
+
+ 
+ goBack(): void {
+  this.location.back();
+}
 }

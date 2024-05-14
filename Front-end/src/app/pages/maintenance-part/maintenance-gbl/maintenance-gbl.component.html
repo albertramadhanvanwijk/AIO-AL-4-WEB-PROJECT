@@ -7,7 +7,6 @@
         <div class="card-header">
           <h4 class="card-title mb-0"> Data Part {{areaName}} Store </h4>
         </div><!-- end card header -->
-
         <div class="card-body">
           <div id="customerList">
             <div class="row g-4 mb-3">
@@ -54,13 +53,13 @@
                   <ng-container *ngFor="let part of displayParts; let i = index">
                     <tr class="text-center">
                       <td>{{(currentPage - 1) * pageSize + i + 1}}</td>
-                      <ng-container *ngIf="areaId === 6 || areaId === 12">
+                      <ng-container *ngIf="areaId === 6">
                         <td *ngIf="part.refurbished_at; else emptyDate">{{ formatDate(part.refurbished_at) }}</td>
                         <ng-template #emptyDate>
                           <td> <i class="opacity-75">Empty Date</i> </td>
                         </ng-template>
                       </ng-container>
-                      <ng-container *ngIf="areaId !== 6 && areaId !== 12">
+                      <ng-container *ngIf="areaId !== 6">
                         <td>{{ formatDate(part.created_at) }}</td>
                       </ng-container>
                       <td>{{part.part_number}}</td>
@@ -128,7 +127,9 @@
     <!-- end col -->
   </div>
   <!-- end row -->
-
+  <div class="card-body">
+    <!-- Tombol Kembali -->
+    <button (click)="goBack()" class="btn btn-secondary mb-3">Back</button>
   <!-- Remove Modal -->
   <ng-template #removeModal let-modal>
     <div class="modal-body text-center p-5">

@@ -8,7 +8,7 @@ import html2canvas from 'html2canvas';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment.prod';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detail-part-can',
@@ -23,7 +23,7 @@ export class DetailPartCanComponent {
 
   // PAGINATION
   index: number = 1;
-  pageSize: number = 20;
+  pageSize: number = 1000;
   currentPage: number = 1;
   totalPages: number = 0;
   displayParts: any[] = [];
@@ -71,6 +71,7 @@ export class DetailPartCanComponent {
     private authService: AuthService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
+    private location: Location
   ) {
     this.updateForm = this.fb.group({
       'remain': [null, Validators.required],
@@ -451,6 +452,10 @@ export class DetailPartCanComponent {
         Swal.fire('Error', 'Gagal memperbarui status. Silakan coba lagi.', 'error');
       }
     );
+  }
+
+  goBack(): void {
+      this.location.back();
   }
 }  
  

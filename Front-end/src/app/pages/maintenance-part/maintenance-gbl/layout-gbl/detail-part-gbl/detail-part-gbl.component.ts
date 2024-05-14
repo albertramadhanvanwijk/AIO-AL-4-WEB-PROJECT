@@ -8,6 +8,7 @@ import html2canvas from 'html2canvas';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment.prod';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detail-part-gbl',
@@ -22,7 +23,7 @@ export class DetailPartGblComponent {
 
   // PAGINATION
   index: number = 1;
-  pageSize: number = 20;
+  pageSize: number = 1000;
   currentPage: number = 1;
   totalPages: number = 0;
   displayParts: any[] = [];
@@ -70,6 +71,7 @@ export class DetailPartGblComponent {
     private authService: AuthService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
+    private location: Location
   ) {
     this.updateForm = this.fb.group({
       'remain': [null, Validators.required],
@@ -344,8 +346,6 @@ export class DetailPartGblComponent {
     }
   }
 
-
-
   openRemoveConfirmationModal(partId: number, removeConfirmationModal: any) {
     this.partId = partId;
     this.modalService.open(removeConfirmationModal, { centered: true });
@@ -361,7 +361,6 @@ export class DetailPartGblComponent {
       }
     )
 }  
-
 
   openUpdateModal(ouputPartId: number, updateModal: any, remain: number, updateAt: Date) {
     this.dateOut = updateAt
@@ -450,5 +449,10 @@ export class DetailPartGblComponent {
         Swal.fire('Error', 'Gagal memperbarui status. Silakan coba lagi.', 'error');
       }
     );
+ 
   }
-}  
+
+  goBack(): void {
+      this.location.back();
+  }
+}

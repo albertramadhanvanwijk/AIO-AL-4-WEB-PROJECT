@@ -147,13 +147,10 @@ export class AddOutputGblComponent {
  
    // FORM
    onSubmit() {
-    // Memeriksa apakah semua kolom formulir telah diisi
-    if (!this.selectedFile || !this.partId || !this.qtyStock || !this.information || !this.category) {
+    // Memeriksa apakah semua kolom formulir yang diperlukan telah diisi
+    if (!this.partId || !this.qtyStock || !this.information || !this.category) {
       // Membuat pesan kesalahan yang dinamis sesuai dengan kolom yang belum diisi
       let errorMessage = "Please fill in the following fields:<br/>";
-      if (!this.selectedFile) {
-        errorMessage += "- Image<br/>";
-      }
       if (!this.partId) {
         errorMessage += "- Part ID<br/>";
       }
@@ -174,43 +171,47 @@ export class AddOutputGblComponent {
       });
       return; // Hentikan eksekusi lebih lanjut
     }
-     if (parseInt(this.category) === 1) {
-       if (this.selectedFile) {
-         this.uploadFile().subscribe(
-           response => {
-             this.filename = response.filename;
-             console.log('File sudah di upload:', this.filename);
-             let data = {
-               "part_id": this.partId,
-               "stock_in": this.qtyStock,
-               "stock_out": 0,
-               "id_category": parseInt(this.category),
-               "image": this.filename,
-               "id_user": parseInt(this.userId),
-               "keterangan": this.information
-             };
-             // Call function to submit data
-             this.submitData(data);
-           },
-           error => {
-             console.error(error);
-           }
-         );
-       } else {
-         let data = {
-           "part_id": this.partId,
-           "stock_in": this.qtyStock,
-           "stock_out": 0,
-           "id_category": parseInt(this.category),
-           "image": this.filename,
-           "id_user": parseInt(this.userId),
-           "keterangan": this.information
-         };
-         // Call function to submit data
-         this.submitData(data);
-       }
-     }
-   }
+  
+    // Jika semua kolom yang diperlukan telah diisi, lanjutkan untuk mengunggah file jika ada
+    if (this.selectedFile) {
+      this.uploadFile().subscribe(
+        response => {
+          this.filename = response.filename;
+          console.log('File sudah diupload:', this.filename);
+          let data = {
+            "part_id": this.partId,
+            "stock_in": this.qtyStock,
+            "stock_out": 0,
+            "id_category": parseInt(this.category),
+            "image": this.filename,
+            "id_user": parseInt(this.userId),
+            "keterangan": this.information
+          };
+          // Panggil fungsi untuk mengirimkan data
+          this.submitData(data);
+        },
+        error => {
+          console.error(error);
+        }
+      );
+    } else {
+      // Jika tidak ada file yang dipilih, kirimkan data tanpa gambar
+      let data = {
+        "part_id": this.partId,
+        "stock_in": this.qtyStock,
+        "stock_out": 0,
+        "id_category": parseInt(this.category),
+        "image": "", // Tetapkan gambar ke string kosong
+        "id_user": parseInt(this.userId),
+        "keterangan": this.information
+      };
+      // Panggil fungsi untuk mengirimkan data
+      this.submitData(data);
+    }
+  }
+  
+  
+  
  
    submitData(data: any) {
      this.apiService.insertOutput(data).subscribe(

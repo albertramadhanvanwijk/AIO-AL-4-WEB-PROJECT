@@ -146,7 +146,7 @@ export class AddOutputComponent {
   // FORM
   onSubmit() {
     // Memeriksa apakah semua kolom formulir telah diisi
-    if (!this.selectedFile || !this.partId || !this.qtyStock || !this.information || !this.category) {
+    if (!this.partId || !this.qtyStock || !this.information || !this.category) {
       // Membuat pesan kesalahan yang dinamis sesuai dengan kolom yang belum diisi
       let errorMessage = "Please fill in the following fields:<br/>";
       if (!this.selectedFile) {
