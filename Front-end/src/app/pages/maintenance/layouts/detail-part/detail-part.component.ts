@@ -2,7 +2,7 @@ import { Component, Output, Input, ViewChild, TemplateRef } from '@angular/core'
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -68,7 +68,7 @@ export class DetailPartComponent {
 
   exportPdf_now: boolean = false;
   selectedPart: any = {};
-  imagePreview: any = null;
+  imagePreview: string | null = null;
   userrole: number = 3;
 
   constructor(
@@ -79,6 +79,7 @@ export class DetailPartComponent {
     private fb: FormBuilder,
     private location: Location,
     private sanitizer: DomSanitizer,
+    private router: Router,
 
   ) {
     this.updateForm = this.fb.group({
@@ -476,10 +477,10 @@ export class DetailPartComponent {
 
   }
   
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file) {
-      this.uploadFile(file);
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.selectedFile = input.files[0];
     }
   }
   
@@ -510,6 +511,7 @@ export class DetailPartComponent {
   }
 
   goBack(): void {
-    this.location.back();
-  }  
-}  
+    // Kembali ke URL '/part-maintenance/1'
+    this.router.navigate(['/part-maintenance/1']);
+  }
+} 
