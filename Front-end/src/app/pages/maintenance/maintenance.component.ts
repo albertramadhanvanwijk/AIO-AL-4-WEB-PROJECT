@@ -1,3 +1,4 @@
+// components/maintenance/maintenance.component.ts
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +19,7 @@ export class MaintenanceComponent {
 
   // BreadCrumb
   breadCrumbItems!: Array<{}>;
-  
+
   // PAGINATION
   index: number = 1;
   pageSize: number = 1000;
@@ -40,7 +41,7 @@ export class MaintenanceComponent {
 
   // Data User Login
   userRole!: any;
-  
+
   // parameters areaID
   areaId!: number;
 
@@ -48,7 +49,6 @@ export class MaintenanceComponent {
   filterDate!: Date | null;
 
   stockRemain: any;
-
 
   constructor(private apiservice: MaintenanceService, private modalService: NgbModal, private authService: AuthService, private route: ActivatedRoute, private router: Router, private location: Location) { }
 
@@ -60,34 +60,34 @@ export class MaintenanceComponent {
 
   getDataUserLogin(){
     const role = parseInt(this.authService.getRoleID());
-    this.userRole = role
+    this.userRole = role;
   }
 
   getImgFile(file: any) {
-    return environment.apiUrl + '/file/' + file
+    return environment.apiUrl + '/file/' + file;
   }
 
   getBreadCrumbItems(){
-    this.breadCrumbItems = [{ label: "Maintenance" }, { label: "List Part" }]; 
+    this.breadCrumbItems = [{ label: "Maintenance" }, { label: "List Part" }];
   }
 
   getParams(){
     this.route.params.subscribe(params => {
       this.areaId = +params['areaId'];
-    } )
+    });
     this.fecthParts();
 
     if(this.areaId === 1){
-      this.areaName = "IBF"
+      this.areaName = "IBF";
     }
     if(this.areaId === 2){
-      this.areaName = "Preparasi"
+      this.areaName = "Preparasi";
     }
     if(this.areaId === 3){
-      this.areaName = "Packing"
+      this.areaName = "Packing";
     }
     if(this.areaId === 6){
-      this.areaName = "Refurbished"
+      this.areaName = "Refurbished";
     }
   }
 
@@ -109,8 +109,7 @@ export class MaintenanceComponent {
       (res: any) => {
         this.dataPartById = res.data;
         console.log(this.dataPartById);
-        
-    })
+    });
   }
 
   // update refurbushid
@@ -118,15 +117,15 @@ export class MaintenanceComponent {
     let data = {
       "id_area": 6,
       "refurbished_at": new Date()
-    }
-    
+    };
+
     this.apiservice.updatePart(partId, data).subscribe(
       (res: any) => {
-        console.log("Success Move This Part to Refurbished Part")
+        console.log("Success Move This Part to Refurbished Part");
         this.fecthParts();
         this.modalService.dismissAll();
       }
-    )
+    );
   }
 
   /**
@@ -144,8 +143,8 @@ export class MaintenanceComponent {
       confirmButtonText: 'Yes!'
     }).then(result => {
       if (result.value) {
-        Swal.fire({title: 'Successfully!', text:'Your part has been refurbish.', confirmButtonColor: 'rgb(3, 142, 220)',icon: 'success',});
-        this.toRefurbished(partId)
+        Swal.fire({title: 'Successfully!', text:'Your part has been refurbish.', confirmButtonColor: 'rgb(3, 142, 220)',icon: 'success'});
+        this.toRefurbished(partId);
       }
     });
   }
@@ -154,11 +153,11 @@ export class MaintenanceComponent {
     this.apiservice.softDelete(partId).subscribe(
       (res: any) => {
         this.fecthParts();
-        this.modalService.dismissAll(); 
+        this.modalService.dismissAll();
       }, (error: any) => {
         console.log(error, "Remove Failed");
       }
-    )
+    );
   }
 
   // fecth parts
@@ -166,51 +165,51 @@ export class MaintenanceComponent {
     this.apiservice.getPartsByAreaId(this.areaId).subscribe(
       (res: any) => {
         if(res.data.length !== 0){
-          const parts = res.data
+          const parts = res.data;
           this.dataParts = parts.filter((part: any) => !part.is_deleted);
           console.log(this.dataParts);
           this.dataParts.forEach((part: any) =>{
             this.apiservice.getTotalRemainInByPartId(part.part_id).subscribe(
-              (res: any)=>{
+              (res: any) => {
                 if(res){
-                  part.remainIn = res
+                  part.remainIn = res;
                 } else {
-                  part.remainIn = 0
+                  part.remainIn = 0;
                 }
               },
-              (err)=>{
-                console.log(err, "Total Remain not found")
+              (err) => {
+                console.log(err, "Total Remain not found");
               }
-            )
+            );
             this.apiservice.getTotalRemainOutByPartId(part.part_id).subscribe(
-              (res: any)=>{
+              (res: any) => {
                 if(res){
-                  part.remainOut = res
+                  part.remainOut = res;
                 } else {
-                  part.remainOut = 0
+                  part.remainOut = 0;
                 }
               },
-              (err)=>{
-                console.log(err, "Total Remain not found")
+              (err) => {
+                console.log(err, "Total Remain not found");
               }
-            )
-        })
+            );
+        });
         this.entires = this.dataParts.length;
         }
         else{
           this.dataParts = [];
-          this.isNull = true       
+          this.isNull = true;
         }
         this.calculateTotalPages();
         this.updateDisplayParts();
       }, (err: any) => {
-        console.log(err, "Parts not found")
+        console.log(err, "Parts not found");
       }
-    )
+    );
   }
 
-   // SEARCH
-   onSearch() {
+  // SEARCH
+  onSearch() {
     this.currentPage = 1; 
     if (this.searchQuery.trim() === '') {
         this.updateDisplayParts();
@@ -221,13 +220,13 @@ export class MaintenanceComponent {
         );
         this.calculateTotalPages();
     }
-}
+  }
 
   // DATE FORMATTERS
- formatDate(isoDateString: string): string {
-  const date = new Date(isoDateString);
-  return new Intl.DateTimeFormat(['ban', 'id']).format(date);
-}
+  formatDate(isoDateString: string): string {
+    const date = new Date(isoDateString);
+    return new Intl.DateTimeFormat(['ban', 'id']).format(date);
+  }
 
   // Pagination
   calculateTotalPages() {
@@ -238,26 +237,32 @@ export class MaintenanceComponent {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.displayParts = this.dataParts.slice(startIndex, endIndex);
+    console.log(this.displayParts)
   }
+  
   nextPage(){
     if (this.currentPage < this.totalPages){
       this.currentPage++;
       this.updateDisplayParts();
     }
   }
+  
   prevPage(){
     if (this.currentPage > 1){
           this.currentPage--;
           this.updateDisplayParts();
-        }
+    }
   }
+  
   getStartIndex(): number {
     return  (this.currentPage - 1) * this.pageSize + 1;
   }
+  
   getEndIndex(): number {
     const endIndex: number = this.currentPage * this.pageSize;
     return Math.min(endIndex, this.entires);
   }
+  
   goBack(): void {
     this.location.back();
   }

@@ -85,6 +85,7 @@ export class AddOutputComponent {
     this.apiService.getPartById(partId).subscribe(
       (res: any) => {
         this.dataPart = res.data[0];
+        console.log("data part: ", this.dataPart)
         this.remain_stock = this.dataPart.qty_stock;
         console.log(this.remain_stock);
         this.partName = this.dataPart.description;

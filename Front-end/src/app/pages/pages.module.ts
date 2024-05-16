@@ -89,6 +89,7 @@ import { AddPartEnmixComponent } from './maintenance-part/maintenance-enmix/layo
 import { DetailPartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/detail-part-enmix/detail-part-enmix.component';
 import { UpdatePartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/update-part-enmix/update-part-enmix.component';
 import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/detail-part-enmix/add-output-enmix/add-output-enmix.component';
+import { ListScoreQuizComponent } from './quiz/list-score-quiz/list-score-quiz.component';
 
 @NgModule({
   declarations: [
@@ -154,7 +155,8 @@ import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/la
     AddPartEnmixComponent,
     DetailPartEnmixComponent,
     UpdatePartEnmixComponent,
-    AddOutputEnmixComponent
+    AddOutputEnmixComponent,
+    ListScoreQuizComponent
 
   ],
   imports: [

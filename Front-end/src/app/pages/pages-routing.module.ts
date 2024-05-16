@@ -67,6 +67,7 @@ import { FirstPageEnmixComponent } from './maintenance-part/maintenance-enmix/fi
 import { AddPartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/add-part-enmix/add-part-enmix.component';
 import { UpdatePartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/update-part-enmix/update-part-enmix.component';
 import { DetailPartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/detail-part-enmix/detail-part-enmix.component';
+import { ListScoreQuizComponent } from './quiz/list-score-quiz/list-score-quiz.component';
 
 const routes: Routes = [
   {
@@ -308,6 +309,10 @@ const routes: Routes = [
   {
     path: 'quiz',
     component: QuizComponent,
+  },
+  {
+    path: "list-score/:id",
+    component: ListScoreQuizComponent
   },
   {
     path: 'master-list-quiz',

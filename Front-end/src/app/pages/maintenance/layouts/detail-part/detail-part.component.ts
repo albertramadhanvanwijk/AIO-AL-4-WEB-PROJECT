@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment.prod';
 import { Location } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-part',
@@ -32,6 +33,7 @@ export class DetailPartComponent {
   document_id!: string;
   filename: string = '';
   titlePart!: any;
+  image!:any;
 
   // SEARCH
   searchQuery!: string;
@@ -48,6 +50,7 @@ export class DetailPartComponent {
   part: any = {};
   comment: string = '';
   selectedFile: File | null = null;
+  
 
 
   // Data User Login
@@ -64,7 +67,9 @@ export class DetailPartComponent {
   dateOut!: Date;
 
   exportPdf_now: boolean = false;
-  selectedPart: any;
+  selectedPart: any = {};
+  imagePreview: any = null;
+  userrole: number = 3;
 
   constructor(
     private apiservice: MaintenanceService,
@@ -72,7 +77,9 @@ export class DetailPartComponent {
     private authService: AuthService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private location: Location
+    private location: Location,
+    private sanitizer: DomSanitizer,
+
   ) {
     this.updateForm = this.fb.group({
       'remain': [null, Validators.required],
@@ -484,6 +491,14 @@ export class DetailPartComponent {
       (response: any) => {
         // Tindakan setelah unggahan berhasil
         console.log('File uploaded successfully', response);
+        let data:any = {
+          image: response.filename
+        }
+        // this.apiservice.updateOutput(1, data).subscribe(
+        //   (res:any)=>{
+        //     console.log(res)
+        //   }
+        // )
         Swal.fire('Success', 'File berhasil diunggah.', 'success');
       },
       (error: any) => {

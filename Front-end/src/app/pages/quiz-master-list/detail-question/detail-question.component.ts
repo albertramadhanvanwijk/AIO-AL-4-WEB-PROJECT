@@ -94,6 +94,7 @@ export class DetailQuestionComponent {
         status: dataForm.status_4,
       },
     ];
+    console.log(dataAnswer)
 
     this.sopService.addAnswer(dataAnswer).subscribe(
       (res: any) => {
@@ -105,6 +106,6 @@ export class DetailQuestionComponent {
         this.getIdParams();
       }
     );
-    // console.log(dataAnswer);
+    console.log(dataAnswer);
   }
 }
