@@ -315,17 +315,11 @@
               <th class="text-start">Upload Gambar</th>
               <td>
                 <div class="mt-2">
-                  <label for="image" class="form-label">Image</label>
                   <input class="form-control" type="file" (change)="onFileSelected($event)" accept="image/*" name="files" required>
-                  <div *ngIf="imagePreview" class="mt-2">
-                    <img [src]="imagePreview" alt="Image preview" style="max-width: 130%; height: auto; object-fit: contain;">
-                  </div>
-                  <button *ngIf="selectedFile" type="button" class="btn btn-success mt-2" (click)="submitImage()">Submit Image</button>
-                </div>
+                  <button type="button" class="btn btn-success mt-2" (click)="submitImage()">Submit Image</button>
+                </div>                
               </td>
             </tr>
-            
-
             <!-- Gambar -->
             <tr>
               <th class="text-start">Gambar</th>
