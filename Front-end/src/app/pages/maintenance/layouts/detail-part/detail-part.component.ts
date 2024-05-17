@@ -428,28 +428,28 @@ export class DetailPartComponent {
     }
 
   }
+
   submitImage() {
     if (this.selectedFile) {
       const formData = new FormData();
-      formData.append('image', this.selectedFile);
+      formData.append('file', this.selectedFile);
+
       this.apiservice.uploadFile(formData).subscribe(
-        (res) => {
-          // Proses berhasil upload
-          console.log('Image uploaded successfully:', res);
-          // Lakukan penanganan lanjutan jika diperlukan
-          this.isImageSubmitted = true;
+        (response: any) => {
+          console.log('File uploaded successfully', response);
+          Swal.fire('Success', 'Image berhasil diunggah.', 'success');
+          this.modalService.dismissAll();
         },
-        (error) => {
-          // Proses gagal upload
-          console.error('Error uploading image:', error);
-          // Lakukan penanganan error jika diperlukan
+        (error: any) => {
+          console.error('File upload failed', error);
+          Swal.fire('Error', 'Gagal mengunggah image. Silakan coba lagi.', 'error');
         }
       );
     } else {
-      console.error('No file selected.');
-      // Tampilkan pesan atau lakukan penanganan jika tidak ada file yang dipilih
+      Swal.fire('Error', 'Silakan pilih image terlebih dahulu.', 'error');
     }
   }
+
   // Function to submit approval
   submitApproval() {
     // Memeriksa apakah status part adalah 'Rejected Request' dan komentar tidak diisi

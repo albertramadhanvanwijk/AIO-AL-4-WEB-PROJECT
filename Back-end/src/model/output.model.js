@@ -59,8 +59,8 @@ const totalPrice = async (areaId) => await project
 const updatePartStatus = async (outputpart_id, status, comment) => {
     try {
         const updatedRows = await project('output_part')
-        .where('outputpart_id', '=', outputpart_id)
-        .update({ status, comment });
+            .where('outputpart_id', '=', outputpart_id)
+            .update({ status, comment });
 
         return updatedRows > 0; // Return true if rows were updated, false otherwise
     } catch (error) {
@@ -70,15 +70,15 @@ const updatePartStatus = async (outputpart_id, status, comment) => {
 };
 
 module.exports = {
-getAll,
-getByIdPart,
-getByOutputId,
-insert,
-update,
-softDelete,
-totalOutByIdPart,
-totalInByIdPart,
-getDetailOutput,
-totalPrice,
-updatePartStatus
+    getAll,
+    getByIdPart,
+    getByOutputId,
+    insert,
+    update,
+    softDelete,
+    totalOutByIdPart,
+    totalInByIdPart,
+    getDetailOutput,
+    totalPrice,
+    updatePartStatus
 };

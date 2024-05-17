@@ -5,6 +5,7 @@ const path = require('path')
 const fs = require('fs')
 
 const UploadController = require('./../controller/master_controller/UploadController')
+const OutputController = require('./../controller/master_controller/OutputController');
 const upload = require('./../../src/services/upload-file')
 
 const masterRoutes = require('./master_routes/master.routes');
