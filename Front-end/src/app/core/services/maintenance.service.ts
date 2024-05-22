@@ -9,19 +9,23 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class MaintenanceService {
   private baseUrl = environment.apiUrl;
-  getPartOutputById: any;
-  deleteDetailOutput: any;
-  private apiUrl = environment.apiUrl;
+  
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  constructor(private http: HttpClient, private authService: AuthService) { 
-   }
+  // Metode untuk memperbarui stok suatu bagian setelah disetujui
+  updateStock(partId: number, newStock: number): Observable<any> {
+    const headers = this.authService.getHeaders();
+    const data = { stock: newStock };
+    return this.http.put(`${this.baseUrl}/master/update-stock/${partId}`, data, { headers });
+  }
 
-  // File PDF
+  // Metode lain dalam MaintenanceService
   uploadDocument(formData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/upload`, formData);
   }
+
   uploadFile(file: FormData): Observable<any> {
-    const url = `${this.apiUrl}/upload`;
+    const url = `${this.baseUrl}/upload`;
     return this.http.post(url, file);
   }
 
@@ -50,6 +54,12 @@ export class MaintenanceService {
     const headers = this.authService.getHeaders();
     return this.http.post(`${this.baseUrl}/master/part`, data, { headers });
   }
+
+  addStockOutput(data: any) {
+    // Simpan data stok baru dengan status persetujuan 'Pending'
+    return this.http.post<any>('api/add-output', data);
+  }
+
 
   getPartsByAreaId(areaId: number): Observable<any> {
     const headers = this.authService.getHeaders();
@@ -116,7 +126,6 @@ export class MaintenanceService {
 
   updatePartStatus(partId: number, status: string, comment: string): Observable<any> {
     const headers = this.authService.getHeaders();
-
     const body = {
       approval_status: status,
       komentar: comment
@@ -125,5 +134,13 @@ export class MaintenanceService {
     return this.http.put(`${this.baseUrl}/master/output/${partId}`, body, { headers });
   }
 
-
+  updatePartStock(partId: number, newStock: number): Observable<any> {
+    // Implementasikan logika untuk memperbarui stok suatu bagian
+    // Anda dapat menggunakan HttpClient untuk membuat permintaan ke API backend Anda
+    // Ganti pernyataan return ini dengan implementasi aktual Anda
+    return this.http.put(`/api/parts/${partId}/stock`, { stock: newStock });
+  }
 }
+
+
+

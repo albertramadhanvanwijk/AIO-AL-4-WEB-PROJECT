@@ -158,7 +158,9 @@ export class DetailPartComponent {
           this.dataOutputPart.forEach((part: any) => {
             if (part.status === 'Approved Request') {
               this.totalIN += part.stock_in;
-              this.totalIN -= part.stock_out; // Reduce totalIN by stock_out
+              this.totalIN -= part.stock_out;
+              this.qty_stock += part.stock;
+              this.qty_stock -= part.stock; // Reduce totalIN by stock_out
             }
           });
           // Set default status to "Awaiting Approval" if status is not already set
@@ -479,11 +481,15 @@ export class DetailPartComponent {
         if (this.selectedPart.status === 'Approved Request') {
           this.totalIN += this.selectedPart.stock_in;
           this.totalIN -= this.selectedPart.stock_out;
+          this.qty_stock += this.selectedPart.stock; // Tambahkan stock ke qty_stock setelah disetujui
+          this.dataPart.qty_stock += this.selectedPart.stock;
+          this.dataPart.qty_stock -= this.selectedPart.stock;
         } else if (this.selectedPart.status === 'Rejected Request') {
           // If rejected, revert the changes to totalIN
           this.totalIN -= this.selectedPart.stock_in;
+          this.qty_stock -= this.selectedPart.stock;
         }
-
+  
         // Close the modal and show success message
         this.modalService.dismissAll();
         Swal.fire('Success', 'Status berhasil diperbarui.', 'success');
@@ -493,8 +499,11 @@ export class DetailPartComponent {
         Swal.fire('Error', 'Gagal memperbarui status. Silakan coba lagi.', 'error');
       }
     );
-
   }
+
+  
+
+  
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;

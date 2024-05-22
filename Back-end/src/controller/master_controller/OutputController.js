@@ -59,8 +59,20 @@ const insertOutputPart = async (req, res) => {
 const updateByOutputId = async (req, res) => {
     const outputId = req.params.outputId
     const newData = req.body
+    let dataStock = 0
     try{
         const data = await model.update(outputId, newData)
+        const dataOutput = await model.getByOutputId(req.params.outputId)
+        const dataPart = await partModel.getById(dataOutput[0].part_id)
+        if(req.body.approval_status == 'Approved Request'){
+            if(dataOutput[0].stock_in != 0){
+                dataStock = Number(dataPart[0].qty_stock + Number(dataOutput[0].stock_in))
+                partModel.update(dataOutput[0].part_id, {qty_stock: dataStock   })
+            } else if(dataOutput[0].stock_out != 0){
+                dataStock = Number(dataPart[0].qty_stock - Number(dataOutput[0].stock_out))
+                partModel.update(dataOutput[0].part_id, {qty_stock: dataStock   })
+            }
+        }
         return api.ok(res, data)
     } catch {
         return api.error(res, "Internal Server Error", 500)

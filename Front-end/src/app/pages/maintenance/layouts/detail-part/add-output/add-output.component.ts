@@ -1,28 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { Router } from '@angular/router';
-declare var $: any;
 import Swal from 'sweetalert2';
+
+declare var $: any;
 
 @Component({
   selector: 'app-add-output',
   templateUrl: './add-output.component.html',
   styleUrls: ['./add-output.component.scss']
 })
+@Injectable({
+  providedIn: 'root'
+})
 export class AddOutputComponent {
-  // bread crumb items
   breadCrumbItems!: Array<{}>;
 
-  // parameter
   partId!: number;
   image!: any;
   selectedFile!: File;
   filename!: string;
 
-  // Data Part
   dataPart!: any;
   partName!: string;
   qtyStock!: number;
@@ -31,14 +31,18 @@ export class AddOutputComponent {
   newData!: any;
   newDataParts!: any;
   remain_stock!: number;
+  stock: number = 0;
 
-  // userLogin
   userId!: any;
 
-  constructor(private http: HttpClient, private apiService: MaintenanceService, private route: ActivatedRoute, private authService: AuthService, private router: Router) {
-  }
+  constructor(
+    private http: HttpClient,
+    private apiService: MaintenanceService,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  // ngOnInit
   ngOnInit() {
     this.breadCrumbItem();
     this.getParamsId();
@@ -54,23 +58,19 @@ export class AddOutputComponent {
     this.selectedFile = event.target.files[0];
     console.log(this.selectedFile);
   }
-  
+
   uploadFile() {
     const formData = new FormData();
     formData.append('file', this.selectedFile);
     return this.apiService.uploadDocument(formData);
   }
 
-  // Breadcrumb
   breadCrumbItem() {
-    this.breadCrumbItems = [
-      { label: 'List Output' },
-      { label: 'Add output' }
-    ];
+    this.breadCrumbItems = [{ label: 'List Output' }, { label: 'Add output' }];
   }
 
   getParamsId() {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const partIdParam = params.get('partId');
       if (partIdParam !== null) {
         this.partId = +partIdParam;
@@ -85,10 +85,11 @@ export class AddOutputComponent {
     this.apiService.getPartById(partId).subscribe(
       (res: any) => {
         this.dataPart = res.data[0];
-        console.log("data part: ", this.dataPart)
-        this.remain_stock = this.dataPart.qty_stock;
-        console.log(this.remain_stock);
+        this.remain_stock = this.dataPart.stock;
         this.partName = this.dataPart.description;
+      },  
+      (error) => {
+        console.error('Error fetching part by ID:', error);
       }
     );
   }
@@ -96,57 +97,69 @@ export class AddOutputComponent {
   addOutput() {
     if (parseInt(this.category) === 1) {
       this.newData = {
-        "part_id": this.partId,
-        "stock_in": this.qtyStock,
-        "stock_out": 0,
-        "id_category": parseInt(this.category),
-        "image": this.filename,
-        "id_user": parseInt(this.userId),
-        "keterangan": this.information
+        part_id: this.partId,
+        stock_in: this.stock,
+        stock_out: 0,
+        id_category: parseInt(this.category),
+        image: this.filename,
+        id_user: parseInt(this.userId),
+        keterangan: this.information,
       };
-      console.log(this.qtyStock);
       this.newDataParts = {
-        "qty_stock": this.dataPart.qty_stock + this.qtyStock
+        stock: this.dataPart.stock + this.stock,
       };
-
-    } if (parseInt(this.category) === 2) {
+    } else if (parseInt(this.category) === 2) {
       this.newData = {
-        "part_id": this.partId,
-        "stock_in": 0,
-        "stock_out": this.qtyStock,
-        "id_category": parseInt(this.category),
-        "image": this.filename,
-        "id_user": parseInt(this.userId),
-        "keterangan": this.information
+        part_id: this.partId,
+        stock_in: 0,
+        stock_out: this.stock,
+        id_category: parseInt(this.category),
+        image: this.filename,
+        id_user: parseInt(this.userId),
+        keterangan: this.information,
       };
       this.newDataParts = {
-        "qty_stock": this.dataPart.qty_stock - this.qtyStock
+        stock: this.dataPart.stock - this.stock,
       };
     }
+
     this.apiService.updatePart(this.partId, this.newDataParts).subscribe(
       (res: any) => {
-        console.log("qty stock terupdate");
+        console.log("Stock quantity updated");
+        this.apiService.updateStock(this.partId, this.newDataParts.stock).subscribe(
+          (res: any) => {
+            console.log("Stock updated after approval");
+          },
+          (error) => {
+            console.error('Error updating stock after approval:', error);
+          }
+        );
+      },
+      (error: any) => {
+        console.error("Failed to update stock:", error);
       }
     );
+
     this.apiService.insertOutput(this.newData).subscribe(
       (res: any) => {
         this.showModal();
+      },
+      (error: any) => {
+        console.error('Failed to insert output:', error);
       }
     );
   }
 
-  // Show Modal
   showModal() {
     $('#successModal').modal('show');
   }
+
   closeModal() {
     $('#successModal').modal('hide');
     this.router.navigate(['/detail-part', this.partId]);
   }
 
-  // FORM
-  onSubmit(){
+  onSubmit() {
     this.addOutput();
   }
-
 }
