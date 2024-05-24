@@ -9,8 +9,9 @@ import { environment } from 'src/environments/environment.prod';
 })
 export class MaintenanceService {
   private baseUrl = environment.apiUrl;
-  
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  private apiUrl = environment.apiUrl;
+
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   // Metode untuk memperbarui stok suatu bagian setelah disetujui
   updateStock(partId: number, newStock: number): Observable<any> {
@@ -19,14 +20,14 @@ export class MaintenanceService {
     return this.http.put(`${this.baseUrl}/master/update-stock/${partId}`, data, { headers });
   }
 
+
   // Metode lain dalam MaintenanceService
   uploadDocument(formData: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/upload`, formData);
   }
 
-  uploadFile(file: FormData): Observable<any> {
-    const url = `${this.baseUrl}/upload`;
-    return this.http.post(url, file);
+  uploadFile(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/upload`, formData);
   }
 
   getFileDocument(fileName: string): Observable<any> {
@@ -49,7 +50,7 @@ export class MaintenanceService {
     const headers = this.authService.getHeaders();
     return this.http.put(`${this.baseUrl}/master/part/${partId}`, data, { headers });
   }
-  
+
   insertPart(data: any): Observable<any> {
     const headers = this.authService.getHeaders();
     return this.http.post(`${this.baseUrl}/master/part`, data, { headers });
@@ -77,7 +78,7 @@ export class MaintenanceService {
       "is_deleted": 1
     };
     return this.http.put(`${this.baseUrl}/master/delete-part/${partId}`, data, { headers });
-  }  
+  }
 
   getAllStockRemain(): Observable<any> {
     const headers = this.authService.getHeaders();
@@ -122,6 +123,15 @@ export class MaintenanceService {
   getImageUrl(partId: number): Observable<any> {
     const headers = this.authService.getHeaders();
     return this.http.get(`${this.baseUrl}/master/image-url/${partId}`, { headers });
+  }
+
+  updatePartWithImage(partId: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/parts/${partId}/update`, data);
+  }
+
+  // maintenance.service.ts
+  updatePartImage(partId: number, imageUrl: string): Observable<any> {
+    return this.http.put(`${environment.apiUrl}/parts/${partId}/image`, { imageUrl });
   }
 
   updatePartStatus(partId: number, status: string, comment: string): Observable<any> {

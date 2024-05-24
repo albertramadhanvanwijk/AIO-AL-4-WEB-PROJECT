@@ -489,7 +489,7 @@ export class DetailPartComponent {
           this.totalIN -= this.selectedPart.stock_in;
           this.qty_stock -= this.selectedPart.stock;
         }
-  
+
         // Close the modal and show success message
         this.modalService.dismissAll();
         Swal.fire('Success', 'Status berhasil diperbarui.', 'success');
@@ -501,9 +501,9 @@ export class DetailPartComponent {
     );
   }
 
-  
 
-  
+
+
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
