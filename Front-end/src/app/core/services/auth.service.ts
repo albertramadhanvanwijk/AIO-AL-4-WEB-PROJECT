@@ -23,7 +23,7 @@ export class AuthService {
   nik = new BehaviorSubject<any>(localStorage.getItem('nik'));
   userId = new BehaviorSubject<any>(localStorage.getItem('user_id'));
   userGroup = new BehaviorSubject<any>(localStorage.getItem('user_group'));
-  line =  new BehaviorSubject<any>(localStorage.getItem('id_line'));
+  line = new BehaviorSubject<any>(localStorage.getItem('id_line'));
 
   constructor(private http: HttpClient) {
     setInterval(() => {
@@ -93,7 +93,7 @@ export class AuthService {
     areaName: string,
     nik: any,
     userGroup: any,
-    line:any
+    line: any
   ) {
     localStorage.setItem('auth_token', token);
     localStorage.setItem('auth_role_id', role_id);

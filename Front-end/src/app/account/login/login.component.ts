@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, EventEmitter, Output} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedServiceService } from 'src/app/core/services/shared-service.service';
 
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   /**
    * Form submit
    */
-   onSubmit() {
+  onSubmit() {
     this.authService.login(this.nik, this.password).subscribe(
       (response) => {
         this.authService.saveToken(response.token, response.userData[0].role_id, response.userData[0].id_user, response.userData[0].nama_user, response.userData[0].name, response.userData[0].nama_area, response.userData[0].nik, response.userData[0].group_id, response.userData[0].id_line);
@@ -53,12 +53,12 @@ export class LoginComponent implements OnInit {
           })
         } else {
           // window.location.href = window.location.origin + `/maintenance/${idLine}`
-          this.router.navigate(['/maintenance/' +idLine]).then(() => {
+          this.router.navigate(['/maintenance/' + idLine]).then(() => {
             location.reload()
           })
         }
-        
-        
+
+
       },
       (error) => {
         this.loginError = true;

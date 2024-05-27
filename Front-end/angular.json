@@ -71,7 +71,7 @@
               "ngx-csv/ngx-csv",
               "dropzone",
               "file-saver"
-           ]
+            ]
           },
           "configurations": {
             "production": {
@@ -91,10 +91,10 @@
               "optimization": {
                 "scripts": true,
                 "styles": {
-                    "minify": true,
-                    "inlineCritical": false
+                  "minify": true,
+                  "inlineCritical": false
                 }
-            }
+              }
             },
             "development": {
               "buildOptimizer": false,
@@ -141,7 +141,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js"
+            ]
           }
         }
       }

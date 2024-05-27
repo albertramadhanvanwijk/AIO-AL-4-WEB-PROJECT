@@ -46,6 +46,7 @@
                     <th>PIC</th>
                     <th>Part Number</th>
                     <th>Description</th>
+                    <th>Area</th>
                     <th>Information</th>
                     <th>Status</th>
                     <th *ngIf="userRole === 3 || userRole === 4" class="action-table"></th>
@@ -66,6 +67,7 @@
                       <td>{{part.nama_user}}</td>
                       <td>{{part.part_number}}</td>
                       <td>{{part.description}}</td>
+                      <td>{{part.nama_area}}</td>
                       <td>{{part.keterangan}}</td>
                       <td>
                         <span [ngClass]="{
