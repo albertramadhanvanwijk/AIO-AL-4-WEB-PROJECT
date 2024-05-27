@@ -50,6 +50,7 @@ export class DetailPartComponent {
   part: any = {};
   comment: string = '';
   selectedFile: File | null = null;
+  area!: any;
 
 
 
@@ -147,6 +148,8 @@ export class DetailPartComponent {
 
   // Fetch data output by part_id
   fecthDataOutput(partId: number) {
+    console.log('id part',partId);
+    
     this.apiservice.getDetailOutput(partId).subscribe(
       (res: any) => {
         if (res.data.length !== 0) {

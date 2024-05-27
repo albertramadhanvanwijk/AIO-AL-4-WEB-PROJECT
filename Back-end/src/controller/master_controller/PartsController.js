@@ -22,6 +22,8 @@ const getPartById = async (req, res) => {
 
 const insertPart = async (req, res) => {
     const newDataPart = req.body;
+    console.log(req.body);
+    return
     try{
         const data = await model.insert(newDataPart)
         return api.ok(res, data);
