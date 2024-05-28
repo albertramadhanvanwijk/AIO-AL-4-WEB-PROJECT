@@ -34,9 +34,6 @@ export class AddOutputComponent {
   stock: number = 0;
 
   userId!: any;
-  areaId!: any;
-  id_area!: any;
-  nama_area!: any;
 
   constructor(
     private http: HttpClient,
@@ -44,23 +41,17 @@ export class AddOutputComponent {
     private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.breadCrumbItem();
     this.getParamsId();
     this.getDataUserLogin();
-    this.getDataAreaLogin();
   }
 
   getDataUserLogin() {
     const user_id = this.authService.getUserId();
     this.userId = user_id;
-  }
-
-  getDataAreaLogin() {
-    const id_area = this.authService.getUserId();
-    this.userId = id_area;
   }
 
   onFileSelected(event: any) {
@@ -96,7 +87,7 @@ export class AddOutputComponent {
         this.dataPart = res.data[0];
         this.remain_stock = this.dataPart.stock;
         this.partName = this.dataPart.description;
-      },
+      },  
       (error) => {
         console.error('Error fetching part by ID:', error);
       }
@@ -112,7 +103,6 @@ export class AddOutputComponent {
         id_category: parseInt(this.category),
         image: this.filename,
         id_user: parseInt(this.userId),
-        id_area: parseInt(this.areaId),
         keterangan: this.information,
       };
       this.newDataParts = {
@@ -126,7 +116,6 @@ export class AddOutputComponent {
         id_category: parseInt(this.category),
         image: this.filename,
         id_user: parseInt(this.userId),
-        id_area: parseInt(this.areaId),
         keterangan: this.information,
       };
       this.newDataParts = {

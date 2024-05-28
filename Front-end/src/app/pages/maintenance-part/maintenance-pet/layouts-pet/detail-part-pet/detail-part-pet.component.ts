@@ -78,7 +78,7 @@ export class DetailPartPetComponent {
       'updated_at': [this.dateOut, Validators.required]
     });
     this.dataPart = {};
-  
+
     const savedData = localStorage.getItem('savedData');
     if (savedData) {
       this.selectedPart = JSON.parse(savedData);
@@ -153,7 +153,7 @@ export class DetailPartPetComponent {
             }
             // You can handle 'Rejected Request' status if needed
           });
-  
+
           // Set default status to "Awaiting Approval" if status is not already set
           this.dataOutputPart.forEach((part: any) => {
             if (!part.status) {
@@ -167,7 +167,7 @@ export class DetailPartPetComponent {
           this.qty_stock = 0;
           this.totalIN = 0; // Reset totalIN when there is no data
         }
-  
+
         this.calculateTotalPages();
         this.updateDisplayOutput();
       }, (error) => {
@@ -175,9 +175,9 @@ export class DetailPartPetComponent {
       }
     )
   }
-  
-  
-  
+
+
+
 
   getTotalIn() {
     this.apiservice.getTotalRemainInByPartId(this.partId).subscribe(
@@ -221,8 +221,8 @@ export class DetailPartPetComponent {
           return false;
         }
       }
-      
-      
+
+
       return true;
     });
 
@@ -239,60 +239,60 @@ export class DetailPartPetComponent {
     actionTable.forEach(button => {
       button.classList.add('hidden');
     });
-  
+
     const element = document.getElementById('tableToExport');
     const text = `Report Transaction Part`;
-  
+
     if (element) {
       const pdf = new jsPDF('p', 'px', 'letter');
       const options = { background: 'white', scale: 2 };
-  
+
       html2canvas(element, options).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const imgWidth = canvas.width;
         const imgHeight = canvas.height;
-  
+
         let y = 40;
-  
+
         pdf.setFontSize(14);
         pdf.text(`PT Amerta Indah Otsuka`, 30, y);
         y += 20;
-  
+
         pdf.setFontSize(18);
         pdf.text(`${this.titlePart}`, 30, y);
         y += 20;
-  
+
         pdf.setFontSize(18);
         pdf.text(text, 30, y);
         y += 20;
-  
+
         pdf.setFontSize(12);
         pdf.text(`Dept. Produksi AL4`, 30, y);
         y += 20;
-  
+
         pdf.setFontSize(12);
         pdf.text(`_______________________________________________________________________________`, 30, y);
         y += 20;
-  
+
         pdf.setFontSize(11);
         const today = new Date().toLocaleDateString();
         pdf.text('Tanggal: ' + today, 350, y);
         y += 15;
-  
+
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
         const scaleFactor = pdfWidth / imgWidth;
-  
+
         const finalImgWidth = imgWidth * scaleFactor;
         const finalImgHeight = imgHeight * scaleFactor;
-  
+
         const marginLeft = (pdfWidth - finalImgWidth) / 2;
         const marginRight = (pdfWidth - finalImgWidth) / 2;
-  
+
         pdf.addImage(imgData, 'PNG', marginLeft, y, finalImgWidth, finalImgHeight);
-  
+
         pdf.save('Output_Part.pdf');
-  
+
         // Show the action buttons after exporting
         actionButtons.forEach(button => {
           button.classList.remove('hidden');
@@ -301,7 +301,7 @@ export class DetailPartPetComponent {
     } else {
       console.error('Element with ID "tableToExport" not found.');
     }
-  }  
+  }
 
   exportPDF() {
     this.exportPdf_now = true;
@@ -340,9 +340,9 @@ export class DetailPartPetComponent {
 
   openViewDetailModalBasedOnRole(part: any) {
     if (this.userRole === 3) {
-        this.openViewDetailModal(part);
+      this.openViewDetailModal(part);
     } else if (this.userRole === 4 || this.userRole === 1 || this.userRole === 2) {
-        this.openViewDetailModalAfterApproval(part);
+      this.openViewDetailModalAfterApproval(part);
     }
   }
 
@@ -352,17 +352,17 @@ export class DetailPartPetComponent {
     this.partId = partId;
     this.modalService.open(removeConfirmationModal, { centered: true });
   }
-  
-  softDelete(partId: number){
+
+  softDelete(partId: number) {
     this.apiservice.softDelete(partId).subscribe(
       (res: any) => {
         this.fecthDataOutput(partId);
-        this.modalService.dismissAll(); 
+        this.modalService.dismissAll();
       }, (error: any) => {
         console.log(error, "Remove Failed");
       }
     )
-}  
+  }
 
 
   openUpdateModal(ouputPartId: number, updateModal: any, remain: number, updateAt: Date) {
@@ -416,20 +416,20 @@ export class DetailPartPetComponent {
       Swal.fire('Error', 'Harap berikan alasan untuk menolak permintaan.', 'error');
       return;
     }
-  
+
     // Mengubah status part menjadi 'Approved Request' jika belum disetujui
     this.selectedPart.status = this.selectedPart.status === 'Approved Request' ? 'Approved Request' : 'Rejected Request';
 
     // Mengisi komentar otomatis jika status yang dipilih adalah "Approved Request"
     if (this.selectedPart.status === 'Approved Request') {
-        this.comment = 'Diterima'; // Atur komentar menjadi "Diterima"
-        // Update comment in selectedPart object
-        this.selectedPart.comment = this.comment;
+      this.comment = 'Diterima'; // Atur komentar menjadi "Diterima"
+      // Update comment in selectedPart object
+      this.selectedPart.comment = this.comment;
     } else {
-        // Jika status part adalah 'Rejected Request', menyimpan komentar
-        this.selectedPart.comment = this.comment;
+      // Jika status part adalah 'Rejected Request', menyimpan komentar
+      this.selectedPart.comment = this.comment;
     }
-  
+
     // Mengirim permintaan untuk memperbarui status part ke backend
     this.apiservice.updatePartStatus(this.selectedPart.outputpart_id, this.selectedPart.status, this.comment).subscribe(
       (res: any) => {
@@ -442,7 +442,7 @@ export class DetailPartPetComponent {
           // If rejected, revert the changes to totalIN
           this.totalIN -= this.selectedPart.stock_in;
         }
-        
+
         // Close the modal and show success message
         this.modalService.dismissAll();
         Swal.fire('Success', 'Status berhasil diperbarui.', 'success');
@@ -455,7 +455,7 @@ export class DetailPartPetComponent {
   }
 
   goBack(): void {
-      this.location.back();
+    this.location.back();
 
   }
 }  
