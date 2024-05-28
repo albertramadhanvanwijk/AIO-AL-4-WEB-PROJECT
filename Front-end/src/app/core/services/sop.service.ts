@@ -17,6 +17,11 @@ export class SopService {
     return this.http.get(`${this.baseUrl}/master/users`, { headers });
   }
 
+  getResultByAreaId(areaId: number): Observable<any> {
+    const headers = this.authService.getHeaders();
+    return this.http.get(`${this.baseUrl}/master/result/${areaId}`, { headers });
+  }
+  
   getUserByTeam(teamId: number): Observable<any> {
     const headers = this.authService.getHeaders();
     return this.http.get(`${this.baseUrl}/master/users-team/${teamId}`, {
