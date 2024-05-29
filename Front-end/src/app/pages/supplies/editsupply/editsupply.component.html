@@ -1,0 +1,37 @@
+<app-breadcrumbs title="EDIT SUPPLIES" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header text-black">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mt-2">Edit Data Supplies</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="updateSupply()">
+        <div class="mb-3">
+          <label for="noMateral" class="form-label">No Material SAP</label>
+          <input type="text" id="noMateral" class="form-control" [(ngModel)]="supply.no_material" name="noMateral">
+        </div>
+        <div class="mb-3">
+          <label for="namaSupply" class="form-label">Nama Supply</label>
+          <input type="text" id="namaSupply" class="form-control" [(ngModel)]="supply.nama_supply" name="namaSupply">
+        </div>
+        <div class="mb-3">
+          <label for="eom" class="form-label">EOM</label>
+          <input type="text" id="eom" class="form-control" [(ngModel)]="supply.eom" name="eom">
+        </div>
+        <div class="mb-3">
+          <label for="minimalStok" class="form-label">Minimal Stock</label>
+          <input type="text" id="minimalStok" class="form-control" [(ngModel)]="supply.minimal_stok" name="minimalStok">
+        </div>
+        <div class="mb-3">
+          <label for="maximalStok" class="form-label">Maximal Stock</label>
+          <input type="text" id="maximalStok" class="form-control" [(ngModel)]="supply.max_stok" name="maximalStok">
+        </div>
+        <button type="submit" class="btn btn-primary me-2">Update</button>
+        <a class="btn btn-secondary" (click)="goBackWithArea()">Back</a>
+      </form>
+    </div>
+  </div>
+</div>

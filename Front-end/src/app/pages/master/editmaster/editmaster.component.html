@@ -1,0 +1,51 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Edit User</li>
+    </ol>
+  </nav>
+  
+  <div class="container">
+    <div class="card">
+      <div class="card-header text-black">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="mt-2">Edit Data User</h5>
+        </div>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="updateUser()">
+          <div class="mb-3">
+            <label for="namaUser" class="form-label">Nama User</label>
+            <input type="text" id="namaUser" class="form-control" [(ngModel)]="user.nama_user" name="namaUser">
+          </div>
+          <div class="mb-3">
+            <label for="nik" class="form-label">NIK</label>
+            <input type="text" id="nik" class="form-control" [(ngModel)]="user.nik" name="nik">
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="text" id="password" class="form-control" [(ngModel)]="user.password" name="password">
+          </div>
+          <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select id="role" class="form-select" [(ngModel)]="user.role_id" name="role">
+              <option *ngFor="let role of roles" [value]="role.role_id">{{ role.name }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="idArea" class="form-label">Area</label>
+            <select id="idArea" class="form-select" [(ngModel)]="user.id_area" name="idArea">
+              <option *ngFor="let area of areas" [value]="area.id_area">{{ area.nama_area }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="group" class="form-label">Group</label>
+            <select id="group" class="form-select" [(ngModel)]="user.group_id" name="group">
+              <option *ngFor="let group of groups" [value]="group.group_id">{{ group.nama_user }}</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary me-2">Update</button>
+          <a class="btn btn-secondary" routerLink="/master">Back</a>
+        </form>
+      </div>
+    </div>
+  </div>

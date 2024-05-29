@@ -1,0 +1,70 @@
+.dasboard-box{
+    background-color: #fff;
+    border-radius: 1em;
+}
+#chart {
+    max-width: 650px;
+    margin: 35px auto;
+  }
+
+  .shadowBox {
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+  }
+
+.boxTeam {
+    background-color: #2A76B2;
+    border-radius: 1.5em;
+    color: #fff;
+    font-family: 'Poppins';
+    font-weight: bold;
+}
+
+.boxGeneral{
+    background-color: #2A76B2;
+    border-radius: 1.5em;
+    color: #fff;
+    font-family: 'Poppins';
+    font-weight: bold;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+.boxMasterList{
+    background-color: #B21635;
+    border-radius: 1em;
+    height: 100%;
+    color: #fff;
+    font-family: 'Poppins';
+    font-size: 25px;
+    font-weight: bold;
+}
+.boxDocument{
+    background-color: #2A76B2;
+    border-radius: 1.5em;
+    color: #fff;
+    font-family: 'Poppins';
+    font-weight: bold;
+}
+.btnRead {
+    background-color: #2A76B2;
+}
+.imgSOP{
+    width: 10em;
+}
+.total_doc{
+    font-size: 25px;
+}
+
+/* Animasi fade-in */
+.fade-in {
+    opacity: 0;
+    animation: fadeInAnimation 1s ease-in forwards;
+  }
+  
+  @keyframes fadeInAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  

@@ -1,0 +1,55 @@
+<app-breadcrumbs
+  title="MASTER QUESTIONS"
+  [breadcrumbItems]="breadCrumbItems"
+></app-breadcrumbs>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header text-black">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mt-2">Add Question</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="formAddQuestion" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="question" class="form-label">Question</label>
+          <input
+            type="text"
+            class="form-control"
+            id="question"
+            formControlName="question_text"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="area" class="form-label">Areas</label>
+          <select
+            class="form-select"
+            id="area"
+            formControlName="id_area"
+            required
+          >
+            <option value="{{ null }}" selected disabled>Select Area</option>
+            <ng-container *ngFor="let area of areas">
+              <option value="{{ area.id_area }}">{{ area.nama_area }}</option>
+            </ng-container>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="score" class="form-label">Score</label>
+          <input
+            type="number"
+            class="form-control"
+            id="score"
+            formControlName="score"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn btn-primary me-2">Add</button>
+        <button class="btn btn-secondary" routerLink="/master">Back</button>
+      </form>
+    </div>
+  </div>
+</div>

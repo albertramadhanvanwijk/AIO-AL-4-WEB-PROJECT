@@ -1,0 +1,53 @@
+<app-breadcrumbs title="ADD SUPPLIES" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header text-black">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mt-2">Add Data Supplies</h5>
+      </div>
+    </div>
+    <div class="card-body">
+      <div *ngIf="errors.length > 0" class="alert alert-danger">
+        <ul>
+          <li *ngFor="let error of errors">{{ error }}</li>
+        </ul>
+      </div>
+      <form (ngSubmit)="addSupply()">
+        <div class="mb-3">
+          <label for="noMaterial" class="form-label">No Material SAP</label>
+          <input type="text" class="form-control" id="noMaterial" [(ngModel)]="newSupply.no_material" name="no_material"
+            required>
+        </div>
+        <div class="mb-3">
+          <label for="namaSupply" class="form-label">Nama Supply</label>
+          <input type="text" class="form-control" id="namaSupply" [(ngModel)]="newSupply.nama_supply" name="nama_supply"
+            required>
+        </div>
+        <div class="mb-3">
+          <label for="selectedArea" class="form-label">Pilih Area</label>
+          <select class="form-select" id="selectedArea" [(ngModel)]="newSupply.id_area" name="id_area" required>
+            <option value="" disabled>Pilih Area</option>
+            <option *ngFor="let area of areas" [value]="area.id_area">{{ area.nama_area }}</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="eom" class="form-label">EOM</label>
+          <input type="text" class="form-control" id="eom" [(ngModel)]="newSupply.eom" name="eom" required>
+        </div>
+        <div class="mb-3">
+          <label for="minimalStok" class="form-label">Minimal Stock</label>
+          <input type="text" class="form-control" id="minimalStok" [(ngModel)]="newSupply.minimal_stok"
+            name="minimal_stok" required>
+        </div>
+        <div class="mb-3">
+          <label for="maxStok" class="form-label">Maximal Stock</label>
+          <input type="text" class="form-control" id="maxStok" [(ngModel)]="newSupply.max_stok" name="max_stok"
+            required>
+        </div>
+        <button type="submit" class="btn btn-primary me-2">Add</button>
+        <button class="btn btn-secondary" (click)="goBackWithArea()">Back</button>
+      </form> 
+    </div>
+  </div>
+</div>
