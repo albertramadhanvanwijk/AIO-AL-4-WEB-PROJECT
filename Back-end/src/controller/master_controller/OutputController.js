@@ -3,20 +3,20 @@ const userModel = require("../../model/user.model")
 const partModel = require("../../model/parts.model")
 const areaModel = require("../../model/area.model")
 const api = require("../../tools/common");
-const {sendNotification} = require ('./../../services/NotificationService')
+const { sendNotification } = require('./../../services/NotificationService')
 
 const getAllOutputParts = async (req, res) => {
-    try{
+    try {
         const data = await model.getAll();
         return api.ok(res, data)
-    } catch{
+    } catch {
         return api.error(req, "Internal Server Error", 500)
     }
 }
 
 const getOutputByOutputId = async (req, res) => {
     const outputId = req.params.outputId
-    try{
+    try {
         const data = await model.getByOutputId(outputId);
         return api.ok(res, data)
     } catch {
@@ -26,7 +26,7 @@ const getOutputByOutputId = async (req, res) => {
 
 const getOutputByPartId = async (req, res) => {
     const partId = req.params.partId
-    try{
+    try {
         const data = await model.getByIdPart(partId);
         return api.ok(res, data)
     } catch {
@@ -39,7 +39,7 @@ const insertOutputPart = async (req, res) => {
     let dataPart = await partModel.getById(req.body.part_id) // Get data part
     let dataArea = await areaModel.getById(dataPart[0].id_area)
     const newData = req.body
-    try{
+    try {
         const data = await model.insert(newData)
         sendNotification('requestApproval', {
             id_line: dataUser[0].id_line,
@@ -54,7 +54,7 @@ const insertOutputPart = async (req, res) => {
         })
         return api.ok(res, data)
     }
-    catch{
+    catch {
         return api.error(res, "Internal Server Error", 500)
     }
 }
@@ -63,17 +63,17 @@ const updateByOutputId = async (req, res) => {
     const outputId = req.params.outputId
     const newData = req.body
     let dataStock = 0
-    try{
+    try {
         const data = await model.update(outputId, newData)
         const dataOutput = await model.getByOutputId(req.params.outputId)
         const dataPart = await partModel.getById(dataOutput[0].part_id)
-        if(req.body.approval_status == 'Approved Request'){
-            if(dataOutput[0].stock_in != 0){
+        if (req.body.approval_status == 'Approved Request') {
+            if (dataOutput[0].stock_in != 0) {
                 dataStock = Number(dataPart[0].qty_stock + Number(dataOutput[0].stock_in))
-                partModel.update(dataOutput[0].part_id, {qty_stock: dataStock   })
-            } else if(dataOutput[0].stock_out != 0){
+                partModel.update(dataOutput[0].part_id, { qty_stock: dataStock })
+            } else if (dataOutput[0].stock_out != 0) {
                 dataStock = Number(dataPart[0].qty_stock - Number(dataOutput[0].stock_out))
-                partModel.update(dataOutput[0].part_id, {qty_stock: dataStock   })
+                partModel.update(dataOutput[0].part_id, { qty_stock: dataStock })
             }
         }
         return api.ok(res, data)
@@ -85,7 +85,7 @@ const updateByOutputId = async (req, res) => {
 const softDelete = async (req, res) => {
     const outputId = req.params.outputId
     const newData = req.body
-    try{
+    try {
         const data = await model.update(outputId, newData)
         return api.ok(res, data)
     } catch {
@@ -98,23 +98,23 @@ const totalRemainOutByPartId = async (req, res) => {
     try {
         const totalRemain = await model.totalOutByIdPart(partId);
         res.json(totalRemain); // Mengembalikan hasil tanpa array
-      } catch {
+    } catch {
         return api.error(res, "Internal Server Error", 500);
-      }
+    }
 }
 const totalRemainInByPartId = async (req, res) => {
     const partId = req.params.partId
     try {
         const totalRemain = await model.totalInByIdPart(partId);
         res.json(totalRemain); // Mengembalikan hasil tanpa array
-      } catch {
+    } catch {
         return api.error(res, "Internal Server Error", 500);
-      }
+    }
 }
 
 const getDetailOutput = async (req, res) => {
     const partId = req.params.partId
-    try{
+    try {
         const data = await model.getDetailOutput(partId)
         // console.log(data);
         // return
@@ -125,7 +125,7 @@ const getDetailOutput = async (req, res) => {
 }
 const getTotalPrice = async (req, res) => {
     const areaId = req.params.areaId
-    try{
+    try {
         const data = await model.totalPrice(areaId);
         return api.ok(res, data)
     } catch {
@@ -136,22 +136,22 @@ const getTotalPrice = async (req, res) => {
 const updatePartStatus = async (req, res) => {
     const outputId = req.params.outputId;
     const { status, comment } = req.body;
-  
+
     try {
-      // Update the status of the output part in the database
-      const updatedOutput = await model.update(outputId, { status, comment });
-  
-      // Check if the output was updated successfully
-      if (updatedOutput) {
-        return api.ok(res, updatedOutput);
-      } else {
-        return api.error(res, "Output part not found", 404);
-      }
+        // Update the status of the output part in the database
+        const updatedOutput = await model.update(outputId, { status, comment });
+
+        // Check if the output was updated successfully
+        if (updatedOutput) {
+            return api.ok(res, updatedOutput);
+        } else {
+            return api.error(res, "Output part not found", 404);
+        }
     } catch (error) {
-      console.error(error);
-      return api.error(res, "Internal Server Error", 500);
+        console.error(error);
+        return api.error(res, "Internal Server Error", 500);
     }
-  };
+};
 
 module.exports = {
     getAllOutputParts,
