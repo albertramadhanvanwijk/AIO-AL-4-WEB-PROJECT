@@ -1,9 +1,9 @@
-<app-breadcrumbs title="DATA MASTER" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
+<app-breadcrumbs title="DATA VISITOR" [breadcrumbItems]="breadCrumbItems"></app-breadcrumbs>
 
 <div class="container supply-container">
   <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
-      <h3 class="mb-0">Data User</h3>
+      <h3 class="mb-0">Data Visitor</h3>
     </div>
 
     <div class="card-body">
@@ -11,7 +11,7 @@
         <div class="d-flex">
           <a class="btn btn-label waves-effect waves-light me-2" routerLink="/app-addmaster"
             *ngIf="userRole === 1 || userRole === 3" style="background-color: #2A76B2; color: white;">
-            <i class="ri-add-circle-line label-icon align-middle fs-16 me-2"></i>Add User</a>
+            <i class="ri-add-circle-line label-icon align-middle fs-16 me-2"></i>Add Visitor</a>
         </div>
         <div class="d-flex align-items-center">
           <div class="me-2">Number of rows:</div>
@@ -20,7 +20,7 @@
           </select>
         </div>
         <div role="search">
-          <input class="form-control" placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="searchUsers()">
+          <input class="form-control" placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="searchVisitor()">
         </div>
       </div>
 
@@ -32,32 +32,37 @@
             <th class="text-center">Nama Tamu</th>
             <th class="text-center">Nama Vendor</th>
             <th class="text-center">No Id Card Hijau</th>
-            <th class="text-center">No Id Card Hijau</th>
-            <th class="text-center">No Id Card Hijau</th>
-            <th class="text-center">No Id Card Hijau</th>
-            <th class="text-center">No Id Card Hijau</th>
-            <th class="text-center">No Id Card Hijau</th>
+            <th class="text-center">No Id Card Merah</th>
+            <th class="text-center">Keperluan</th>
+            <th class="text-center">PIC Yang Membawa</th>
+            <th class="text-center">Jam Masuk</th>
+            <th class="text-center">Jam Keluar</th>
             <th class="text-center" *ngIf="userRole === 1 || userRole === 3">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of displayUsers; let i = index">
+          <tr *ngFor="let visitor of displayVisitor; let i = index">
             <td class="text-center">{{ startIndex + i + 1 }}</td> <!-- Mulai dari 1 dan teruskan di setiap halaman -->
-            <!-- <td class="text-center">{{user.nama_user}}</td>
-            <td class="text-center">{{user.nik}}</td>
-            <td class="text-center">{{user.name}}</td>
-            <td class="text-center">{{user.nama_area}}</td> -->
+            <td class="text-center">{{visitor.date| date:'dd/MM/yyyy'}}</td>
+            <td class="text-center">{{visitor.nama_tamu}}</td>
+            <td class="text-center">{{visitor.nama_vendor}}</td>
+            <td class="text-center">{{visitor.id_card_hijau}}</td>
+            <td class="text-center">{{visitor.id_card_merah}}</td>
+            <td class="text-center">{{visitor.keperluan}}</td>
+            <td class="text-center">{{visitor.pic}}</td>
+            <td class="text-center">{{visitor.jam_masuk}}</td>
+            <td class="text-center">{{visitor.jam_keluar}}</td>
             <td class="text-center" *ngIf="userRole === 1 || userRole === 3">
               <div class="btn-group" role="group" aria-label="Aksi">
-                <button class="btn btn-sm me-1" (click)="goToEditUser(user.id_user)"
+                <button class="btn btn-sm me-1" (click)="goToEditVisitor(visitor.nama_tamu)"
                   style="background-color: #67B173; color: white;">
                   Edit
                 </button>
-                <button class="btn btn-danger btn-sm me-1" (click)="deleteUser(user.id_user)">
+                <button class="btn btn-danger btn-sm me-1" (click)="deleteVisitor(visitor.nama_tamu)">
                   Delete
                 </button>
-                <ng-container *ngIf="userProgressMap[user.id_user]">
-                  <button [routerLink]="['/register-progress', user.id_user, user.id_area]" class="btn btn-info btn-sm">
+                <ng-container *ngIf="visitor[visitor.nama_tamu]">
+                  <button [routerLink]="['/register-progress', visitor.nama_tamu, visitor.nama_tamu]" class="btn btn-info btn-sm">
                     Register Progress
                   </button>
                 </ng-container>

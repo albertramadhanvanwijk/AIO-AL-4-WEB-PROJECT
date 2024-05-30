@@ -9,8 +9,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./visitor-al4.component.scss']
 })
 export class VisitorAl4Component {
-  users: any[] = [];
-  userProgressMap: { [key: number]: boolean } = {};
+  Visitor: any[] = [];
+  visitorProgressMap: { [key: number]: boolean } = {};
 
   breadCrumbItems!: Array<{}>;
 
@@ -24,12 +24,12 @@ export class VisitorAl4Component {
   pageSize: number = 10;
   currentPage: number = 1;
   totalPages: number = 0;
-  displayUsers: any[] = [];
+  displayVisitor: any[] = [];
   startIndex: number = 0;
   endIndex: number = 0;
   totalEntries: number = 0;
 
-  filteredSearchUsers: any[] = [];
+  filteredSearchVisitor: any[] = [];
   searchTerm: string = '';
 
   // List of available page sizes
@@ -43,21 +43,21 @@ export class VisitorAl4Component {
   }
 
   ngOnInit(): void {
-    this.fetchUsers();
+    this.fetchVisitor();
     this.fecthUserProgress(12);
     this.getBreadCrumbItems();
     this.getDataUserLogin();
     this.getNamaUserRole();
   }
 
-  fetchUsers(): void {
-    this.apiService.getAllUsers().subscribe(
+  fetchVisitor(): void {
+    this.apiService.getAllVisitor().subscribe(
       (res: any) => {
-        this.users = res.data[0];
-        this.users.forEach((user) => {
+        this.Visitor = res.data[0];
+        this.Visitor.forEach((user) => {
           this.fecthUserProgress(user.id_user);
         });
-        this.filteredSearchUsers = this.users;
+        this.filteredSearchVisitor = this.Visitor;
         this.updatePagination();
       },
       (error: any) => {
@@ -66,20 +66,20 @@ export class VisitorAl4Component {
     );
   }
 
-  fecthUserProgress(id: number): void {
-    this.sopService.getUserProgressByid(id).subscribe(
+  fecthVisitorProgress(id: number): void {
+    this.sopService.getVisitorProgressByid(id).subscribe(
       (res: any) => {
-        this.userProgressMap[id] = res.data[0] ? false : true;
+        this.visitorProgressMap[id] = res.data[0] ? false : true;
       }
     );
   }
 
-  goToEditUser(userId: number): void {
-    this.router.navigate(['/app-editmaster', userId]);
+  goToEditVisitor(userId: number): void {
+    this.router.navigate(['/app-editvisitor', userId]);
   }
 
   getBreadCrumbItems() {
-    this.breadCrumbItems = [{ label: "DATA MASTER" }];
+    this.breadCrumbItems = [{ label: "DATA VISITOR" }];
   }
 
   getNamaUserRole() {
@@ -100,30 +100,30 @@ export class VisitorAl4Component {
   }
 
   updatePagination(): void {
-    this.totalPages = Math.ceil(this.filteredSearchUsers.length / this.pageSize);
+    this.totalPages = Math.ceil(this.filteredSearchVisitor.length / this.pageSize);
     this.currentPage = Math.max(1, Math.min(this.currentPage, this.totalPages));
-    this.updateDisplayUsers();
+    this.updateDisplayVisitor();
   }
 
   setPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.updateDisplayUsers();
+      this.updateDisplayVisitor();
     }
   }
 
   onPageChange(): void {
-    this.updateDisplayUsers();
+    this.updateDisplayVisitor();
   }
 
   calculateTotalPages(): void {
-    this.totalPages = Math.ceil(this.filteredSearchUsers.length / this.pageSize);
+    this.totalPages = Math.ceil(this.filteredSearchVisitor.length / this.pageSize);
   }
 
-  updateDisplayUsers(): void {
+  updateDisplayVisitor(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.displayUsers = this.filteredSearchUsers.slice(startIndex, endIndex);
+    this.displayVisitor = this.filteredSearchVisitor.slice(startIndex, endIndex);
     this.startIndex = startIndex;
     this.endIndex = endIndex;
   }
@@ -148,18 +148,18 @@ export class VisitorAl4Component {
     return Math.min(this.currentPage * this.pageSize, this.totalEntries);
   }
 
-  searchUsers(): void {
-    this.filteredSearchUsers = this.users.filter(user =>
-      user.nama_user.toLowerCase().includes(this.searchTerm.toLowerCase())
+  searchVisitor(): void {
+    this.filteredSearchVisitor = this.Visitor.filter(user =>
+      visitor.nama_visitor.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
 
     this.updatePagination();
   }
 
-  deleteUser(id: number) {
+  deleteVisitor(id: number) {
     this.apiService.deleteUser(id).subscribe(
       (res: any) => {
-        this.fetchUsers();
+        this.fetchVisitor();
       },
       (error: any) => {
         console.error('Error saat menghapus pengguna:', error);

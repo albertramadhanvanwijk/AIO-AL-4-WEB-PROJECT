@@ -8,15 +8,17 @@
     <div class="card">
       <div class="card-header text-black">
         <div class="d-flex justify-content-between align-items-center">
-          <h5 class="mt-2">Add Data User</h5>
+          <h5 class="mt-2">Add Visitor</h5>
         </div>
       </div>
       <div class="card-body">
         <form (ngSubmit)="addUser()">
-          <div class="mb-3">
-            <label for="namaUser" class="form-label">Nama User</label>
-            <input type="text" class="form-control" id="namaUser" [(ngModel)]="nama_user" name="nama_user" required>
-          </div>
+            <div class="mb-3">
+                <div class="form-group">
+                  <label for="date">Date</label>
+                  <input type="date" class="form-control" id="resv_date" name="resv_date" [(ngModel)]="resv_date" required>
+                </div>
+              </div> 
           <div class="mb-3">
             <label for="nik" class="form-label">NIK</label>
             <input type="text" class="form-control" id="nik" [(ngModel)]="nik" name="nik" required>
