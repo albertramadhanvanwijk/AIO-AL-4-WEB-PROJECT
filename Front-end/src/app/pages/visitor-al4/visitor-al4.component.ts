@@ -1,25 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/core/services/api-service.service';
-import { SopService } from 'src/app/core/services/sop.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+
 @Component({
   selector: 'app-visitor-al4',
   templateUrl: './visitor-al4.component.html',
   styleUrls: ['./visitor-al4.component.scss']
 })
-export class VisitorAl4Component {
+export class VisitorAl4Component implements OnInit {
   Visitor: any[] = [];
   visitorProgressMap: { [key: number]: boolean } = {};
 
   breadCrumbItems!: Array<{}>;
 
-  userRole!: any;
-  userArea!: any;
-  userName!: any;
-  namaUserRole!: string;
-  team!: string;
-  areaId!: any;
+  nama_tamu!: string;
+  nama_vendor!: string;
+  id_card_hijau!: number;
+  id_card_merah!: number;
+  keperluan!: string; 
+  pic!: string;
+  jam_masuk!: string;
+  jam_keluar!: string;
 
   pageSize: number = 10;
   currentPage: number = 1;
@@ -35,29 +37,27 @@ export class VisitorAl4Component {
   // List of available page sizes
   pageSizes: number[] = [10, 25, 50, 100];
   selectedPageSize: number = 10; // Default page size
+  
+  userRole: number = 1; // Deklarasi properti userRole dengan nilai default 1
 
-  constructor(private apiService: ApiService, private router: Router, private sopService: SopService, private authService: AuthService) { }
-
-  isUserAdmin(): boolean {
-    return this.userRole === 1;
-  }
+  constructor(
+    private apiService: ApiService, 
+    private router: Router, 
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-    this.fetchVisitor();
-    this.fecthUserProgress(12);
     this.getBreadCrumbItems();
-    this.getDataUserLogin();
-    this.getNamaUserRole();
+    this.fetchVisitor();
   }
 
+  // Method untuk mengambil data pengunjung dari API
   fetchVisitor(): void {
-    this.apiService.getAllVisitor().subscribe(
-      (res: any) => {
-        this.Visitor = res.data[0];
-        this.Visitor.forEach((user) => {
-          this.fecthUserProgress(user.id_user);
-        });
+    this.apiService.getVisitors().subscribe(
+      (data: any) => {
+        this.Visitor = data;
         this.filteredSearchVisitor = this.Visitor;
+        this.totalEntries = this.Visitor.length;
         this.updatePagination();
       },
       (error: any) => {
@@ -66,45 +66,24 @@ export class VisitorAl4Component {
     );
   }
 
-  fecthVisitorProgress(id: number): void {
-    this.sopService.getVisitorProgressByid(id).subscribe(
-      (res: any) => {
-        this.visitorProgressMap[id] = res.data[0] ? false : true;
-      }
-    );
+  // Method untuk menavigasi ke halaman edit pengunjung
+  goToEditVisitor(visitorId: number): void {
+    this.router.navigate(['/app-editvisitor', visitorId]);
   }
 
-  goToEditVisitor(userId: number): void {
-    this.router.navigate(['/app-editvisitor', userId]);
-  }
-
-  getBreadCrumbItems() {
+  // Method untuk mendapatkan item bread crumb
+  getBreadCrumbItems(): void {
     this.breadCrumbItems = [{ label: "DATA VISITOR" }];
   }
 
-  getNamaUserRole() {
-    if (this.userRole === 1) {
-      this.namaUserRole = 'Admin';
-    } else if (this.userRole === 2) {
-      this.namaUserRole = 'User';
-    } else if (this.userRole === 3) {
-      this.namaUserRole = 'SPV';
-    }
-  }
-
-  getDataUserLogin() {
-    const role = this.authService.getRoleID();
-    this.userRole = parseInt(role);
-    this.userName = this.authService.getUserName();
-    this.userArea = this.authService.getAreaName();
-  }
-
+  // Method untuk mengupdate pagination
   updatePagination(): void {
-    this.totalPages = Math.ceil(this.filteredSearchVisitor.length / this.pageSize);
+    this.calculateTotalPages();
     this.currentPage = Math.max(1, Math.min(this.currentPage, this.totalPages));
     this.updateDisplayVisitor();
   }
 
+  // Method untuk mengatur halaman
   setPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
@@ -112,14 +91,17 @@ export class VisitorAl4Component {
     }
   }
 
+  // Method ketika terjadi perubahan halaman
   onPageChange(): void {
     this.updateDisplayVisitor();
   }
 
+  // Method untuk menghitung total halaman
   calculateTotalPages(): void {
     this.totalPages = Math.ceil(this.filteredSearchVisitor.length / this.pageSize);
   }
 
+  // Method untuk mengupdate data yang ditampilkan pada halaman
   updateDisplayVisitor(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
@@ -128,50 +110,54 @@ export class VisitorAl4Component {
     this.endIndex = endIndex;
   }
 
+  // Method untuk halaman berikutnya
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
       this.setPage(this.currentPage + 1);
     }
   }
 
+  // Method untuk halaman sebelumnya
   prevPage(): void {
     if (this.currentPage > 1) {
       this.setPage(this.currentPage - 1);
     }
   }
 
+  // Method untuk mendapatkan indeks awal
   getStartIndex(): number {
     return (this.currentPage - 1) * this.pageSize + 1;
   }
 
+  // Method untuk mendapatkan indeks akhir
   getEndIndex(): number {
     return Math.min(this.currentPage * this.pageSize, this.totalEntries);
   }
 
+  // Method untuk melakukan pencarian pengunjung
   searchVisitor(): void {
-    this.filteredSearchVisitor = this.Visitor.filter(user =>
-      visitor.nama_visitor.toLowerCase().includes(this.searchTerm.toLowerCase())
+    this.filteredSearchVisitor = this.Visitor.filter(visitor =>
+      visitor.nama_tamu.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
 
     this.updatePagination();
   }
 
-  deleteVisitor(id: number) {
-    this.apiService.deleteUser(id).subscribe(
+  // Method untuk menghapus pengunjung
+  deleteVisitor(visitorId: number): void {
+    this.apiService.deleteVisitor(visitorId).subscribe(
       (res: any) => {
         this.fetchVisitor();
       },
       (error: any) => {
-        console.error('Error saat menghapus pengguna:', error);
+        console.error('Error saat menghapus pengunjung:', error);
       }
     );
   }
 
-  // Method to change page size
+  // Method untuk mengubah ukuran halaman
   changePageSize(): void {
     this.pageSize = this.selectedPageSize;
     this.updatePagination();
   }
 }
-
-

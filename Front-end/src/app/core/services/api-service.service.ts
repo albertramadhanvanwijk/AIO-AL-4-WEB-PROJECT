@@ -204,5 +204,26 @@ export class ApiService {
     const headers = this.authService.getHeaders()
     return this.http.get(`${this.baseUrl}/master/grafik/packing/${month}/${year}`, { headers });
   }
+  //visitor
+  getVisitors(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/visitors`);
+  }
+
+  deleteVisitor(visitorId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/visitors/${visitorId}`);
+  }
+  getVisitorById(visitorId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/visitors/${visitorId}`);
+  }
+
+  updateVisitor(visitorId: number, visitorData: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/visitors/${visitorId}`, visitorData);
+  }
+
+  addVisitor(visitorData: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/visitors`, visitorData);
+  }
 
 }
+
+

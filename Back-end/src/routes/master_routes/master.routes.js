@@ -15,6 +15,9 @@ const ProggressController = require("../../controller/master_controller/Progress
 const PartsController = require("../../controller/master_controller/PartsController");
 const OutputController = require("../../controller/master_controller/OutputController");
 
+//VISITOR
+const VisitorController = require("../../controller/master_controller/VisitorController");
+
 // QUIZ
 const QuizController = require("../../controller/master_controller/QuizController");
 
@@ -173,5 +176,12 @@ router.put("/answer/:answerID", QuizController.updateAnswer);
 // Result
 router.get("/total-score/:id", QuizController.getTotalScoreByUserID);
 router.post("/add-result", QuizController.addResultByUserID);
+
+//visitor
+router.get("/visitors", VisitorController.getAllVisitors);
+router.get("/visitors/:id", VisitorController.getVisitorById);
+router.post("/visitors", VisitorController.insertVisitor);
+router.put("/visitors/:id", VisitorController.updateVisitor);
+router.delete("/visitors/:id", VisitorController.deleteVisitor);
 
 module.exports = router;

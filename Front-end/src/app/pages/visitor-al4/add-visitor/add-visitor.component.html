@@ -1,63 +1,64 @@
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">Add User</li>
-    </ol>
-  </nav>
-  
-  <div class="container">
-    <div class="card">
-      <div class="card-header text-black">
-        <div class="d-flex justify-content-between align-items-center">
-          <h5 class="mt-2">Add Visitor</h5>
-        </div>
-      </div>
-      <div class="card-body">
-        <form (ngSubmit)="addUser()">
-            <div class="mb-3">
-                <div class="form-group">
-                  <label for="date">Date</label>
-                  <input type="date" class="form-control" id="resv_date" name="resv_date" [(ngModel)]="resv_date" required>
-                </div>
-              </div> 
-          <div class="mb-3">
-            <label for="nik" class="form-label">NIK</label>
-            <input type="text" class="form-control" id="nik" [(ngModel)]="nik" name="nik" required>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="text" class="form-control" id="password" [(ngModel)]="password" name="password" required>
-          </div>
-          <div class="mb-3">
-            <label for="role" class="form-label">Role</label>
-            <select class="form-select" id="role" name="role_id" [(ngModel)]="role" required>
-              <option value="" disabled>Pilih Role</option>
-              <option *ngFor="let role of roles" [value]="role.role_id">{{ role.name }}</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="line" class="form-label">Line</label>
-            <select class="form-select" id="line" name="line_id" [(ngModel)]="line" (change)="onLineChange($event)" required>
-              <option value="" disabled>Pilih Line</option>
-              <option *ngFor="let line of lines" [value]="line.id_line">{{ line.line }}</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="selectedArea" class="form-label">Pilih Area</label>
-            <select class="form-select" id="selectedArea" [(ngModel)]="area" name="id_area" required>
-              <option value="" disabled>Pilih Area</option>
-              <option *ngFor="let area of filteredAreas" [value]="area.id_area">{{ area.nama_area }}</option>
-            </select>
-          </div>
-          <div *ngIf="line == 1" class="mb-3">
-            <label for="group" class="form-label">Group</label>
-            <select class="form-select" id="group" name="group_id" [(ngModel)]="group" required>
-              <option value="" disabled>Pilih Group</option>
-              <option *ngFor="let group of groups" [value]="group.id_user">{{ group.nama_user }}</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary me-2">Add</button>
-          <button class="btn btn-secondary" routerLink="/master">Back</button>
-        </form>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Add Visitor</li>
+  </ol>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header text-black">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mt-2">Add Visitor</h5>
       </div>
     </div>
+    <div class="card-body">
+      <form (ngSubmit)="addVisitor()">
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="date" class="form-control" id="date" name="date"
+              [(ngModel)]="date" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="nama_tamu" class="form-label">Nama Tamu</label>
+          <input type="text" class="form-control" id="nama_tamu" [(ngModel)]="nama_tamu" name="nama_tamu" required>
+        </div>
+        <div class="mb-3">
+          <label for="nama_vendor" class="form-label">Nama Vendor</label>
+          <input type="text" class="form-control" id="nama_vendor" [(ngModel)]="nama_vendor" name="nama_vendor" required>
+        </div>
+        <div class="mb-3">
+          <label for="id_card_hijau" class="form-label">No Id Card Hijau</label>
+          <input type="text" class="form-control" id="id_card_hijau" [(ngModel)]="id_card_hijau" name="id_card_hijau" required>
+        </div>
+        <div class="mb-3">
+          <label for="id_card_merah" class="form-label">No Id Card Merah</label>
+          <input type="text" class="form-control" id="id_card_merah" [(ngModel)]="id_card_merah" name="id_card_merah" required>
+        </div>
+        <div class="mb-3">
+          <label for="keperluan" class="form-label">Keperluan</label>
+          <input type="text" class="form-control" id="keperluan" [(ngModel)]="keperluan" name="keperluan" required>
+        </div>
+        <div class="mb-3">
+          <label for="pic" class="form-label">PIC Yang Membawa</label>
+          <input type="text" class="form-control" id="pic" [(ngModel)]="pic" name="pic" required>
+        </div>
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="jam_masuk">Jam Masuk</label>
+            <input type="time" class="form-control" id="jam_masuk" name="jam_masuk" [(ngModel)]="jam_masuk" required>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="form-group">
+            <label for="jam_keluar">Jam Keluar</label>
+            <input type="time" class="form-control" id="jam_keluar" name="jam_keluar" [(ngModel)]="jam_keluar" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary me-2">Add</button>
+        <button class="btn btn-secondary" routerLink="/visitor">Back</button>
+      </form>
+    </div>
   </div>
+</div>

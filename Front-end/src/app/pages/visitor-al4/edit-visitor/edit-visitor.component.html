@@ -1,0 +1,65 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Edit Visitor</li>
+    </ol>
+  </nav>
+  
+  <div class="container">
+    <div class="card">
+      <div class="card-header text-black">
+        <div class="d-flex justify-content-between align-items-center">
+          <h5 class="mt-2">Edit Data Visitor</h5>
+        </div>
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="updateVisitor()">
+          <div class="mb-3">
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" class="form-control" id="date" name="date"
+                [(ngModel)]="date" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="nama_tamu" class="form-label">Nama Tamu</label>
+            <input type="text" class="form-control" id="nama_tamu" [(ngModel)]="nama_tamu" name="nama_tamu" required>
+          </div>
+          <div class="mb-3">
+            <label for="nama_vendor" class="form-label">Nama Vendor</label>
+            <input type="text" class="form-control" id="nama_vendor" [(ngModel)]="nama_vendor" name="nama_vendor" required>
+          </div>
+          <div class="mb-3">
+            <label for="id_card_hijau" class="form-label">No Id Card Hijau</label>
+            <input type="text" class="form-control" id="id_card_hijau" [(ngModel)]="id_card_hijau" name="id_card_hijau" required>
+          </div>
+          <div class="mb-3">
+            <label for="id_card_merah" class="form-label">No Id Card Merah</label>
+            <input type="text" class="form-control" id="id_card_merah" [(ngModel)]="id_card_merah" name="id_card_merah" required>
+          </div>
+          <div class="mb-3">
+            <label for="keperluan" class="form-label">Keperluan</label>
+            <input type="text" class="form-control" id="keperluan" [(ngModel)]="keperluan" name="keperluan" required>
+          </div>
+          <div class="mb-3">
+            <label for="pic" class="form-label">PIC Yang Membawa</label>
+            <input type="text" class="form-control" id="pic" [(ngModel)]="pic" name="pic" required>
+          </div>
+          <div class="mb-3">
+            <div class="form-group">
+              <label for="jam_masuk">Jam Masuk</label>
+              <input type="time" class="form-control" id="jam_masuk" name="jam_masuk" [(ngModel)]="jam_masuk" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <div class="form-group">
+              <label for="jam_keluar">Jam Keluar</label>
+              <input type="time" class="form-control" id="jam_keluar" name="jam_keluar" [(ngModel)]="jam_keluar" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary me-2">Update</button>
+          <a class="btn btn-secondary" routerLink="/visitor">Back</a>
+        </form>
+      </div>
+    </div>
+  </div>
+  

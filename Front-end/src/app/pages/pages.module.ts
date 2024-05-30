@@ -92,6 +92,7 @@ import { AddOutputEnmixComponent } from './maintenance-part/maintenance-enmix/la
 import { ListScoreQuizComponent } from './quiz/list-score-quiz/list-score-quiz.component';
 import { VisitorAl4Component } from './visitor-al4/visitor-al4.component';
 import { AddVisitorComponent } from './visitor-al4/add-visitor/add-visitor.component';
+import { EditVisitorComponent } from './visitor-al4/edit-visitor/edit-visitor.component';
 
 @NgModule({
   declarations: [
@@ -160,7 +161,8 @@ import { AddVisitorComponent } from './visitor-al4/add-visitor/add-visitor.compo
     AddOutputEnmixComponent,
     ListScoreQuizComponent,
     VisitorAl4Component,
-    AddVisitorComponent
+    AddVisitorComponent,
+    EditVisitorComponent
 
   ],
   imports: [

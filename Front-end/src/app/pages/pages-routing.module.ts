@@ -69,7 +69,8 @@ import { UpdatePartEnmixComponent } from './maintenance-part/maintenance-enmix/l
 import { DetailPartEnmixComponent } from './maintenance-part/maintenance-enmix/layout-enmix/detail-part-enmix/detail-part-enmix.component';
 import { ListScoreQuizComponent } from './quiz/list-score-quiz/list-score-quiz.component';
 import { VisitorAl4Component } from './visitor-al4/visitor-al4.component';
-
+import { AddVisitorComponent } from './visitor-al4/add-visitor/add-visitor.component';
+import { EditVisitorComponent } from './visitor-al4/edit-visitor/edit-visitor.component';
 const routes: Routes = [
   {
     path: '',
@@ -342,6 +343,20 @@ const routes: Routes = [
   {
     path: 'detail-question/:id',
     component: DetailQuestionComponent,
+  },
+
+  //VISITOR
+  {
+    path: 'visitor-al4',
+    component: VisitorAl4Component,
+  },
+  {
+    path: 'addVisitor',
+    component: AddVisitorComponent,
+  },
+  {
+    path: 'edit-visitor/:id',
+    component: EditVisitorComponent,
   },
 
   {
