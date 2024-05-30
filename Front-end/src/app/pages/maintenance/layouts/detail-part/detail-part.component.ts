@@ -148,8 +148,8 @@ export class DetailPartComponent {
 
   // Fetch data output by part_id
   fecthDataOutput(partId: number) {
-    console.log('id part',partId);
-    
+    console.log('id part', partId);
+
     this.apiservice.getDetailOutput(partId).subscribe(
       (res: any) => {
         if (res.data.length !== 0) {

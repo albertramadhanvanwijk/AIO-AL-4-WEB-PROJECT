@@ -71,6 +71,7 @@ import { ListScoreQuizComponent } from './quiz/list-score-quiz/list-score-quiz.c
 import { VisitorAl4Component } from './visitor-al4/visitor-al4.component';
 import { AddVisitorComponent } from './visitor-al4/add-visitor/add-visitor.component';
 import { EditVisitorComponent } from './visitor-al4/edit-visitor/edit-visitor.component';
+
 const routes: Routes = [
   {
     path: '',

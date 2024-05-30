@@ -162,7 +162,8 @@ import { EditVisitorComponent } from './visitor-al4/edit-visitor/edit-visitor.co
     ListScoreQuizComponent,
     VisitorAl4Component,
     AddVisitorComponent,
-    EditVisitorComponent
+    EditVisitorComponent,
+    ListScoreQuizComponent
 
   ],
   imports: [
