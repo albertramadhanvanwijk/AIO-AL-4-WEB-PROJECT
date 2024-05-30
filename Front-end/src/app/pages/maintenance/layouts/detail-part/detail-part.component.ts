@@ -333,7 +333,7 @@ export class DetailPartComponent {
   // Fungsi untuk membuka modal detail informasi
   openViewDetailModal(part: any) {
     this.selectedPart = part;
-
+    console.log(this.selectedPart)
     if (part.status === 'Approved Request' || part.status === 'Rejected Request') {
       this.modalService.open(this.viewDetailModalAfterApproval, { centered: true });
     } else {
@@ -351,7 +351,6 @@ export class DetailPartComponent {
 
   openViewDetailModalAfterSubmitImage(part: any) {
     this.selectedPart = part;
-
     if (part.status === 'Approved Request' || part.status === 'Rejected Request') {
       this.modalService.open(this.viewDetailModalAfterSubmitImage, { centered: true });
     } else {
@@ -442,6 +441,13 @@ export class DetailPartComponent {
       this.apiservice.uploadFile(formData).subscribe(
         (response: any) => {
           console.log('File uploaded successfully', response);
+          const data: any = { image: response.filename }
+          console.log(data)
+          this.apiservice.updateOutput(this.selectedPart.outputpart_id, data).subscribe(
+            (res: any) => {
+              console.log(res)
+            }
+          )
           Swal.fire('Success', 'Image berhasil diunggah.', 'success');
           this.modalService.dismissAll();
         },
@@ -526,11 +532,7 @@ export class DetailPartComponent {
         let data: any = {
           image: response.filename
         }
-        // this.apiservice.updateOutput(1, data).subscribe(
-        //   (res:any)=>{
-        //     console.log(res)
-        //   }
-        // )
+
         Swal.fire('Success', 'File berhasil diunggah.', 'success');
       },
       (error: any) => {
