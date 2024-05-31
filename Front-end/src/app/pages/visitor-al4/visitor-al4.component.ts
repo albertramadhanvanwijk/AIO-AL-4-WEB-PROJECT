@@ -53,7 +53,7 @@ export class VisitorAl4Component implements OnInit {
 
   // Method untuk mengambil data pengunjung dari API
   fetchVisitor(): void {
-    this.apiService.getVisitors().subscribe(
+    this.apiService.getAllVisitor().subscribe(
       (data: any) => {
         this.Visitor = data;
         this.filteredSearchVisitor = this.Visitor;

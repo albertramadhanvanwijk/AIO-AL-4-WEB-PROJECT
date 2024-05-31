@@ -12,8 +12,8 @@ export class EditVisitorComponent implements OnInit {
   date!: string;
   nama_tamu!: string;
   nama_vendor!: string;
-  id_card_hijau!: string;
-  id_card_merah!: string;
+  id_card_hijau!: number;
+  id_card_merah!: number;
   keperluan!: string;
   pic!: string;
   jam_masuk!: string;
@@ -24,7 +24,7 @@ export class EditVisitorComponent implements OnInit {
 
   ngOnInit(): void {
     this.visitorId = this.route.snapshot.params['id'];
-    this.apiService.getVisitorById(this.visitorId).subscribe((data: any) => {
+    this.apiService.getVisitor(this.visitorId).subscribe((data: any) => {
       this.date = data.date;
       this.nama_tamu = data.nama_tamu;
       this.nama_vendor = data.nama_vendor;
