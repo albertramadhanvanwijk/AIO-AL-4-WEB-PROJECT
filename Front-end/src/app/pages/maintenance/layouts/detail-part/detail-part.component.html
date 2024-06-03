@@ -72,8 +72,8 @@
                       <td>
                         <span [ngClass]="{
                               'badge-soft-warning': part.status === 'Awaiting Approval',
-                              'badge-soft-success': part.status === 'Approved Request',
-                              'badge-soft-danger': part.status === 'Rejected Request'
+                              'badge-soft-success': part.status === 'Approved',
+                              'badge-soft-danger': part.status === 'Rejected'
                             }">{{ part.status }}</span>
                       </td>
                       <td class="text-center">

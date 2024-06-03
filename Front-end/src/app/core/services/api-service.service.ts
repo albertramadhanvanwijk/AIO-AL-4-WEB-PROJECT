@@ -207,25 +207,25 @@ export class ApiService {
   //visitor
   getAllVisitor(): Observable<any> {
     const headers = this.authService.getHeaders()
-    return this.http.get(`${this.baseUrl}/visitor-al4/visitor/`, { headers });
+    return this.http.get(`${this.baseUrl}/master/visitor-al4/visitor`, { headers });
   }
 
   deleteVisitor(id: number): Observable<any> {
     const headers = this.authService.getHeaders()
-    return this.http.delete(`${this.baseUrl}/visitor-al4/visitor/${id}`, { headers });
+    return this.http.delete(`${this.baseUrl}/master/visitor-al4/visitor/${id}`, { headers });
   }
   updateVisitor(id: number, data: any): Observable<any> {
     const headers = this.authService.getHeaders()
-    return this.http.put(`${this.baseUrl}/visitor-al4/visitor/${id}`, data, { headers });
+    return this.http.put(`${this.baseUrl}/master/visitor-al4/visitor/${id}`, data, { headers });
   }
 
   insertVisitor(data: any): Observable<any> {
     const headers = this.authService.getHeaders()
-    return this.http.post(`${this.baseUrl}/visitor-al4/visitor/`, data, { headers });
+    return this.http.post(`${this.baseUrl}/master/visitor-al4/visitor`, data, { headers });
   }
   getVisitor(data: any): Observable<any> {
     const headers = this.authService.getHeaders()
-    return this.http.post(`${this.baseUrl}/visitor-al4/visitor/`, data, { headers });
+    return this.http.post(`${this.baseUrl}/master/visitor-al4/visitor`, data, { headers });
   }
 
   }

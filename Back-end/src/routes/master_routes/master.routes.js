@@ -178,10 +178,11 @@ router.get("/total-score/:id", QuizController.getTotalScoreByUserID);
 router.post("/add-result", QuizController.addResultByUserID);
 
 //visitor
-router.get("/visitors", VisitorController.getAllVisitors);
-router.get("/visitors/:id", VisitorController.getVisitorById);
-router.post("/visitors", VisitorController.insertVisitor);
-router.put("/visitors/:id", VisitorController.updateVisitor);
-router.delete("/visitors/:id", VisitorController.deleteVisitor);
+
+router.get('/visitor-al4/visitor', VisitorController.getAllVisitors);
+router.post('/visitor-al4/visitor', VisitorController.insertVisitor);
+router.put('/visitor-al4/visitor/:id', VisitorController.updateVisitor);
+router.delete('/visitor-al4/visitor/:id', VisitorController.deleteVisitor);
+
 
 module.exports = router;

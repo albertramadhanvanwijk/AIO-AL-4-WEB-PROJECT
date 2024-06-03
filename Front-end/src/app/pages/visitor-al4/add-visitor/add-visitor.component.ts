@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { ApiService } from 'src/app/core/services/api-service.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-add-Visitor',
+  selector: 'app-add-visitor',
   templateUrl: './add-visitor.component.html',
   styleUrls: ['./add-visitor.component.scss']
 })
 export class AddVisitorComponent {
-
+  visitorData: any = {};
   date!: string;
   nama_tamu!: string;
   nama_vendor!: string;
@@ -34,9 +34,12 @@ export class AddVisitorComponent {
       jam_keluar: this.jam_keluar
     };
 
+    console.log('New Visitor Data:', newVisitor); // Added console log
+
     this.apiService.insertVisitor(newVisitor).subscribe(
       (response: any) => {
-        this.router.navigate(['/visitor-al4']);
+        console.log('Visitor added successfully', response);
+        this.router.navigate(['/visitor-al4']); // Redirect to the visitor list page
       },
       (error: any) => {
         console.error('Error adding visitor:', error);
