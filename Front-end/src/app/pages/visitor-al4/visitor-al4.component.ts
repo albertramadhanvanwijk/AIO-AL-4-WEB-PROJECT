@@ -53,9 +53,10 @@ export class VisitorAl4Component implements OnInit {
 
   // Method untuk mengambil data pengunjung dari API
   fetchVisitor(): void {
-    this.apiService.getVisitors().subscribe(
+    this.apiService.getAllVisitor().subscribe(
       (data: any) => {
-        this.Visitor = data;
+        this.Visitor = data.data;
+        console.log("ini data", data.data)
         this.filteredSearchVisitor = this.Visitor;
         this.totalEntries = this.Visitor.length;
         this.updatePagination();
@@ -105,6 +106,7 @@ export class VisitorAl4Component implements OnInit {
   updateDisplayVisitor(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
+    console.log(this.filteredSearchVisitor)    
     this.displayVisitor = this.filteredSearchVisitor.slice(startIndex, endIndex);
     this.startIndex = startIndex;
     this.endIndex = endIndex;
@@ -134,14 +136,6 @@ export class VisitorAl4Component implements OnInit {
     return Math.min(this.currentPage * this.pageSize, this.totalEntries);
   }
 
-  // Method untuk melakukan pencarian pengunjung
-  searchVisitor(): void {
-    this.filteredSearchVisitor = this.Visitor.filter(visitor =>
-      visitor.nama_tamu.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
-
-    this.updatePagination();
-  }
 
   // Method untuk menghapus pengunjung
   deleteVisitor(visitorId: number): void {

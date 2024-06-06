@@ -19,6 +19,8 @@ app.get('/', (req, res) => {
     });
 })
 
+
+
 // register main routes
 app.use('/api/', mainRoutes);
 

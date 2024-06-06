@@ -107,10 +107,6 @@ const routes: Routes = [
     path: 'view-filter-supplies',
     component: ViewFilterSuppliesComponent,
   },
-  {
-    path: 'visitor-al4',
-    component: VisitorAl4Component,
-  },
 
 
   // ROUTING SOP

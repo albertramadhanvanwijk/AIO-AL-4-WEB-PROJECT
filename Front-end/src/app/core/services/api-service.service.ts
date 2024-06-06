@@ -205,26 +205,48 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/master/grafik/packing/${month}/${year}`, { headers });
   }
   //visitor
-  getVisitors(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/visitors`);
+  getAllVisitor(): Observable<any> {
+    const headers = this.authService.getHeaders()
+    return this.http.get(`${this.baseUrl}/master/visitor-al4/visitor`, { headers });
   }
 
-  deleteVisitor(visitorId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/visitors/${visitorId}`);
+  deleteVisitor(id: number): Observable<any> {
+    const headers = this.authService.getHeaders()
+    return this.http.delete(`${this.baseUrl}/master/visitor-al4/visitor/${id}`, { headers });
   }
-  getVisitorById(visitorId: number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/visitors/${visitorId}`);
-  }
-
-  updateVisitor(visitorId: number, visitorData: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/visitors/${visitorId}`, visitorData);
+  updateVisitor(id: number, data: any): Observable<any> {
+    const headers = this.authService.getHeaders()
+    return this.http.put(`${this.baseUrl}/master/visitor-al4/visitor/${id}`, data, { headers });
   }
 
-  addVisitor(visitorData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/visitors`, visitorData);
+  insertVisitor(data: any): Observable<any> {
+    const headers = this.authService.getHeaders()
+    return this.http.post(`${this.baseUrl}/master/visitor-al4/visitor`, data, { headers });
+  }
+  getVisitor(data: any): Observable<any> {
+    const headers = this.authService.getHeaders()
+    return this.http.post(`${this.baseUrl}/master/visitor-al4/visitor`, data, { headers });
   }
 
-}
+  }
+
+  //user 
+  // getAllUsers(): Observable<any> {
+  //   const headers = this.authService.getHeaders()
+  //   return this.http.get(`${this.baseUrl}/master/users`, { headers });
+  // }
+
+  // getUserById(id: number): Observable<any> {
+  //   const headers = this.authService.getHeaders()
+  //   return this.http.get(`${this.baseUrl}/master/users/${id}`, { headers });
+  // }
+
+
+
+
+
+ 
+
 
 
 
