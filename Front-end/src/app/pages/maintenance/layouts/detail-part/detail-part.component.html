@@ -71,10 +71,10 @@
                       <td>{{part.keterangan}}</td>
                       <td>
                         <span [ngClass]="{
-                              'badge-soft-warning': part.status === 'Awaiting Approval',
-                              'badge-soft-success': part.status === 'Approved Request',
-                              'badge-soft-danger': part.status === 'Rejected Request'
-                            }">{{ part.status }}</span>
+                                'badge-soft-warning': part.status === 'Awaiting Approval',
+                                'badge-soft-success': part.status === 'Approved Request',
+                                'badge-soft-danger': part.status === 'Rejected Request'
+                              }">{{ part.status }}</span>
                       </td>
                       <td class="text-center">
                         <div>
@@ -341,7 +341,7 @@
         </table>
         <!-- Upload Gambar Sebagai Bukti -->
         <div *ngIf="selectedPart.status === 'Approved Request' && (userRole === 1 || userRole === 2 || userRole === 4)">
-          <p class="text-start text-danger note">
+          <p class="text-start text-danger note" *ngIf="!isImageUploaded">
             <span class="font-weight-normal">Note:</span> Your request has been approved, please add pictures as proof!
           </p>
           <div class="mt-2">
@@ -349,6 +349,11 @@
               required>
             <button type="button" class="btn btn-success mt-2 float-right" (click)="submitImage()">Submit Image</button>
           </div>
+          <tr>
+            <th class="text-start">Bukti Gambar</th>
+            <td><img [src]="getImgFile(selectedPart.image)" alt=""
+                style="max-width: 130%; height: auto; object-fit: contain;"></td>
+          </tr>
         </div>
       </div>
     </div>
@@ -407,17 +412,17 @@
               <th class="text-start">Status</th>
               <td>{{ selectedPart.status }}</td>
             </tr>
+            <!-- Komentar -->
+            <tr>
+              <th class="text-start">Komentar</th>
+              <td>{{ selectedPart.comment }}</td>
+            </tr>
             <!-- Gambar Bukti -->
             <tr>
               <th class="text-start">Bukti Gambar</th>
               <td><img [src]="getImgFile(selectedPart.image)" alt=""
                   style="max-width: 130%; height: auto; object-fit: contain;">
               </td>
-            </tr>
-            <!-- Komentar -->
-            <tr>
-              <th class="text-start">Komentar</th>
-              <td>{{ selectedPart.comment }}</td>
             </tr>
           </tbody>
         </table>
