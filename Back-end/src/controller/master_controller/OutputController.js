@@ -67,7 +67,7 @@ const updateByOutputId = async (req, res) => {
         const data = await model.update(outputId, newData)
         const dataOutput = await model.getByOutputId(req.params.outputId)
         const dataPart = await partModel.getById(dataOutput[0].part_id)
-        if (req.body.approval_status == 'Approved Request') {
+        if (req.body.approval_status == 'Approved') {
             if (dataOutput[0].stock_in != 0) {
                 dataStock = Number(dataPart[0].qty_stock + Number(dataOutput[0].stock_in))
                 partModel.update(dataOutput[0].part_id, { qty_stock: dataStock })

@@ -58,7 +58,6 @@ import { AddQuestionComponent } from './quiz-master-list/add-question/add-questi
 import { EditQuestionComponent } from './quiz-master-list/edit-question/edit-question.component';
 import { DetailQuestionComponent } from './quiz-master-list/detail-question/detail-question.component';
 import { EditAnswerComponent } from './quiz-master-list/edit-answer/edit-answer.component';
-import { ViewFilterSuppliesComponent } from './supplies/view-filter-supplies/view-filter-supplies.component';
 import { MaintenancePetComponent } from './maintenance-part/maintenance-pet/maintenance-pet.component';
 import { FirstPagePetComponent } from './maintenance-part/maintenance-pet/first-page-pet/first-page-pet.component';
 import { AddPartPetComponent } from './maintenance-part/maintenance-pet/layouts-pet/add-part-pet/add-part-pet.component';
@@ -128,7 +127,7 @@ import { EditVisitorComponent } from './visitor-al4/edit-visitor/edit-visitor.co
     EditQuestionComponent,
     DetailQuestionComponent,
     EditAnswerComponent,
-    ViewFilterSuppliesComponent,
+
     MaintenancePetComponent,
     FirstPagePetComponent,
     AddPartPetComponent,

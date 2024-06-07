@@ -12,6 +12,7 @@ export class EditVisitorComponent implements OnInit {
   date!: string;
   nama_tamu!: string;
   nama_vendor!: string;
+  nama_perusahaan!: string;
   id_card_hijau!: number;
   id_card_merah!: number;
   keperluan!: string;
@@ -28,6 +29,7 @@ export class EditVisitorComponent implements OnInit {
       this.date = data.date;
       this.nama_tamu = data.nama_tamu;
       this.nama_vendor = data.nama_vendor;
+      this.nama_perusahaan = data.nama_perusahaan;
       this.id_card_hijau = data.id_card_hijau;
       this.id_card_merah = data.id_card_merah;
       this.keperluan = data.keperluan;
@@ -42,6 +44,7 @@ export class EditVisitorComponent implements OnInit {
       date: this.date,
       nama_tamu: this.nama_tamu,
       nama_vendor: this.nama_vendor,
+      nama_perusahaan: this.nama_perusahaan,
       id_card_hijau: this.id_card_hijau,
       id_card_merah: this.id_card_merah,
       keperluan: this.keperluan,
@@ -52,7 +55,7 @@ export class EditVisitorComponent implements OnInit {
 
     this.apiService.updateVisitor(this.visitorId, updatedVisitor).subscribe(
       (response: any) => {
-        this.router.navigate(['/visitor']);
+        this.router.navigate(['/visitor-al4']);
       },
       (error: any) => {
         console.error('Error updating visitor:', error);

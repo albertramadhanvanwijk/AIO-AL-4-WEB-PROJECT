@@ -72,8 +72,8 @@
                       <td>
                         <span [ngClass]="{
                               'badge-soft-warning': part.status === 'Awaiting Approval',
-                              'badge-soft-success': part.status === 'Approved',
-                              'badge-soft-danger': part.status === 'Rejected'
+                              'badge-soft-success': part.status === 'Approved Request',
+                              'badge-soft-danger': part.status === 'Rejected Request'
                             }">{{ part.status }}</span>
                       </td>
                       <td class="text-center">
@@ -257,13 +257,13 @@
               <th class="text-start">Status</th>
               <td>
                 <select class="form-select" [(ngModel)]="selectedPart.status">
-                  <option value="Approved Request">Approve Request</option>
+                  <option value="Approved Request">Approve</option>
                   <option value="Rejected Request">Reject Request</option>
                 </select>
               </td>
             </tr>
             <!-- Komentar -->
-            <tr *ngIf="selectedPart.status === 'Rejected Request'">
+            <tr *ngIf="selectedPart.status === 'Rejected'">
               <th class="text-start">Alasan Reject Request</th>
               <td>
                 <textarea class="form-control" [(ngModel)]="comment" rows="3"></textarea>

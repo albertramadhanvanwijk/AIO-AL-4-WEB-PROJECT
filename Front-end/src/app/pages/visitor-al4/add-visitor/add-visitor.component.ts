@@ -12,6 +12,7 @@ export class AddVisitorComponent {
   date!: string;
   nama_tamu!: string;
   nama_vendor!: string;
+  nama_perusahaan!: string;
   id_card_hijau!: number;
   id_card_merah!: number;
   keperluan!: string;
@@ -26,6 +27,7 @@ export class AddVisitorComponent {
       date: this.date,
       nama_tamu: this.nama_tamu,
       nama_vendor: this.nama_vendor,
+      nama_perusahaan : this.nama_perusahaan,
       id_card_hijau: this.id_card_hijau,
       id_card_merah: this.id_card_merah,
       keperluan: this.keperluan,

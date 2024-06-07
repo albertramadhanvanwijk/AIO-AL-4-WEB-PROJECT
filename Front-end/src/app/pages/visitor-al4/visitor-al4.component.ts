@@ -16,6 +16,7 @@ export class VisitorAl4Component implements OnInit {
 
   nama_tamu!: string;
   nama_vendor!: string;
+  nama_perusahaan!: string;
   id_card_hijau!: number;
   id_card_merah!: number;
   keperluan!: string; 
@@ -69,7 +70,7 @@ export class VisitorAl4Component implements OnInit {
 
   // Method untuk menavigasi ke halaman edit pengunjung
   goToEditVisitor(visitorId: number): void {
-    this.router.navigate(['/app-editvisitor', visitorId]);
+    this.router.navigate(['/app-edit-visitor', visitorId]);
   }
 
   // Method untuk mendapatkan item bread crumb

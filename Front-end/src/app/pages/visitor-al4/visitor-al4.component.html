@@ -26,14 +26,15 @@
           <tr>
             <th class="text-center">No</th>
             <th class="text-center">Date</th>
-            <th class="text-center">Nama Tamu</th>
-            <th class="text-center">Nama Vendor</th>
-            <th class="text-center">No Id Card Hijau</th>
-            <th class="text-center">No Id Card Merah</th>
-            <th class="text-center">Keperluan</th>
-            <th class="text-center">PIC Yang Membawa</th>
-            <th class="text-center">Jam Masuk</th>
-            <th class="text-center">Jam Keluar</th>
+            <th class="text-center">Guest Name</th>
+            <th class="text-center">Vendor Name</th>
+            <th class="text-center">Company Name</th>
+            <th class="text-center">Green id Card</th>
+            <th class="text-center">Red id Card</th>
+            <th class="text-center">Purpose of Visit</th>
+            <th class="text-center">PIC From AIO</th>
+            <th class="text-center">check-in time</th>
+            <th class="text-center">check-out time</th>
             <th class="text-center" *ngIf="userRole === 1 || userRole === 3">Action</th>
           </tr>
         </thead>
@@ -43,15 +44,16 @@
             <td class="text-center">{{visitor.date|date}}</td>
             <td class="text-center">{{visitor.nama_tamu}}</td>
             <td class="text-center">{{visitor.nama_vendor}}</td>
+            <td class="text-center">{{visitor.nama_perusahaan}}</td>
             <td class="text-center">{{visitor.id_card_hijau}}</td>
             <td class="text-center">{{visitor.id_card_merah}}</td>
             <td class="text-center">{{visitor.keperluan}}</td>
             <td class="text-center">{{visitor.pic}}</td>
             <td class="text-center">{{visitor.jam_masuk}}</td>
             <td class="text-center">{{visitor.jam_keluar}}</td>
-            <td class="text-center" *ngIf="userRole === 1 || userRole === 3">
+            <td class="text-center">
               <div class="btn-group" role="group" aria-label="Aksi">
-                <button class="btn btn-sm me-1" (click)="goToEditVisitor(visitor.nama_tamu)"
+                <button class="btn btn-sm me-1" (click)="goToEditVisitor(visitor.id)"
                   style="background-color: #67B173; color: white;">
                   Edit
                 </button>

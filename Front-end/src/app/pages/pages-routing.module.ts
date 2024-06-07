@@ -55,7 +55,6 @@ import { FirstPageGblComponent } from './maintenance-part/maintenance-gbl/first-
 import { AddPartGblComponent } from './maintenance-part/maintenance-gbl/layout-gbl/add-part-gbl/add-part-gbl.component';
 import { UpdatePartGblComponent } from './maintenance-part/maintenance-gbl/layout-gbl/update-part-gbl/update-part-gbl.component';
 import { AddOutputGblComponent } from './maintenance-part/maintenance-gbl/layout-gbl/detail-part-gbl/add-output-gbl/add-output-gbl.component';
-import { ViewFilterSuppliesComponent } from './supplies/view-filter-supplies/view-filter-supplies.component';
 import { DetailPartGblComponent } from './maintenance-part/maintenance-gbl/layout-gbl/detail-part-gbl/detail-part-gbl.component';
 import { MaintenanceOc3Component } from './maintenance-part/maintenance-oc3/maintenance-oc3.component';
 import { FirstPageOc3Component } from './maintenance-part/maintenance-oc3/first-page-oc3/first-page-oc3.component';
@@ -102,10 +101,6 @@ const routes: Routes = [
   {
     path: 'detail-supply/:id',
     component: DetailSupplyComponent,
-  },
-  {
-    path: 'view-filter-supplies',
-    component: ViewFilterSuppliesComponent,
   },
 
 
