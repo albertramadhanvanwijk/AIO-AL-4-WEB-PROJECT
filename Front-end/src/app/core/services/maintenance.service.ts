@@ -115,7 +115,7 @@ export class MaintenanceService {
     return this.http.get(`${this.baseUrl}/master/total-price/${areaId}`, { headers });
   }
 
-  updateOutput(data: any, partId: number): Observable<any> {
+  updateOutput(partId: number, data: any): Observable<any> {
     const headers = this.authService.getHeaders();
     return this.http.put(`${this.baseUrl}/master/output/${partId}`, data, { headers });
   }

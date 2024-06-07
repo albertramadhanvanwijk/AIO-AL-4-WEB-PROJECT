@@ -20,6 +20,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class DetailPartComponent {
   @ViewChild('viewDetailModal') viewDetailModal: any;
   @ViewChild('viewDetailModalAfterApproval') viewDetailModalAfterApproval!: TemplateRef<any>;
+
   // BreadCrumb
   breadCrumbItems!: Array<{}>;
 
@@ -73,6 +74,11 @@ export class DetailPartComponent {
   userrole: number = 3;
   isImageSubmitted: boolean = false;
   viewDetailModalAfterSubmitImage: any;
+  selectedImage: File | null = null;
+  imageSelected: boolean = false;
+  modalStatus: string = 'viewDetail';
+  isImageUploaded: boolean = false;
+
 
   constructor(
     private apiservice: MaintenanceService,
@@ -114,6 +120,8 @@ export class DetailPartComponent {
   getImgFile(file: any) {
     return environment.apiUrl + '/file/' + file
   }
+
+
 
   getParamsId() {
     this.route.paramMap.subscribe(params => {
@@ -350,6 +358,9 @@ export class DetailPartComponent {
   }
 
   openViewDetailModalAfterSubmitImage(part: any) {
+    this.modalStatus = 'afterSubmitImage';
+    // Buka modal dengan menggunakan ViewChild untuk mengakses modal template
+    this.modalService.open(this.viewDetailModalAfterSubmitImage);
     this.selectedPart = part;
     if (part.status === 'Approved Request' || part.status === 'Rejected Request') {
       this.modalService.open(this.viewDetailModalAfterSubmitImage, { centered: true });
@@ -437,15 +448,18 @@ export class DetailPartComponent {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile);
+      this.isImageUploaded = true;
+      this.modalService.dismissAll();
+      // Buka modal viewDetailModalAftersubmitImage
 
       this.apiservice.uploadFile(formData).subscribe(
         (response: any) => {
           console.log('File uploaded successfully', response);
           const data: any = { image: response.filename }
-          console.log(data)
+          // console.log("cek", this.selectedPart.outputpart_id)
           this.apiservice.updateOutput(this.selectedPart.outputpart_id, data).subscribe(
             (res: any) => {
-              console.log(res)
+              console.log("cekcek", res)
             }
           )
           Swal.fire('Success', 'Image berhasil diunggah.', 'success');
