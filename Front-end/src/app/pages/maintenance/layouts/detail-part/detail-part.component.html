@@ -41,7 +41,7 @@
                   <tr class="text-center">
                     <th>No</th>
                     <th>Date</th>
-                    <th>Stock In</th>
+                    <!-- <th>Stock In</th> -->
                     <th>Stock Out</th>
                     <th>PIC</th>
                     <th>Part Number</th>
@@ -62,7 +62,7 @@
                     <tr class="text-center">
                       <td class="align-middle">{{(currentPage - 1) * pageSize + i + 1}}</td>
                       <td>{{ formatDate(part.updated_at) }}</td>
-                      <td>{{part.stock_in}}</td>
+                      <!-- <td>{{part.stock_in}}</td> -->
                       <td>{{part.stock_out}}</td>
                       <td>{{part.nama_user}}</td>
                       <td>{{part.part_number}}</td>
@@ -257,13 +257,13 @@
               <th class="text-start">Status</th>
               <td>
                 <select class="form-select" [(ngModel)]="selectedPart.status">
-                  <option value="Approved Request">Approve</option>
+                  <option value="Approved Request">Approve request</option>
                   <option value="Rejected Request">Reject Request</option>
                 </select>
               </td>
             </tr>
             <!-- Komentar -->
-            <tr *ngIf="selectedPart.status === 'Rejected'">
+            <tr *ngIf="selectedPart.status === 'Rejected request'">
               <th class="text-start">Alasan Reject Request</th>
               <td>
                 <textarea class="form-control" [(ngModel)]="comment" rows="3"></textarea>
