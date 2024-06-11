@@ -17,8 +17,7 @@ export class AddSupplyComponent implements OnInit {
     eom: '',
     no_material: '',
     minimal_stok: '',
-    max_stok: '',
-    resv_date: '' 
+    max_stok: '', 
   };
 
   selectedArea: string = '';
