@@ -352,7 +352,7 @@
           <p class="text-start text-danger note" *ngIf="!isImageUploaded">
             <span class="font-weight-normal">Note:</span> Your request has been approved, please add pictures as proof!
           </p>
-          <div class="mt-2">
+          <div class="mt-2" *ngIf="!selectedPart.image">
             <input class="form-control" type="file" (change)="onFileSelected($event)" accept="image/*" name="files"
               required>
             <button type="button" class="btn btn-success mt-2 float-right" (click)="submitImage()">Submit Image</button>
