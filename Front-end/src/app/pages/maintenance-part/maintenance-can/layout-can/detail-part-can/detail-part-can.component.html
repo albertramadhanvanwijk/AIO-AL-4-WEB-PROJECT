@@ -29,7 +29,7 @@
                   <div class="ms-2">
                     <button class="btn btn-warning btn-label waves-effect waves-light" data-toggle="modal"
                       data-target="#dateFilterModal"><i
-                        class="bx bx-calendar label-icon align-middle fs-16 me-2"></i>Fillter Date</button>
+                        class="bx bx-calendar label-icon align-middle fs-16 me-2"></i>Filter Date</button>
                   </div>
                 </div>
               </div>
@@ -41,7 +41,7 @@
                   <tr class="text-center">
                     <th>No</th>
                     <th>Date</th>
-                    <th>Stock In</th>
+                    <!-- <th>Stock In</th> -->
                     <th>Stock Out</th>
                     <th>PIC</th>
                     <th>Part Number</th>
@@ -62,7 +62,7 @@
                     <tr class="text-center">
                       <td class="align-middle">{{(currentPage - 1) * pageSize + i + 1}}</td>
                       <td>{{ formatDate(part.updated_at) }}</td>
-                      <td>{{part.stock_in}}</td>
+                      <!-- <td>{{part.stock_in}}</td> -->
                       <td>{{part.stock_out}}</td>
                       <td>{{part.nama_user}}</td>
                       <td>{{part.part_number}}</td>
@@ -71,10 +71,10 @@
                       <td>{{part.keterangan}}</td>
                       <td>
                         <span [ngClass]="{
-                              'badge-soft-warning': part.status === 'Awaiting Approval',
-                              'badge-soft-success': part.status === 'Approved Request',
-                              'badge-soft-danger': part.status === 'Rejected Request'
-                            }">{{ part.status }}</span>
+                                'badge-soft-warning': part.status === 'Awaiting Approval',
+                                'badge-soft-success': part.status === 'Approved Request',
+                                'badge-soft-danger': part.status === 'Rejected Request'
+                              }">{{ part.status }}</span>
                       </td>
                       <td class="text-center">
                         <div>
@@ -204,6 +204,7 @@
 </ng-template>
 
 <!-- View Detail Modal -->
+<!-- View Detail Modal -->
 <ng-template #viewDetailModal let-modal>
   <div class="modal-header">
     <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"
@@ -221,6 +222,7 @@
               <th class="text-start">Deskripsi</th>
               <td>{{ selectedPart.description }}</td>
             </tr>
+
             <tr>
               <th class="text-start">Area</th>
               <td>{{ selectedPart.nama_area }}</td>
@@ -250,24 +252,18 @@
               <th class="text-start">Informasi Tambahan</th>
               <td>{{ selectedPart.keterangan }}</td>
             </tr>
-            <!-- Gambar -->
-            <tr>
-              <th class="text-start">Gambar</th>
-              <td><img [src]="getImgFile(selectedPart.image)" alt=""
-                  style="max-width: 130%; height: auto; object-fit: contain;"></td>
-            </tr>
             <!-- Pilihan Status -->
             <tr *ngIf="userRole === 3">
               <th class="text-start">Status</th>
               <td>
                 <select class="form-select" [(ngModel)]="selectedPart.status">
-                  <option value="Approved Request">Approve Request</option>
+                  <option value="Approved Request">Approve request</option>
                   <option value="Rejected Request">Reject Request</option>
                 </select>
               </td>
             </tr>
             <!-- Komentar -->
-            <tr *ngIf="selectedPart.status === 'Rejected Request'">
+            <tr *ngIf="selectedPart.status === 'Rejected request'">
               <th class="text-start">Alasan Reject Request</th>
               <td>
                 <textarea class="form-control" [(ngModel)]="comment" rows="3"></textarea>
@@ -284,9 +280,7 @@
   </div>
 </ng-template>
 
-
-
-<!-- View Detail Modal -->
+<!-- View Detail Modal After Approval -->
 <ng-template #viewDetailModalAfterApproval let-modal>
   <div class="modal-header">
     <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"
@@ -333,25 +327,107 @@
               <th class="text-start">Informasi Tambahan</th>
               <td>{{ selectedPart.keterangan }}</td>
             </tr>
-            <!-- Gambar -->
-            <tr>
-              <th class="text-start">Gambar</th>
-              <td><img [src]="getImgFile(selectedPart.image)" alt=""
-                  style="max-width: 130%; height: auto; object-fit: contain;"></td>
-            </tr>
-            <!-- Status  -->
+            <!-- Status -->
             <tr>
               <th class="text-start">Status</th>
               <td>{{ selectedPart.status }}</td>
             </tr>
-            <!-- Komentar  -->
+            <!-- Komentar -->
             <tr>
               <th class="text-start">Komentar</th>
               <td>{{ selectedPart.comment }}</td>
             </tr>
           </tbody>
         </table>
+        <!-- Upload Gambar Sebagai Bukti -->
+        <!-- Upload Gambar Sebagai Bukti -->
+        <div *ngIf="selectedPart.status === 'Approved Request'">
+          <!-- Perhatikan bahwa kondisi *ngIf di bawah hanya akan menampilkan info upload dan tombol submit jika userRole adalah 1, 2, atau 4 -->
+          <div class="mt-2" *ngIf="!selectedPart.image && (userRole === 1 || userRole === 2 || userRole === 4)">
+            <input class="form-control" type="file" (change)="onFileSelected($event)" accept="image/*" name="files"
+              required>
+            <button type="button" class="btn btn-success mt-2 float-right" (click)="submitImage()">Submit Image</button>
+          </div>
+          <!-- Kondisi di bawah akan menampilkan gambar jika ada gambar yang dipilih atau jika userRole adalah 1, 2, atau 4 -->
+          <div *ngIf="selectedPart.image || (userRole === 1 || userRole === 2 || userRole === 4)">
+            <tr>
+              <th class="text-start">Bukti Gambar</th>
+              <td><img [src]="getImgFile(selectedPart.image)" alt=""
+                  style="max-width: 100%; height: auto; object-fit: contain;"></td>
+            </tr>
+          </div>
+        </div>
+
+
+
+
+        <!-- View Detail Modal After submit Image -->
+        <!-- <ng-template #viewDetailModalAftersubmitImage let-modal>
+          <div class="modal-header">
+            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"
+              (click)="modal.close('Close click')"></button>
+          </div>
+          <div class="modal-body p-5">
+            <h1 class="text-center">Detail Informasi</h1>
+            <div class="card mt-3">
+              <div class="card-body"> -->
+        <!-- Table -->
+        <!-- <table class="table">
+                  <tbody> -->
+        <!-- Deskripsi -->
+        <!-- <tr>
+                      <th class="text-start">Deskripsi</th>
+                      <td>{{ selectedPart.description }}</td>
+                    </tr>
+                    <tr>
+                      <th class="text-start">Area</th>
+                      <td>{{ selectedPart.nama_area }}</td>
+                    </tr> -->
+        <!-- Nomor Part -->
+        <!-- <tr>
+                      <th class="text-start">Nomor Part</th>
+                      <td>{{ selectedPart.part_number }}</td>
+                    </tr> -->
+        <!-- Stock Masuk -->
+        <!-- <tr *ngIf="selectedPart.stock_in !== 0">
+                      <th class="text-start" style="width: 30%;">Stock Masuk</th>
+                      <td>{{ selectedPart.stock_in }}</td>
+                    </tr> -->
+        <!-- Stock Keluar -->
+        <!-- <tr *ngIf="selectedPart.stock_out !== 0">
+                      <th class="text-start">Stock Keluar</th>
+                      <td>{{ selectedPart.stock_out }}</td>
+                    </tr> -->
+        <!-- Nama Pengguna -->
+        <!-- <tr>
+                      <th class="text-start">PIC</th>
+                      <td>{{ selectedPart.nama_user }}</td>
+                    </tr> -->
+        <!-- Informasi Tambahan -->
+        <!-- <tr>
+                      <th class="text-start">Informasi Tambahan</th>
+                      <td>{{ selectedPart.keterangan }}</td>
+                    </tr> -->
+        <!-- Status -->
+        <!-- <tr>
+                      <th class="text-start">Status</th>
+                      <td>{{ selectedPart.status }}</td>
+                    </tr> -->
+        <!-- Komentar -->
+        <!-- <tr>
+                      <th class="text-start">Komentar</th>
+                      <td>{{ selectedPart.comment }}</td>
+                    </tr> -->
+        <!-- Gambar Bukti -->
+        <!-- <tr>
+              <th class="text-start">Bukti Gambar</th>
+              <td><img [src]="getImgFile(selectedPart.image)" alt=""
+                  style="max-width: 130%; height: auto; object-fit: contain;">
+              </td>
+            </tr> -->
+        <!-- </tbody>
+        </table>
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template> -->
