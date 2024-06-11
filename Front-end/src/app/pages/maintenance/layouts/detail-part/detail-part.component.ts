@@ -167,7 +167,7 @@ export class DetailPartComponent {
           this.totalIN = 0; // Reset totalIN
           this.pricePart = res.data[0].price;
           this.dataOutputPart.forEach((part: any) => {
-            if (part.status === 'Approved') {
+            if (part.status === 'Approved Request') {
               this.totalIN += part.stock_in;
               this.totalIN -= part.stock_out;
               this.qty_stock += part.stock;
@@ -342,7 +342,7 @@ export class DetailPartComponent {
   openViewDetailModal(part: any) {
     this.selectedPart = part;
     console.log(this.selectedPart)
-    if (part.status === 'Approved' || part.status === 'Rejected') {
+    if (part.status === 'Approved Request' || part.status === 'Rejected Request') {
       this.modalService.open(this.viewDetailModalAfterApproval, { centered: true });
     } else {
       this.modalService.open(this.viewDetailModal, { centered: true });
@@ -362,7 +362,7 @@ export class DetailPartComponent {
     // Buka modal dengan menggunakan ViewChild untuk mengakses modal template
     this.modalService.open(this.viewDetailModalAfterSubmitImage);
     this.selectedPart = part;
-    if (part.status === 'Approved' || part.status === 'Rejected') {
+    if (part.status === 'Approved Request' || part.status === 'Rejected Request') {
       this.modalService.open(this.viewDetailModalAfterSubmitImage, { centered: true });
     } else {
       this.modalService.open(this.viewDetailModal, { centered: true });
@@ -484,10 +484,10 @@ export class DetailPartComponent {
     }
 
     // Mengubah status part menjadi 'Approved' jika belum disetujui
-    this.selectedPart.status = this.selectedPart.status === 'Approved' ? 'Approved' : 'Rejected';
+    this.selectedPart.status = this.selectedPart.status === 'Approved Request' ? 'Approved Request' : 'Rejected Request';
 
     // Mengisi komentar otomatis jika status yang dipilih adalah "Approved"
-    if (this.selectedPart.status === 'Approved') {
+    if (this.selectedPart.status === 'Approved Request') {
       this.comment = 'Diterima'; // Atur komentar menjadi "Diterima"
       // Update comment in selectedPart object
       this.selectedPart.comment = this.comment;
@@ -501,13 +501,13 @@ export class DetailPartComponent {
       (res: any) => {
         console.log(res);
         // Update totalIN based on the changed status
-        if (this.selectedPart.status === 'Approved') {
+        if (this.selectedPart.status === 'Approved Request') {
           this.totalIN += this.selectedPart.stock_in;
           this.totalIN -= this.selectedPart.stock_out;
           this.qty_stock += this.selectedPart.stock; // Tambahkan stock ke qty_stock setelah disetujui
           this.dataPart.qty_stock += this.selectedPart.stock;
           this.dataPart.qty_stock -= this.selectedPart.stock;
-        } else if (this.selectedPart.status === 'Rejected') {
+        } else if (this.selectedPart.status === 'Rejected Request') {
           // If rejected, revert the changes to totalIN
           this.totalIN -= this.selectedPart.stock_in;
           this.qty_stock -= this.selectedPart.stock;
