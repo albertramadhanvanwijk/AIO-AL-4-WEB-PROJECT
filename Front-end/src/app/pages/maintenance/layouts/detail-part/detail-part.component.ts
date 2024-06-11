@@ -450,20 +450,24 @@ export class DetailPartComponent {
       formData.append('file', this.selectedFile);
       this.isImageUploaded = true;
       this.modalService.dismissAll();
-      // Buka modal viewDetailModalAftersubmitImage
 
       this.apiservice.uploadFile(formData).subscribe(
         (response: any) => {
           console.log('File uploaded successfully', response);
           const data: any = { image: response.filename }
-          // console.log("cek", this.selectedPart.outputpart_id)
+
           this.apiservice.updateOutput(this.selectedPart.outputpart_id, data).subscribe(
             (res: any) => {
-              console.log("cekcek", res)
+              console.log("cekcek", res);
+              // Tampilkan alert
+              Swal.fire('Success', 'Image berhasil diunggah.', 'success').then((result) => {
+                // Jika pengguna menekan OK, muat ulang halaman
+                if (result.isConfirmed) {
+                  window.location.reload();
+                }
+              });
             }
           )
-          Swal.fire('Success', 'Image berhasil diunggah.', 'success');
-          this.modalService.dismissAll();
         },
         (error: any) => {
           console.error('File upload failed', error);
@@ -474,6 +478,7 @@ export class DetailPartComponent {
       Swal.fire('Error', 'Silakan pilih image terlebih dahulu.', 'error');
     }
   }
+
 
   // Function to submit approval
   submitApproval() {
@@ -558,7 +563,6 @@ export class DetailPartComponent {
   }
 
   goBack(): void {
-    // Kembali ke URL '/part-maintenance/1'
-    this.router.navigate(['/part-maintenance/1']);
+    this.location.back();
   }
-} 
+}
