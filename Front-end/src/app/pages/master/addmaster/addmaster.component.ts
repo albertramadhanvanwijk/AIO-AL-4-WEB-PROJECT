@@ -19,7 +19,7 @@ export class AddmasterComponent {
 
   nama_user!: string;
   nik!: number;
-  password!: string; 
+  password = '' 
   role!: number;
   area!: number;
   group!: number;

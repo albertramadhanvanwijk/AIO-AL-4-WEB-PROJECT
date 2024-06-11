@@ -144,6 +144,15 @@ export class MaintenanceService {
     return this.http.put(`${this.baseUrl}/master/output/${partId}`, body, { headers });
   }
 
+
+  approvePart(partId: number): Observable<any> {
+    return this.http.post(`/api/parts/approve`, { partId: partId });
+  }
+
+  rejectPart(partId: number): Observable<any> {
+    return this.http.post(`/api/parts/reject`, { partId: partId });
+  }
+
   updatePartStock(partId: number, newStock: number): Observable<any> {
     // Implementasikan logika untuk memperbarui stok suatu bagian
     // Anda dapat menggunakan HttpClient untuk membuat permintaan ke API backend Anda

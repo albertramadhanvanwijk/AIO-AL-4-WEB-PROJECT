@@ -1,5 +1,4 @@
-// components/maintenance/maintenance.component.ts
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -15,7 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './maintenance.component.html',
   styleUrls: ['./maintenance.component.scss']
 })
-export class MaintenanceComponent {
+export class MaintenanceComponent implements OnInit {
 
   // BreadCrumb
   breadCrumbItems!: Array<{}>;
@@ -37,7 +36,7 @@ export class MaintenanceComponent {
   dataParts!: any;
   isNull: boolean = false;
   areaName!: string;
-  dataPartById:any;
+  dataPartById: any;
 
   // Data User Login
   userRole!: any;
@@ -50,7 +49,14 @@ export class MaintenanceComponent {
 
   stockRemain: any;
 
-  constructor(private apiservice: MaintenanceService, private modalService: NgbModal, private authService: AuthService, private route: ActivatedRoute, private router: Router, private location: Location) { }
+  constructor(
+    private apiservice: MaintenanceService,
+    private modalService: NgbModal,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location
+  ) { }
 
   ngOnInit() {
     this.getParams();
@@ -58,7 +64,7 @@ export class MaintenanceComponent {
     this.getDataUserLogin();
   }
 
-  getDataUserLogin(){
+  getDataUserLogin() {
     const role = parseInt(this.authService.getRoleID());
     this.userRole = role;
   }
@@ -67,26 +73,26 @@ export class MaintenanceComponent {
     return environment.apiUrl + '/file/' + file;
   }
 
-  getBreadCrumbItems(){
+  getBreadCrumbItems() {
     this.breadCrumbItems = [{ label: "Maintenance" }, { label: "List Part" }];
   }
 
-  getParams(){
+  getParams() {
     this.route.params.subscribe(params => {
       this.areaId = +params['areaId'];
     });
     this.fecthParts();
 
-    if(this.areaId === 1){
+    if (this.areaId === 1) {
       this.areaName = "IBF";
     }
-    if(this.areaId === 2){
+    if (this.areaId === 2) {
       this.areaName = "Preparasi";
     }
-    if(this.areaId === 3){
+    if (this.areaId === 3) {
       this.areaName = "Packing";
     }
-    if(this.areaId === 6){
+    if (this.areaId === 6) {
       this.areaName = "Refurbished";
     }
   }
@@ -104,16 +110,17 @@ export class MaintenanceComponent {
     this.modalService.open(viewImage, { centered: true, size: 'lg' });
   }
 
-  getPartById(){
+  getPartById() {
     this.apiservice.getPartById(this.partId).subscribe(
       (res: any) => {
         this.dataPartById = res.data;
         console.log(this.dataPartById);
-    });
+      }
+    );
   }
 
   // update refurbushid
-  toRefurbished(partId: number){
+  toRefurbished(partId: number) {
     let data = {
       "id_area": 6,
       "refurbished_at": new Date()
@@ -143,13 +150,13 @@ export class MaintenanceComponent {
       confirmButtonText: 'Yes!'
     }).then(result => {
       if (result.value) {
-        Swal.fire({title: 'Successfully!', text:'Your part has been refurbish.', confirmButtonColor: 'rgb(3, 142, 220)',icon: 'success'});
+        Swal.fire({ title: 'Successfully!', text: 'Your part has been refurbish.', confirmButtonColor: 'rgb(3, 142, 220)', icon: 'success' });
         this.toRefurbished(partId);
       }
     });
   }
 
-  softDelete(partId: number){
+  softDelete(partId: number) {
     this.apiservice.softDelete(partId).subscribe(
       (res: any) => {
         this.fecthParts();
@@ -161,17 +168,17 @@ export class MaintenanceComponent {
   }
 
   // fecth parts
-  fecthParts(){
+  fecthParts() {
     this.apiservice.getPartsByAreaId(this.areaId).subscribe(
       (res: any) => {
-        if(res.data.length !== 0){
+        if (res.data.length !== 0) {
           const parts = res.data;
           this.dataParts = parts.filter((part: any) => !part.is_deleted);
           console.log(this.dataParts);
-          this.dataParts.forEach((part: any) =>{
+          this.dataParts.forEach((part: any) => {
             this.apiservice.getTotalRemainInByPartId(part.part_id).subscribe(
               (res: any) => {
-                if(res){
+                if (res) {
                   part.remainIn = res;
                 } else {
                   part.remainIn = 0;
@@ -183,7 +190,7 @@ export class MaintenanceComponent {
             );
             this.apiservice.getTotalRemainOutByPartId(part.part_id).subscribe(
               (res: any) => {
-                if(res){
+                if (res) {
                   part.remainOut = res;
                 } else {
                   part.remainOut = 0;
@@ -193,10 +200,10 @@ export class MaintenanceComponent {
                 console.log(err, "Total Remain not found");
               }
             );
-        });
-        this.entires = this.dataParts.length;
+          });
+          this.entires = this.dataParts.length;
         }
-        else{
+        else {
           this.dataParts = [];
           this.isNull = true;
         }
@@ -210,15 +217,15 @@ export class MaintenanceComponent {
 
   // SEARCH
   onSearch() {
-    this.currentPage = 1; 
+    this.currentPage = 1;
     if (this.searchQuery.trim() === '') {
-        this.updateDisplayParts();
+      this.updateDisplayParts();
     } else {
-        this.displayParts = this.dataParts.filter((part: any) =>
-            part.description.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-            part.part_number.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
-        );
-        this.calculateTotalPages();
+      this.displayParts = this.dataParts.filter((part: any) =>
+        part.description.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+        part.part_number.toString().toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+      this.calculateTotalPages();
     }
   }
 
@@ -232,38 +239,65 @@ export class MaintenanceComponent {
   calculateTotalPages() {
     this.totalPages = Math.ceil(this.entires / this.pageSize);
   }
-  
-  updateDisplayParts(){
+
+  updateDisplayParts() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.displayParts = this.dataParts.slice(startIndex, endIndex);
-    console.log(this.displayParts)
+    console.log(this.displayParts);
   }
-  
-  nextPage(){
-    if (this.currentPage < this.totalPages){
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.updateDisplayParts();
     }
   }
-  
-  prevPage(){
-    if (this.currentPage > 1){
-          this.currentPage--;
-          this.updateDisplayParts();
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updateDisplayParts();
     }
   }
-  
+
   getStartIndex(): number {
-    return  (this.currentPage - 1) * this.pageSize + 1;
+    return (this.currentPage - 1) * this.pageSize + 1;
   }
-  
+
   getEndIndex(): number {
     const endIndex: number = this.currentPage * this.pageSize;
     return Math.min(endIndex, this.entires);
   }
-  
+
   goBack(): void {
     this.location.back();
+  }
+
+  // MODAL Approve or Reject
+  openApprovalModal(partId: number) {
+    this.partId = partId;
+  }
+
+  // Approve the part
+  approvePart(partId: number) {
+    this.apiservice.approvePart(partId).subscribe(response => {
+      Swal.fire('Approved!', 'Part has been approved.', 'success');
+      this.fecthParts();
+      this.modalService.dismissAll();
+    }, error => {
+      Swal.fire('Failed!', 'Failed to approve part.', 'error');
+    });
+  }
+
+  // Reject the part
+  rejectPart(partId: number) {
+    this.apiservice.rejectPart(partId).subscribe(response => {
+      Swal.fire('Rejected!', 'Part has been rejected.', 'success');
+      this.fecthParts();
+      this.modalService.dismissAll();
+    }, error => {
+      Swal.fire('Failed!', 'Failed to reject part.', 'error');
+    });
   }
 }

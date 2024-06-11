@@ -342,7 +342,7 @@ export class DetailPartComponent {
   openViewDetailModal(part: any) {
     this.selectedPart = part;
     console.log(this.selectedPart)
-    if (part.status === 'Approved Request' || part.status === 'Rejected Request') {
+    if (part.status === 'Approved Request' || part.status === 'Rejected Request ') {
       this.modalService.open(this.viewDetailModalAfterApproval, { centered: true });
     } else {
       this.modalService.open(this.viewDetailModal, { centered: true });
@@ -477,8 +477,8 @@ export class DetailPartComponent {
 
   // Function to submit approval
   submitApproval() {
-    // Memeriksa apakah status part adalah 'Rejected' dan komentar tidak diisi
-    if (this.selectedPart.status === 'Rejected' && !this.comment.trim()) {
+    // Memeriksa apakah status part adalah 'Rejected Request' dan komentar tidak diisi
+    if (this.selectedPart.status === 'Rejected Request' && !this.comment.trim()) {
       Swal.fire('Error', 'Harap berikan alasan untuk menolak permintaan.', 'error');
       return;
     }
@@ -492,7 +492,7 @@ export class DetailPartComponent {
       // Update comment in selectedPart object
       this.selectedPart.comment = this.comment;
     } else {
-      // Jika status part adalah 'Rejected', menyimpan komentar
+      // Jika status part adalah 'Rejected Request', menyimpan komentar
       this.selectedPart.comment = this.comment;
     }
 
@@ -508,7 +508,7 @@ export class DetailPartComponent {
           this.dataPart.qty_stock += this.selectedPart.stock;
           this.dataPart.qty_stock -= this.selectedPart.stock;
         } else if (this.selectedPart.status === 'Rejected Request') {
-          // If rejected, revert the changes to totalIN
+          // If rejected Request, revert the changes to totalIN
           this.totalIN -= this.selectedPart.stock_in;
           this.qty_stock -= this.selectedPart.stock;
         }
