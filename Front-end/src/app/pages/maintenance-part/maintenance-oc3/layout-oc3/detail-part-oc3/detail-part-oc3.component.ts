@@ -2,12 +2,14 @@ import { Component, Output, Input, ViewChild, TemplateRef } from '@angular/core'
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment.prod';
+import { Location } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-part-oc3',
@@ -22,14 +24,15 @@ export class DetailPartOc3Component {
 
   // PAGINATION
   index: number = 1;
-  pageSize: number = 20;
+  pageSize: number = 1000;
   currentPage: number = 1;
   totalPages: number = 0;
   displayParts: any[] = [];
   entires: any;
   document_id!: string;
-
+  filename: string = '';
   titlePart!: any;
+  image!: any;
 
   // SEARCH
   searchQuery!: string;
@@ -45,8 +48,10 @@ export class DetailPartOc3Component {
   dataPart!: any;
   part: any = {};
   comment: string = '';
-  pendingApprovals: any[] = [];
-  showApprovalList: boolean = false;
+  selectedFile: File | null = null;
+  area!: any;
+
+
 
   // Data User Login
   userRole!: any;
@@ -62,7 +67,16 @@ export class DetailPartOc3Component {
   dateOut!: Date;
 
   exportPdf_now: boolean = false;
-  selectedPart: any;
+  selectedPart: any = {};
+  imagePreview: string | null = null;
+  userrole: number = 3;
+  isImageSubmitted: boolean = false;
+  viewDetailModalAfterSubmitImage: any;
+  selectedImage: File | null = null;
+  imageSelected: boolean = false;
+  modalStatus: string = 'viewDetail';
+  isImageUploaded: boolean = false;
+
 
   constructor(
     private apiservice: MaintenanceService,
@@ -70,13 +84,17 @@ export class DetailPartOc3Component {
     private authService: AuthService,
     private route: ActivatedRoute,
     private fb: FormBuilder,
+    private location: Location,
+    private sanitizer: DomSanitizer,
+    private router: Router,
+
   ) {
     this.updateForm = this.fb.group({
       'remain': [null, Validators.required],
       'updated_at': [this.dateOut, Validators.required]
     });
     this.dataPart = {};
-  
+
     const savedData = localStorage.getItem('savedData');
     if (savedData) {
       this.selectedPart = JSON.parse(savedData);
@@ -93,10 +111,15 @@ export class DetailPartOc3Component {
   getBreadCrumbItems() {
     this.breadCrumbItems = [{ label: "List output part" }];
   }
+  getUploadedFileUrl(): string {
+    return environment.apiUrl + '/file/' + this.filename;
+  }
 
   getImgFile(file: any) {
     return environment.apiUrl + '/file/' + file
   }
+
+
 
   getParamsId() {
     this.route.paramMap.subscribe(params => {
@@ -131,6 +154,8 @@ export class DetailPartOc3Component {
 
   // Fetch data output by part_id
   fecthDataOutput(partId: number) {
+    console.log('id part', partId);
+
     this.apiservice.getDetailOutput(partId).subscribe(
       (res: any) => {
         if (res.data.length !== 0) {
@@ -139,19 +164,14 @@ export class DetailPartOc3Component {
           this.qty_stock = res.data[0].qty_stock;
           this.totalIN = 0; // Reset totalIN
           this.pricePart = res.data[0].price;
-          // Filter pengajuan yang menunggu persetujuan
-          this.pendingApprovals = res.data.filter((part: any) => part.status === "Awaiting Approval");
-          // Set nilai properti showApprovalList jika terdapat pengajuan yang menunggu persetujuan
-          this.showApprovalList = this.pendingApprovals.length > 0;
-          // Iterate through dataOutputPart and calculate totalIN based on approval status
           this.dataOutputPart.forEach((part: any) => {
             if (part.status === 'Approved Request') {
               this.totalIN += part.stock_in;
-              this.totalIN -= part.stock_out; // Reduce totalIN by stock_out
+              this.totalIN -= part.stock_out;
+              this.qty_stock += part.stock;
+              this.qty_stock -= part.stock; // Reduce totalIN by stock_out
             }
-            // You can handle 'Rejected Request' status if needed
           });
-  
           // Set default status to "Awaiting Approval" if status is not already set
           this.dataOutputPart.forEach((part: any) => {
             if (!part.status) {
@@ -165,7 +185,7 @@ export class DetailPartOc3Component {
           this.qty_stock = 0;
           this.totalIN = 0; // Reset totalIN when there is no data
         }
-  
+
         this.calculateTotalPages();
         this.updateDisplayOutput();
       }, (error) => {
@@ -173,9 +193,9 @@ export class DetailPartOc3Component {
       }
     )
   }
-  
-  
-  
+
+
+
 
   getTotalIn() {
     this.apiservice.getTotalRemainInByPartId(this.partId).subscribe(
@@ -219,8 +239,8 @@ export class DetailPartOc3Component {
           return false;
         }
       }
-      
-      
+
+
       return true;
     });
 
@@ -237,60 +257,59 @@ export class DetailPartOc3Component {
     actionTable.forEach(button => {
       button.classList.add('hidden');
     });
-  
+
     const element = document.getElementById('tableToExport');
     const text = `Report Transaction Part`;
-  
+
     if (element) {
       const pdf = new jsPDF('p', 'px', 'letter');
       const options = { background: 'white', scale: 2 };
-  
+
       html2canvas(element, options).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
         const imgWidth = canvas.width;
         const imgHeight = canvas.height;
-  
+
         let y = 40;
-  
+
         pdf.setFontSize(14);
         pdf.text(`PT Amerta Indah Otsuka`, 30, y);
         y += 20;
-  
         pdf.setFontSize(18);
         pdf.text(`${this.titlePart}`, 30, y);
         y += 20;
-  
+
         pdf.setFontSize(18);
         pdf.text(text, 30, y);
         y += 20;
-  
+
         pdf.setFontSize(12);
         pdf.text(`Dept. Produksi AL4`, 30, y);
         y += 20;
-  
+
         pdf.setFontSize(12);
         pdf.text(`_______________________________________________________________________________`, 30, y);
         y += 20;
-  
+
         pdf.setFontSize(11);
         const today = new Date().toLocaleDateString();
         pdf.text('Tanggal: ' + today, 350, y);
         y += 15;
-  
+
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
         const scaleFactor = pdfWidth / imgWidth;
-  
+
         const finalImgWidth = imgWidth * scaleFactor;
         const finalImgHeight = imgHeight * scaleFactor;
-  
+
         const marginLeft = (pdfWidth - finalImgWidth) / 2;
         const marginRight = (pdfWidth - finalImgWidth) / 2;
-  
+
         pdf.addImage(imgData, 'PNG', marginLeft, y, finalImgWidth, finalImgHeight);
-  
+
         pdf.save('Output_Part.pdf');
-  
+
         // Show the action buttons after exporting
         actionButtons.forEach(button => {
           button.classList.remove('hidden');
@@ -299,7 +318,7 @@ export class DetailPartOc3Component {
     } else {
       console.error('Element with ID "tableToExport" not found.');
     }
-  }  
+  }
 
   exportPDF() {
     this.exportPdf_now = true;
@@ -336,31 +355,47 @@ export class DetailPartOc3Component {
     this.modalService.open(this.viewDetailModalAfterApproval, { centered: true });
   }
 
-  openViewDetailModalBasedOnRole(part: any) {
-    if (this.userRole === 3) {
-        this.openViewDetailModal(part);
-    } else if (this.userRole === 4 || this.userRole === 1 || this.userRole === 2) {
-        this.openViewDetailModalAfterApproval(part);
+  openViewDetailModalAfterSubmitImage(part: any) {
+    this.modalStatus = 'afterSubmitImage';
+    // Buka modal dengan menggunakan ViewChild untuk mengakses modal template
+    this.modalService.open(this.viewDetailModalAfterSubmitImage);
+    this.selectedPart = part;
+    if (part.status === 'Approved Request' || part.status === 'Rejected Request') {
+      this.modalService.open(this.viewDetailModalAfterSubmitImage, { centered: true });
+    } else {
+      this.modalService.open(this.viewDetailModal, { centered: true });
     }
   }
 
-
+  openViewDetailModalBasedOnRole(part: any) {
+    if (this.userRole === 3) {
+      this.openViewDetailModal(part);
+    } else if (this.userRole === 4 || this.userRole === 1 || this.userRole === 2) {
+      if (this.isImageSubmitted) {
+        // Jika gambar sudah diunggah, buka modal viewDetailModalAftersubmitImage
+        this.openViewDetailModalAfterSubmitImage(part);
+      } else {
+        // Jika belum, buka modal standar
+        this.openViewDetailModal(part);
+      }
+    }
+  }
 
   openRemoveConfirmationModal(partId: number, removeConfirmationModal: any) {
     this.partId = partId;
     this.modalService.open(removeConfirmationModal, { centered: true });
   }
-  
-  softDelete(partId: number){
+
+  softDelete(partId: number) {
     this.apiservice.softDelete(partId).subscribe(
       (res: any) => {
         this.fecthDataOutput(partId);
-        this.modalService.dismissAll(); 
+        this.modalService.dismissAll();
       }, (error: any) => {
         console.log(error, "Remove Failed");
       }
     )
-}  
+  }
 
 
   openUpdateModal(ouputPartId: number, updateModal: any, remain: number, updateAt: Date) {
@@ -407,6 +442,42 @@ export class DetailPartOc3Component {
 
   }
 
+  submitImage() {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+      this.isImageUploaded = true;
+      this.modalService.dismissAll();
+
+      this.apiservice.uploadFile(formData).subscribe(
+        (response: any) => {
+          console.log('File uploaded successfully', response);
+          const data: any = { image: response.filename }
+
+          this.apiservice.updateOutput(this.selectedPart.outputpart_id, data).subscribe(
+            (res: any) => {
+              console.log("cekcek", res);
+              // Tampilkan alert
+              Swal.fire('Success', 'Image berhasil diunggah.', 'success').then((result) => {
+                // Jika pengguna menekan OK, muat ulang halaman
+                if (result.isConfirmed) {
+                  window.location.reload();
+                }
+              });
+            }
+          )
+        },
+        (error: any) => {
+          console.error('File upload failed', error);
+          Swal.fire('Error', 'Gagal mengunggah image. Silakan coba lagi.', 'error');
+        }
+      );
+    } else {
+      Swal.fire('Error', 'Silakan pilih image terlebih dahulu.', 'error');
+    }
+  }
+
+
   // Function to submit approval
   submitApproval() {
     // Memeriksa apakah status part adalah 'Rejected Request' dan komentar tidak diisi
@@ -414,20 +485,20 @@ export class DetailPartOc3Component {
       Swal.fire('Error', 'Harap berikan alasan untuk menolak permintaan.', 'error');
       return;
     }
-  
-    // Mengubah status part menjadi 'Approved Request' jika belum disetujui
+
+    // Mengubah status part menjadi 'Approved' jika belum disetujui
     this.selectedPart.status = this.selectedPart.status === 'Approved Request' ? 'Approved Request' : 'Rejected Request';
 
-    // Mengisi komentar otomatis jika status yang dipilih adalah "Approved Request"
+    // Mengisi komentar otomatis jika status yang dipilih adalah "Approved"
     if (this.selectedPart.status === 'Approved Request') {
-        this.comment = 'Diterima'; // Atur komentar menjadi "Diterima"
-        // Update comment in selectedPart object
-        this.selectedPart.comment = this.comment;
+      this.comment = 'Diterima'; // Atur komentar menjadi "Diterima"
+      // Update comment in selectedPart object
+      this.selectedPart.comment = this.comment;
     } else {
-        // Jika status part adalah 'Rejected Request', menyimpan komentar
-        this.selectedPart.comment = this.comment;
+      // Jika status part adalah 'Rejected Request', menyimpan komentar
+      this.selectedPart.comment = this.comment;
     }
-  
+
     // Mengirim permintaan untuk memperbarui status part ke backend
     this.apiservice.updatePartStatus(this.selectedPart.outputpart_id, this.selectedPart.status, this.comment).subscribe(
       (res: any) => {
@@ -436,11 +507,15 @@ export class DetailPartOc3Component {
         if (this.selectedPart.status === 'Approved Request') {
           this.totalIN += this.selectedPart.stock_in;
           this.totalIN -= this.selectedPart.stock_out;
+          this.qty_stock += this.selectedPart.stock; // Tambahkan stock ke qty_stock setelah disetujui
+          this.dataPart.qty_stock += this.selectedPart.stock;
+          this.dataPart.qty_stock -= this.selectedPart.stock;
         } else if (this.selectedPart.status === 'Rejected Request') {
-          // If rejected, revert the changes to totalIN
+          // If rejected Request, revert the changes to totalIN
           this.totalIN -= this.selectedPart.stock_in;
+          this.qty_stock -= this.selectedPart.stock;
         }
-        
+
         // Close the modal and show success message
         this.modalService.dismissAll();
         Swal.fire('Success', 'Status berhasil diperbarui.', 'success');
@@ -451,4 +526,37 @@ export class DetailPartOc3Component {
       }
     );
   }
-}  
+
+
+
+
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    this.apiservice.uploadFile(formData).subscribe(
+      (response: any) => {
+        // Tindakan setelah unggahan berhasil
+        console.log('File uploaded successfully', response);
+        let data: any = {
+          image: response.filename
+        }
+
+        Swal.fire('Success', 'File berhasil diunggah.', 'success');
+      },
+      (error: any) => {
+        // Tindakan setelah unggahan gagal
+        console.error('File upload failed', error);
+        Swal.fire('Error', 'Gagal mengunggah file. Silakan coba lagi.', 'error');
+      }
+    );
+  }
+}

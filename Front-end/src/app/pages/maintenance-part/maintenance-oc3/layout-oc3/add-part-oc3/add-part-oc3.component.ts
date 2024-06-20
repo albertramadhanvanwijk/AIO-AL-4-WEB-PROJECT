@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { MaintenanceService } from 'src/app/core/services/maintenance.service';
 import { SopService } from 'src/app/core/services/sop.service';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 declare var $: any;
 
 @Component({
@@ -31,7 +32,7 @@ selectedFile!: File;
 filename!: string;
 
 
-constructor(private http: HttpClient, private apiService: MaintenanceService, private router: Router, private sopService: SopService) {}
+constructor(private http: HttpClient, private apiService: MaintenanceService, private router: Router, private sopService: SopService, private location: Location) {}
 
 ngOnInit(){
     this.getbreadCrumbItems();
@@ -49,7 +50,7 @@ getAllArea(){
     this.sopService.getAllAreas().subscribe(
         (res: any) => {
             this.dataArea = res.data;
-            this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 3 && item.id_area != 13)
+            this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 5 && item.id_area != 31)
         }
     )
 }
@@ -67,7 +68,7 @@ uploadFile() {
 }
 
 onSubmit(){
-    if (parseInt(this.areaId) === 12) {
+    if (parseInt(this.areaId) === 6) {
         if (this.selectedFile) {
             this.uploadFile().subscribe(
                 response => {
@@ -86,7 +87,7 @@ onSubmit(){
                 "description": this.description,
                 "refurbished_at": new Date(),
                 "qty_stock": this.qtyStock,
-                "line": "PET",
+                "line": "OC3",
                 "price": this.price,
                 "image": this.filename,
                 "place": this.place,
@@ -111,7 +112,7 @@ onSubmit(){
                 "part_number": this.partNumber,
                 "description": this.description,
                 "qty_stock": this.qtyStock,
-                "line": "PET",
+                "line": "OC3",
                 "price": this.price,
                 "image": this.filename,
                 "place": this.place
@@ -128,7 +129,7 @@ insertDocument(data?: any){
             "part_number": this.partNumber,
             "description": this.description,
             "qty_stock": this.qtyStock,
-            "line": "PET",
+            "line": "OC3",
             "price": this.price,
             "image": this.filename,
             "place": this.place,
@@ -141,14 +142,13 @@ insertDocument(data?: any){
     )
 }    
 
-showModal(){
-    $('#successModal').modal('show');
-}
-
-closeModal(){
+ showModal(){
+      $('#successModal').modal('show');
+  }
+  
+  closeModal(){
     $('#successModal').modal('hide');
-    this.router.navigate(['/maintenance-pet']);
-}
+    this.location.back();
 
-
+  }
 }

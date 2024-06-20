@@ -73,6 +73,18 @@ export const MENU: MenuItem[] = [
         link: '/maintenance/4',
         id_line: 4
       },
+      {
+        id: 18,
+        label: 'OC3',
+        link: '/maintenance/5',
+        id_line: 5
+      },
+      {
+        id: 19,
+        label: 'ENMIX-SACHET',
+        link: '/maintenance-enmix',
+        id_line: 6
+      },
     ]
   },
   {
@@ -84,15 +96,6 @@ export const MENU: MenuItem[] = [
   },
   
 ];
-      // {
-      //   id: 11,
-      //   label: 'OC3',
-      //   link: '/maintenance-oc3',
-      // },
-      // {
-      //   id: 11,
-      //   label: 'ENMIX-SACHET',
-      //   link: '/maintenance-enmix',
-      // }
-  
+     
+    
 

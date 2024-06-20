@@ -339,8 +339,8 @@ export class DetailPartCanComponent {
   // Fungsi untuk membuka modal detail informasi
   openViewDetailModal(part: any) {
     this.selectedPart = part;
-    console.log(this.selectedPart)
-    if (part.status === 'Approved Request' || part.status === 'Rejected Request ') {
+
+    if (part.status === 'Approved Request' || part.status === 'Rejected Request') {
       this.modalService.open(this.viewDetailModalAfterApproval, { centered: true });
     } else {
       this.modalService.open(this.viewDetailModal, { centered: true });

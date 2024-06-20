@@ -70,6 +70,7 @@ import { ListScoreQuizComponent } from './quiz/list-score-quiz/list-score-quiz.c
 import { VisitorAl4Component } from './visitor-al4/visitor-al4.component';
 import { AddVisitorComponent } from './visitor-al4/add-visitor/add-visitor.component';
 import { EditVisitorComponent } from './visitor-al4/edit-visitor/edit-visitor.component';
+import { AddOutputOc3Component } from './maintenance-part/maintenance-oc3/layout-oc3/detail-part-oc3/add-output-oc3/add-output-oc3.component';
 
 const routes: Routes = [
   {
@@ -244,7 +245,7 @@ const routes: Routes = [
     component: MaintenanceOc3Component,
   },
   {
-    path: 'maintenance-oc3',
+    path: 'maintenance/5',
     component: FirstPageOc3Component,
   },
   {
@@ -261,7 +262,7 @@ const routes: Routes = [
   },
   {
     path: 'add-output-oc3/:partId',
-    component: AddPartOc3Component,
+    component: AddOutputOc3Component,
   },
 
      //maintenance-part ENMIX
