@@ -257,13 +257,13 @@
               <th class="text-start">Status</th>
               <td>
                 <select class="form-select" [(ngModel)]="selectedPart.status">
-                  <option value="Approved Request">Approve request</option>
+                  <option value="Approved Request">Approve Request</option>
                   <option value="Rejected Request">Reject Request</option>
                 </select>
               </td>
             </tr>
             <!-- Komentar -->
-            <tr *ngIf="selectedPart.status === 'Rejected request'">
+            <tr *ngIf="selectedPart.status === 'Rejected Request'">
               <th class="text-start">Alasan Reject Request</th>
               <td>
                 <textarea class="form-control" [(ngModel)]="comment" rows="3"></textarea>
