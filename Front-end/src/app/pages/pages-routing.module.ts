@@ -271,7 +271,7 @@ const routes: Routes = [
       component: MaintenanceEnmixComponent,
     },
     {
-      path: 'maintenance-enmix',
+      path: 'maintenance/6',
       component: FirstPageEnmixComponent,
     },
     {

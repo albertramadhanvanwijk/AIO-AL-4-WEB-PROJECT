@@ -13,7 +13,7 @@
             <div class="row g-4 mb-3">
               <div class="col-sm-auto">
                 <div class="d-flex gap-1">
-                  <button *ngIf="userRole === 4" routerLink="/add-part-pet" type="button"
+                  <button *ngIf="userRole === 4" routerLink="/add-part-enmix" type="button"
                     class="btn btn-add btn-label waves-effect waves-light me-2 add-btn"><i
                       class="ri-add-circle-line label-icon align-middle fs-16 me-2"></i>
                     Add Part</button>
@@ -76,13 +76,13 @@
                           </button>
 
                           <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
-                            <a class="dropdown-item" [routerLink]="['/detail-part-pet', part.part_id]"><i
+                            <a class="dropdown-item" [routerLink]="['/detail-part-enmix', part.part_id]"><i
                                 class="ri-eye-fill align-bottom me-2 text-muted"></i> View</a>
                             <a class="dropdown-item" (click)="viewModal(part.part_id, viewImage)">
                                 <i class="ri-image-fill align-bottom me-2 text-muted"></i> View Picture
                                 </a>
                             <a *ngIf="userRole === 4" class="dropdown-item"
-                              [routerLink]="['/update-part-pet', part.part_id, part.id_area]"><i
+                              [routerLink]="['/update-part-enmix', part.part_id, part.id_area]"><i
                                 class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a>
                             <div class="dropdown-divider"></div>
                             <a (click)="modelRefurbished(part.part_id)" *ngIf="userRole === 4 && areaId !== 6"

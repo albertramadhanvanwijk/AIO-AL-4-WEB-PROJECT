@@ -16,7 +16,7 @@ export const MENU: MenuItem[] = [
     role: 1,
     // id_line: 1,
     // Menambahkan kondisi untuk memeriksa apakah id_line adalah 1, 2, 3, atau 4
-    accessible_lines: [1,2,3,4]
+    accessible_lines: [1,2,3,4,5,6]
 
   },
   
@@ -82,7 +82,7 @@ export const MENU: MenuItem[] = [
       {
         id: 19,
         label: 'ENMIX-SACHET',
-        link: '/maintenance-enmix',
+        link: '/maintenance/6',
         id_line: 6
       },
     ]
