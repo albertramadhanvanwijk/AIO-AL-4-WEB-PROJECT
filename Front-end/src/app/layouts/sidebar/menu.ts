@@ -16,7 +16,7 @@ export const MENU: MenuItem[] = [
     role: 1,
     // id_line: 1,
     // Menambahkan kondisi untuk memeriksa apakah id_line adalah 1, 2, 3, atau 4
-    accessible_lines: [1,2,3,4]
+    accessible_lines: [1,2,3,4,5,6]
 
   },
   
@@ -73,6 +73,18 @@ export const MENU: MenuItem[] = [
         link: '/maintenance/4',
         id_line: 4
       },
+      {
+        id: 18,
+        label: 'OC3',
+        link: '/maintenance/5',
+        id_line: 5
+      },
+      {
+        id: 19,
+        label: 'ENMIX-SACHET',
+        link: '/maintenance/6',
+        id_line: 6
+      },
     ]
   },
   {
@@ -84,15 +96,6 @@ export const MENU: MenuItem[] = [
   },
   
 ];
-      // {
-      //   id: 11,
-      //   label: 'OC3',
-      //   link: '/maintenance-oc3',
-      // },
-      // {
-      //   id: 11,
-      //   label: 'ENMIX-SACHET',
-      //   link: '/maintenance-enmix',
-      // }
-  
+     
+    
 

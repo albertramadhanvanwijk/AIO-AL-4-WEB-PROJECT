@@ -81,7 +81,7 @@ ngOnInit(){
     this.sopService.getAllAreas().subscribe(
       (res: any) => {
         this.dataArea = res.data;
-        this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 3 && item.id_area != 13)
+        this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 5 && item.id_area != 31)
       }
     )
    }
@@ -191,7 +191,7 @@ ngOnInit(){
   }
   closeModal(){
     $('#successModal').modal('hide');
-    this.router.navigate(['/part-maintenance', this.areaParamsId]);
+    this.router.navigate(['/part-maintenance-oc3', this.areaParamsId]);
   }
 
 

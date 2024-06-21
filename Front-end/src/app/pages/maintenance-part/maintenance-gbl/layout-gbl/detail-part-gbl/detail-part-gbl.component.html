@@ -177,7 +177,7 @@
       </div>
     </div>
   </div>
-  <button (click)="goBack()" class="btn btn-secondary mb-3">Back</button>
+  <!-- <button (click)="goBack()" class="btn btn-secondary mb-3">Back</button> -->
 </div>
 
 <!-- Update Modal -->
@@ -257,13 +257,13 @@
               <th class="text-start">Status</th>
               <td>
                 <select class="form-select" [(ngModel)]="selectedPart.status">
-                  <option value="Approved Request">Approve request</option>
+                  <option value="Approved Request">Approve Request</option>
                   <option value="Rejected Request">Reject Request</option>
                 </select>
               </td>
             </tr>
             <!-- Komentar -->
-            <tr *ngIf="selectedPart.status === 'Rejected request'">
+            <tr *ngIf="selectedPart.status === 'Rejected Request'">
               <th class="text-start">Alasan Reject Request</th>
               <td>
                 <textarea class="form-control" [(ngModel)]="comment" rows="3"></textarea>
@@ -279,6 +279,7 @@
     </div>
   </div>
 </ng-template>
+
 
 <!-- View Detail Modal After Approval -->
 <ng-template #viewDetailModalAfterApproval let-modal>
@@ -340,7 +341,6 @@
           </tbody>
         </table>
         <!-- Upload Gambar Sebagai Bukti -->
-        <!-- Upload Gambar Sebagai Bukti -->
         <div *ngIf="selectedPart.status === 'Approved Request'">
           <!-- Perhatikan bahwa kondisi *ngIf di bawah hanya akan menampilkan info upload dan tombol submit jika userRole adalah 1, 2, atau 4 -->
           <div class="mt-2" *ngIf="!selectedPart.image && (userRole === 1 || userRole === 2 || userRole === 4)">
@@ -358,76 +358,69 @@
           </div>
         </div>
 
-
-
-
         <!-- View Detail Modal After submit Image -->
         <!-- <ng-template #viewDetailModalAftersubmitImage let-modal>
-          <div class="modal-header">
-            <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"
-              (click)="modal.close('Close click')"></button>
-          </div>
-          <div class="modal-body p-5">
-            <h1 class="text-center">Detail Informasi</h1>
-            <div class="card mt-3">
-              <div class="card-body"> -->
+<div class="modal-header">
+<button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"
+(click)="modal.close('Close click')"></button>
+</div>
+<div class="modal-body p-5">
+<h1 class="text-center">Detail Informasi</h1>
+<div class="card mt-3">
+<div class="card-body"> -->
         <!-- Table -->
         <!-- <table class="table">
-                  <tbody> -->
+    <tbody> -->
         <!-- Deskripsi -->
         <!-- <tr>
-                      <th class="text-start">Deskripsi</th>
-                      <td>{{ selectedPart.description }}</td>
-                    </tr>
-                    <tr>
-                      <th class="text-start">Area</th>
-                      <td>{{ selectedPart.nama_area }}</td>
-                    </tr> -->
+        <th class="text-start">Deskripsi</th>
+        <td>{{ selectedPart.description }}</td>
+      </tr> -->
         <!-- Nomor Part -->
         <!-- <tr>
-                      <th class="text-start">Nomor Part</th>
-                      <td>{{ selectedPart.part_number }}</td>
-                    </tr> -->
+        <th class="text-start">Nomor Part</th>
+        <td>{{ selectedPart.part_number }}</td>
+      </tr> -->
         <!-- Stock Masuk -->
         <!-- <tr *ngIf="selectedPart.stock_in !== 0">
-                      <th class="text-start" style="width: 30%;">Stock Masuk</th>
-                      <td>{{ selectedPart.stock_in }}</td>
-                    </tr> -->
+        <th class="text-start" style="width: 30%;">Stock Masuk</th>
+        <td>{{ selectedPart.stock_in }}</td>
+      </tr> -->
         <!-- Stock Keluar -->
         <!-- <tr *ngIf="selectedPart.stock_out !== 0">
-                      <th class="text-start">Stock Keluar</th>
-                      <td>{{ selectedPart.stock_out }}</td>
-                    </tr> -->
+        <th class="text-start">Stock Keluar</th>
+        <td>{{ selectedPart.stock_out }}</td>
+      </tr> -->
         <!-- Nama Pengguna -->
         <!-- <tr>
-                      <th class="text-start">PIC</th>
-                      <td>{{ selectedPart.nama_user }}</td>
-                    </tr> -->
+        <th class="text-start">PIC</th>
+        <td>{{ selectedPart.nama_user }}</td>
+      </tr> -->
         <!-- Informasi Tambahan -->
         <!-- <tr>
-                      <th class="text-start">Informasi Tambahan</th>
-                      <td>{{ selectedPart.keterangan }}</td>
-                    </tr> -->
+        <th class="text-start">Informasi Tambahan</th>
+        <td>{{ selectedPart.keterangan }}</td>
+      </tr> -->
         <!-- Status -->
         <!-- <tr>
-                      <th class="text-start">Status</th>
-                      <td>{{ selectedPart.status }}</td>
-                    </tr> -->
-        <!-- Komentar -->
-        <!-- <tr>
-                      <th class="text-start">Komentar</th>
-                      <td>{{ selectedPart.comment }}</td>
-                    </tr> -->
+        <th class="text-start">Status</th>
+        <td>{{ selectedPart.status }}</td>
+      </tr> -->
         <!-- Gambar Bukti -->
         <!-- <tr>
-              <th class="text-start">Bukti Gambar</th>
-              <td><img [src]="getImgFile(selectedPart.image)" alt=""
-                  style="max-width: 130%; height: auto; object-fit: contain;">
-              </td>
-            </tr> -->
-        <!-- </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+        <th class="text-start">Bukti Gambar</th>
+        <td><img [src]="getImgFile(selectedPart.image)" alt=""
+            style="max-width: 130%; height: auto; object-fit: contain;">
+        </td>
+      </tr> -->
+        <!-- Komentar -->
+        <!-- <tr>
+        <th class="text-start">Komentar</th>
+        <td>{{ selectedPart.comment }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
 </ng-template> -->

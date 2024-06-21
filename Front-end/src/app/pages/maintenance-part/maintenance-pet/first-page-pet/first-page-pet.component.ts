@@ -27,6 +27,7 @@ export class FirstPagePetComponent {
   totalPartsBlow!: number;
   totalPartsFilling!: number;
   totalPartsPacking!: number;
+  totalPartsGeneral!: number;
   totalPartsRefurbished!: number;
 
   // Total Price
@@ -35,6 +36,7 @@ export class FirstPagePetComponent {
   totalPriceBlow: number = 0;
   totalPriceFilling: number = 0;
   totalPricePacking: number = 0;
+  totalPriceGeneral: number = 0;
   totalPriceRefurbished: number = 0 ;
 
   stockRemain: any;
@@ -77,6 +79,7 @@ export class FirstPagePetComponent {
         Blow: 0,
         Filling:0,
         Packing: 0,
+        General: 0,
         Refurbished: 0
       };
 
@@ -95,6 +98,8 @@ export class FirstPagePetComponent {
           this.totalParts.Filling = jumlahPart;
         } else if (areaId === 11) {
           this.totalParts.Packing = jumlahPart;
+        } else if (areaId === 31) {
+          this.totalParts.General = jumlahPart;
         } else if (areaId === 12) {
           this.totalParts.Refurbished = jumlahPart;
         }
@@ -106,6 +111,7 @@ export class FirstPagePetComponent {
       this.totalPartsBlow = this.totalParts.Blow
       this.totalPartsFilling = this.totalParts.Filling
       this.totalPartsPacking = this.totalParts.Packing
+      this.totalPartsGeneral = this.totalParts.General
       this.totalPartsRefurbished = this.totalParts.Refurbished
     }
   )
@@ -170,6 +176,12 @@ getTotalPriceIBF(){
       this.totalPricePacking = res.data[0].total_price
     }
   )
+    // General
+    this.maintenanceService.getTotalPrice(31).subscribe(
+      (res: any) => {
+        this.totalPriceGeneral = res.data[0].total_price
+      }
+    )
   // Refurbished
   this.maintenanceService.getTotalPrice(12).subscribe(
     (res: any) => {

@@ -1,0 +1,18 @@
+tambahan
+1. export excel pada detail part
+2. cost per section
+3. dashboard pemakain harga per section (minggu), (bulan)
+4. aplikasi terintegrasi dengan e catalog
+5. 
+
+
+
+
+
+bug
+1. reject request
+
+
+
+next
+1. kirim email ke pak uta dan pak ari buat data line 

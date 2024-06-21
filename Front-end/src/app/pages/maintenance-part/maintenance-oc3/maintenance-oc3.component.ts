@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment.prod';
+import { Location } from '@angular/common';
 import Swal from 'sweetalert2';
 
 
@@ -18,7 +19,7 @@ breadCrumbItems!: Array<{}>;
   
 // PAGINATION
 index: number = 1;
-pageSize: number = 20;
+pageSize: number = 1000;
 currentPage: number = 1;
 totalPages: number = 0;
 displayParts: any;
@@ -47,7 +48,7 @@ filterDate!: Date | null;
 stockRemain: any;
 
 
-constructor(private apiservice: MaintenanceService, private modalService: NgbModal, private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
+constructor(private apiservice: MaintenanceService, private modalService: NgbModal, private authService: AuthService, private route: ActivatedRoute, private router: Router, private location: Location) { }
 
 ngOnInit() {
   this.getParams();
@@ -60,16 +61,46 @@ getDataUserLogin(){
   this.userRole = role
 }
 
-getBreadCrumbItems(){
-  this.breadCrumbItems = [{ label: "Maintenance" }, { label: "List Part" }]; 
-}
-
 getImgFile(file: any) {
   return environment.apiUrl + '/file/' + file
 }
 
- // MODAL View
- viewModal(partId: number, viewImage: any) {
+getBreadCrumbItems(){
+  this.breadCrumbItems = [{ label: "Maintenance" }, { label: "List Part" }]; 
+}
+
+getParams(){
+  this.route.params.subscribe(params => {
+    this.areaId = +params['areaId'];
+  } )
+  this.fecthParts();
+
+  if(this.areaId === 26){
+    this.areaName = "IBF OC3"
+  }
+  if(this.areaId === 27){
+    this.areaName = "PACKING OC3"
+  }
+  if(this.areaId === 28){
+    this.areaName = "PREPARASI OC3"
+  }
+  if(this.areaId === 29){
+    this.areaName = "ELECTRICAL OC3"
+  }
+  if(this.areaId === 30){
+    this.areaName = "REFURBISHED"
+  }
+
+}
+
+// MODAL DELETE
+centerModal(partId: number, removeModal: any) {
+  this.partId = partId;
+  this.modalService.open(removeModal, { centered: true });
+}
+
+// MODAL View
+viewModal(partId: number, viewImage: any) {
   this.partId = partId;
   this.getPartById();
   this.modalService.open(viewImage, { centered: true, size: 'lg' });
@@ -84,42 +115,10 @@ getPartById(){
   })
 }
 
-getParams(){
-  this.route.params.subscribe(params => {
-    this.areaId = +params['areaId'];
-  } )
-  this.fecthParts();
-
-  if(this.areaId === 7){
-    this.areaName = "PREPARATION & SGH"
-  }
-  if(this.areaId === 8){
-    this.areaName = "INJECTION"
-  }
-  if(this.areaId === 9){
-    this.areaName = "BLOW"
-  }
-  if(this.areaId === 10){
-    this.areaName = "FILLING"
-  }
-  if(this.areaId === 11){
-    this.areaName = "PACKING"
-  }
-  if(this.areaId === 12){
-    this.areaName = "REFURBISHED"
-  }
-}
-
-// MODAL DELETE
-centerModal(partId: number, removeModal: any) {
-  this.partId = partId;
-  this.modalService.open(removeModal, { centered: true });
-}
-
 // update refurbushid
 toRefurbished(partId: number){
   let data = {
-    "id_area": 12,
+    "id_area": 6,
     "refurbished_at": new Date()
   }
   
@@ -171,6 +170,7 @@ fecthParts(){
       if(res.data.length !== 0){
         const parts = res.data
         this.dataParts = parts.filter((part: any) => !part.is_deleted);
+        console.log(this.dataParts);
         this.dataParts.forEach((part: any) =>{
           this.apiservice.getTotalRemainInByPartId(part.part_id).subscribe(
             (res: any)=>{
@@ -260,10 +260,7 @@ getEndIndex(): number {
   const endIndex: number = this.currentPage * this.pageSize;
   return Math.min(endIndex, this.entires);
 }
-
-// Method to navigate to view picture page
-onViewPicture(partId: number) {
-  this.router.navigate(['/view-picture', partId]);
+goBack(): void {
+  this.location.back();
 }
 }
-

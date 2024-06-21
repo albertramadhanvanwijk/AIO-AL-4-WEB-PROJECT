@@ -19,19 +19,17 @@ dataAreaByLine: any;
 
 // total parts
 totalParts!: any;
-totalPartsPreparation!: number;
-totalPartsInjection!: number;
-totalPartsBlow!: number;
-totalPartsFilling!: number;
-totalPartsPacking!: number;
+totalPartsIbfoc3!: number;
+totalPartsPackingoc3!: number;
+totalPartsPreparasioc3!: number;
+totalPartsElectricaloc3!: number;
 totalPartsRefurbished!: number;
 
 // Total Price
-totalPricePreparation: number = 0;
-totalPriceInjection: number = 0;
-totalPriceBlow: number = 0;
-totalPriceFilling: number = 0;
-totalPricePacking: number = 0;
+totalPriceIbfoc3: number = 0;
+totalPricePackingoc3: number = 0;
+totalPricePreparasioc3: number = 0;
+totalPriceElectricaloc3: number = 0;
 totalPriceRefurbished: number = 0 ;
 
 stockRemain: any;
@@ -56,7 +54,7 @@ getAllArea(){
 this.sopService.getAllAreas().subscribe(
   (res: any) => {
     this.dataArea = res.data;
-    this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 3)
+    this.dataAreaByLine = this.dataArea.filter(item => item.id_line == 5)
   }
 )
 }
@@ -69,11 +67,10 @@ this.maintenanceService.getTotalPartGroupByArea().subscribe(
 
     // Membuat objek totalParts dengan setiap area diatur ke 0
     this.totalParts = {
-      Preparation: 0,
-      Ijection: 0,
-      Blow: 0,
-      Filling:0,
-      Packing: 0,
+      IBFOC3: 0,
+      PACKINGOC3: 0,
+      PREPARASIOC3: 0,
+      ELECTRICALOC3:0,
       Refurbished: 0
     };
 
@@ -82,27 +79,24 @@ this.maintenanceService.getTotalPartGroupByArea().subscribe(
       const areaId = item.id_area;
       const jumlahPart = item.jumlah_part;
 
-      if (areaId === 7) {
-        this.totalParts.Preparation = jumlahPart;
-      } else if (areaId === 8) {
-        this.totalParts.Ijection = jumlahPart;
-      } else if (areaId === 9) {
-        this.totalParts.Blow = jumlahPart;
-      } else if (areaId === 10) {
-        this.totalParts.Filling = jumlahPart;
-      } else if (areaId === 11) {
-        this.totalParts.Packing = jumlahPart;
-      } else if (areaId === 12) {
+      if (areaId === 26) {
+        this.totalParts.IBFOC3 = jumlahPart;
+      } else if (areaId === 27) {
+        this.totalParts.PACKINGOC3 = jumlahPart;
+      } else if (areaId === 28) {
+        this.totalParts.PREPARASIOC3 = jumlahPart;
+      } else if (areaId === 29) {
+        this.totalParts.ELECTRICALOC3 = jumlahPart;
+      } else if (areaId === 30) {
         this.totalParts.Refurbished = jumlahPart;
       }
       
     });
 
-    this.totalPartsPreparation = this.totalParts.Preparation
-    this.totalPartsInjection = this.totalParts.Ijection
-    this.totalPartsBlow = this.totalParts.Blow
-    this.totalPartsFilling = this.totalParts.Filling
-    this.totalPartsPacking = this.totalParts.Packing
+    this.totalPartsIbfoc3 = this.totalParts.Preparation
+    this.totalPartsPackingoc3 = this.totalParts.Ijection
+    this.totalPartsPreparasioc3 = this.totalParts.Blow
+    this.totalPartsElectricaloc3 = this.totalParts.Filling
     this.totalPartsRefurbished = this.totalParts.Refurbished
   }
 )
@@ -137,38 +131,32 @@ return false;
 
 // TOTAL PRICE
 getTotalPriceIBF(){
-// Preparasi & hsg
-this.maintenanceService.getTotalPrice(7).subscribe(
+// IBF OC3
+this.maintenanceService.getTotalPrice(26).subscribe(
   (res: any) => {
-    this.totalPricePreparation = res.data[0].total_price
+    this.totalPriceIbfoc3 = res.data[0].total_price
   }
 )
-// Injection
-this.maintenanceService.getTotalPrice(8).subscribe(
+// PACKING OC3
+this.maintenanceService.getTotalPrice(27).subscribe(
   (res: any) => {
-    this.totalPriceInjection = res.data[0].total_price
+    this.totalPricePackingoc3 = res.data[0].total_price
   }
 )
-// Blow
-this.maintenanceService.getTotalPrice(9).subscribe(
+// PREPARASI OC3
+this.maintenanceService.getTotalPrice(28).subscribe(
   (res: any) => {
-    this.totalPriceBlow = res.data[0].total_price
+    this.totalPricePreparasioc3 = res.data[0].total_price
   }
 )
-// Filling
-this.maintenanceService.getTotalPrice(10).subscribe(
+// ELECTRICAL OC3
+this.maintenanceService.getTotalPrice(29).subscribe(
   (res: any) => {
-    this.totalPriceFilling = res.data[0].total_price
-  }
-)
-// Blow
-this.maintenanceService.getTotalPrice(11).subscribe(
-  (res: any) => {
-    this.totalPricePacking = res.data[0].total_price
+    this.totalPriceElectricaloc3 = res.data[0].total_price
   }
 )
 // Refurbished
-this.maintenanceService.getTotalPrice(12).subscribe(
+this.maintenanceService.getTotalPrice(30).subscribe(
   (res: any) => {
     this.totalPriceRefurbished = res.data[0].total_price
   }
