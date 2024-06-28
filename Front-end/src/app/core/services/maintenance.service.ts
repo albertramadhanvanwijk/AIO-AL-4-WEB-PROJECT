@@ -29,7 +29,11 @@ export class MaintenanceService {
   uploadFile(formData: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/upload`, formData);
   }
-
+  searchParts(searchQuery: string, areaId: number): Observable<any> {
+    const headers = this.authService.getHeaders();
+    const params = { search: searchQuery };
+    return this.http.get(`${this.baseUrl}/master/search-parts/${areaId}`, { headers, params });
+  }
   getFileDocument(fileName: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/file/${fileName}`, {
       responseType: 'blob',
