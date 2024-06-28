@@ -70,7 +70,7 @@ export class VisitorAl4Component implements OnInit {
 
   // Method untuk menavigasi ke halaman edit pengunjung
   goToEditVisitor(visitorId: number): void {
-    this.router.navigate(['/app-edit-visitor', visitorId]);
+    this.router.navigate(['edit-visitor/', visitorId]);
   }
 
   // Method untuk mendapatkan item bread crumb

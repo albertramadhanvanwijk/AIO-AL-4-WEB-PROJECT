@@ -98,7 +98,7 @@ export class FirstPagePetComponent {
           this.totalParts.Filling = jumlahPart;
         } else if (areaId === 11) {
           this.totalParts.Packing = jumlahPart;
-        } else if (areaId === 31) {
+        } else if (areaId === 13) {
           this.totalParts.General = jumlahPart;
         } else if (areaId === 12) {
           this.totalParts.Refurbished = jumlahPart;
@@ -177,7 +177,7 @@ getTotalPriceIBF(){
     }
   )
     // General
-    this.maintenanceService.getTotalPrice(31).subscribe(
+    this.maintenanceService.getTotalPrice(13).subscribe(
       (res: any) => {
         this.totalPriceGeneral = res.data[0].total_price
       }

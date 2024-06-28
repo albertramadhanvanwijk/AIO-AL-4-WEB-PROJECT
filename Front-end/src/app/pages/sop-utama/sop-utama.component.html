@@ -299,26 +299,26 @@
         </ng-container>
       </div>
 
-      <!-- Dasboard SPV -->
-      <div class="row mt-5" *ngIf="userRole === 3">
-        <div class="col-12 col-md-6 p-3">
-          <div class="chart-progress p-3 dasboard-box">
-            <h3>Progress Team {{ userGroup - 1 }}</h3>
-            <hr />
-            <div class="card">
-              <div class="card-body">
-                <apx-chart
-                  [series]="distributedColumnChart.series"
-                  [chart]="distributedColumnChart.chart"
-                  [dataLabels]="distributedColumnChart.dataLabels"
-                  [plotOptions]="distributedColumnChart.plotOptions"
-                  [yaxis]="distributedColumnChart.yaxis"
-                  [xaxis]="distributedColumnChart.xaxis"
-                  [legend]="distributedColumnChart.legend"
-                  [colors]="distributedColumnChart.colors"
-                  [grid]="distributedColumnChart.grid"
-                  dir="ltr"
-                >
+     <!-- Dashboard SPV -->
+<div class="row card mt-3 p-5" *ngIf="userRole === 3">
+  <div class="col-12 col-md-6 p-3">
+    <div class="chart-progress p-3 dasboard-box">
+      <h3>Progress Team {{ userGroup - 1 }}</h3>
+      <hr />
+      <div class="card">
+        <div class="card-body">
+          <apx-chart
+            [series]="distributedColumnChart.series"
+            [chart]="distributedColumnChart.chart"
+            [dataLabels]="distributedColumnChart.dataLabels"
+            [plotOptions]="distributedColumnChart.plotOptions"
+            [yaxis]="distributedColumnChart.yaxis"
+            [xaxis]="distributedColumnChart.xaxis"
+            [legend]="distributedColumnChart.legend"
+            [colors]="distributedColumnChart.colors"
+            [grid]="distributedColumnChart.grid"
+            dir="ltr"
+          >
                 </apx-chart>
               </div>
             </div>

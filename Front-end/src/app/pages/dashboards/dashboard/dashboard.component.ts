@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit {
   team!: string;
   userId!: any;
   areaId!: any;
-  
+  id_line: number = 1;
 
   // TOTAL DOCUMENT
   documentsGeneral!: number;
@@ -113,6 +113,7 @@ export class DashboardComponent implements OnInit {
     this.month = today.getMonth() + 1
     this.year = today.getFullYear()
     this.getDataUserLogin();
+    if (this.id_line === 1) {
     await this.getIBFSuppliesData(this.month, this.year);
     await this.getPreparasiSuppliesData(this.month, this.year);
     await this.getPackingSuppliesData(this.month, this.year);
@@ -136,9 +137,12 @@ export class DashboardComponent implements OnInit {
       this.packingStatus = status;
     });
 
-    this._ibfChart('["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-dark", "--vz-info"]')
-    this._preparasiChart('["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-dark", "--vz-info"]')
-    this._packingChart('["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-dark", "--vz-info"]')
+     this._ibfChart('["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-dark", "--vz-info"]');
+      this._preparasiChart('["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-dark", "--vz-info"]');
+      this._packingChart('["--vz-primary", "--vz-success", "--vz-warning", "--vz-danger", "--vz-dark", "--vz-info"]');
+    } else {
+      this.toastService.show('Anda tidak memiliki akses ke data ini', { classname: 'bg-warning text-white' });
+    }
   }
 
   getDataUserLogin() {

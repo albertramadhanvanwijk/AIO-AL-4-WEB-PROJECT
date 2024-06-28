@@ -28,6 +28,8 @@ export class SopUtamaComponent {
   userId!: any;
   areaId!: any;
   percentage!: any;
+  id_area!: any;
+  id_line!: any;
 
   // TOTAL DOCUMENT
   documentsGeneral!: number;
@@ -141,7 +143,7 @@ export class SopUtamaComponent {
   fetchUserSpv() {
     this.sopService.getUserByRoleId(3).subscribe(
       (res: any) => {
-        this.usersData = res.data;
+        this.usersData = res.data.filter((user: any) => user.id_line === 1); // Filter users with id_line 1
         this.usersData.forEach((user: any) => {
           this.fetchPersentageGroup(user.group_id);
         });
@@ -293,7 +295,11 @@ export class SopUtamaComponent {
       }
     );
   }
-
+  getIdLine() {
+    // Implementasi logika untuk mendapatkan id_line
+    // Misalnya, jika id_line diperoleh dari pengaturan atau sumber lain, lakukan di sini
+    this.id_line = this.authService.getLine(); // Anda perlu menggantikan ini dengan metode yang sesuai dari authService
+  }
   // Color Charts
   // Chart Colors Set
   private getChartColorsArray(colors: any) {

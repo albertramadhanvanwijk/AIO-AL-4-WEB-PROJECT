@@ -18,7 +18,7 @@ breadCrumbItems!: Array<{}>;
   
 // PAGINATION
 index: number = 1;
-pageSize: number = 20;
+pageSize: number = 25;
 currentPage: number = 1;
 totalPages: number = 0;
 displayParts: any;
